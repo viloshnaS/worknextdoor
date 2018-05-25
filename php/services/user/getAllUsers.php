@@ -3,17 +3,11 @@ header("Access-Control-Allow-Origin: *");
 require('connection.php');
 $connection = $conn;
 
-if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-    getUserById($user_id);
-    
- }
+getAllUsers();
 
-function getUserById($id){
+function getAllUsers(){
 	global $connection;
-	$sql = "SELECT * FROM users u, profession_category p 
-	where user_id=$id
-	AND u.profession_id = p.profession_id";
+	$sql = "SELECT * FROM users";
 	$result = $connection->query($sql);
 
 
@@ -27,6 +21,4 @@ function getUserById($id){
 	}
 	print json_encode($rows);
 }
-
-
 ?>
