@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2018 at 03:32 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: May 31, 2018 at 04:18 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -97,9 +95,11 @@ CREATE TABLE `hubs` (
 --
 
 INSERT INTO `hubs` (`hub_id`, `name`, `description`, `user_id`, `latitude`, `longitude`, `address`, `category_id`, `parking`, `kitchen`, `printer_scanner`, `heater`, `air_con`, `wifi`, `active`) VALUES
-(1, 'Luminuous Studio', '', 1, 43.6447, 1.54421, '', 1, 1, 0, 1, 1, 1, 1, 1),
-(2, 'Spacious Conference Room', '', 4, 0, 0, '', 1, 1, 1, 1, 1, 1, 1, 1),
-(3, 'Studio', '', 5, 0, 0, '4 Place ', 3, 0, 0, 1, 1, 0, 1, 1);
+(1, 'Modern co-working hypercentre', '', 1, 43.6447, 1.54421, '', 1, 1, 0, 1, 1, 1, 1, 1),
+(2, 'Spacious Conference Room', '', 4, 43.6019, 1.43862, '18 Place de la Daurade', 1, 20, 1, 2, 1, 1, 1, 1),
+(3, 'bright studio St Michel', '', 5, 43.5943, 1.45091, '37 Allées Jules Guesde, 31400 Toulouse', 3, 0, 0, 1, 1, 0, 1, 1),
+(4, 'Fully Equipped Meeting Room', '', 2, 43.6283, 1.3798, '7 Avenue Didier Daurat, 31702 Blagnac', 1, 6, 1, 1, 1, 1, 1, 1),
+(5, 'quiet bistro for co-working', '', 3, 43.6067, 1.39694, '7 Rue Georges Vedel, 31300 Toulouse', 3, 0, 0, 0, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,14 @@ CREATE TABLE `spaces` (
 --
 
 INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`) VALUES
-(1, 1, 1, 15, 15, NULL, 1, 1, 1);
+(1, 1, 1, 15, 15, NULL, 1, 1, 1),
+(2, 1, 2, 6, 6, NULL, 1, 1, 1),
+(3, 2, 1, 30, 30, NULL, 4, 2, 1),
+(4, 2, 2, 10, 10, NULL, 2, 2, 1),
+(5, 2, 2, 4, 4, NULL, 1, 1, 0),
+(6, 3, 1, 8, 8, NULL, 1, 0, 0),
+(7, 4, 1, 5, 5, NULL, 0, 0, 0),
+(8, 5, 1, 4, 4, NULL, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -252,7 +259,19 @@ CREATE TABLE `space_pricing` (
 INSERT INTO `space_pricing` (`space_id`, `price_package_id`, `price`) VALUES
 (1, 1, 1),
 (1, 2, 10),
-(1, 3, 40);
+(1, 3, 40),
+(2, 1, 5),
+(2, 2, 10),
+(2, 3, 20),
+(3, 1, 8),
+(3, 2, 20),
+(3, 3, 35),
+(4, 1, 4),
+(4, 2, 15),
+(4, 3, 28),
+(5, 1, 7),
+(5, 2, 23),
+(5, 3, 35);
 
 -- --------------------------------------------------------
 
@@ -350,7 +369,6 @@ INSERT INTO `user_reviews` (`review_id`, `user_id`, `host_id`, `rating`, `commen
 
 --
 -- Stand-in structure for view `v_booking`
--- (See below for the actual view)
 --
 CREATE TABLE `v_booking` (
 `booking_id` int(11)
@@ -378,7 +396,6 @@ CREATE TABLE `v_booking` (
 
 --
 -- Stand-in structure for view `v_space`
--- (See below for the actual view)
 --
 CREATE TABLE `v_space` (
 `user_id` int(11)
@@ -540,43 +557,36 @@ ALTER TABLE `user_reviews`
 --
 ALTER TABLE `booking`
   MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `hubs`
 --
 ALTER TABLE `hubs`
-  MODIFY `hub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `hub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `hub_reviews`
 --
 ALTER TABLE `hub_reviews`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `spaces`
 --
 ALTER TABLE `spaces`
-  MODIFY `space_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `space_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `user_reviews`
 --
 ALTER TABLE `user_reviews`
   MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Constraints for dumped tables
 --
@@ -642,7 +652,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_reviews`
   ADD CONSTRAINT `FOREIGN_KEY_REVIEW_HOST` FOREIGN KEY (`host_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
