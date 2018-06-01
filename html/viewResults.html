@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>
+
+    <script src="js/index.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/script.js"></script>
+     <link rel="stylesheet" href="css/index.css">
+     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3pcVMhkmE6X0bSPvMGBgp7fODiK_CpBM&callback=initMap&libraries=places"></script>
+    <script>
+        $(document).ready(function(){
+          var results = localStorage.getItem("locationSearchResults");
+          var result_arr = JSON.parse(results);
+
+          display_string ="";
+
+          display_string = display_string+"<table>"
+
+          result_arr.forEach(function(hub) {
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td>"+
+            "<a href='viewSpace.html?hub_id='"+hub.hub_id+">"+
+            "<img src='img/hub_1.jpg'>"+
+            "</a>"+
+            "</td>";
+            display_string = display_string+"/<tr>";
+
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td><b>"+hub.name+"</b></td>";
+            display_string = display_string+"/<tr>";
+
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td>"+hub.hub_description+"</td>";
+            display_string = display_string+"/<tr>";
+
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td> EUR"+hub.price+" per "+hub.price_rate+"</td>";
+            display_string = display_string+"/<tr>";
+            
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td> Rating :"+hub.average_rating+"("+hub.reviews_count+")</td>";
+            display_string = display_string+"/<tr>";
+          });
+          display_string =display_string +"</table>"
+          $('#div_results').html(display_string);
+        });
+    </script>
+</head>
+
+<body>
+
+  <form>
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <input type="hidden" id="latitude"/>
+        <input type="hidden" id="longitude"/>
+        <div id="map"  style="display: none;"></div> <br>
+      
+  </form>​
+
+  <table>
+    <tr>
+      <td><a href="#popupMap" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Filtersssssss</a></td>
+      <td><button id="submit">Search</button><td>
+    </tr>
+  </table>
+
+
+<div data-role="popup" id="popupMap" data-overlay-theme="a" data-theme="a" data-corners="false" data-tolerance="15,15">
+    <a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <iframe src="filters.html" width="500" height="600" seamless=""></iframe>
+</div>
+
+  <div id="div_results">
+
+  </div>
+  
+</body>
+
+</html>

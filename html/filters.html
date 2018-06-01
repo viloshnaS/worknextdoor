@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".rate").click(function(){
+                
+                var rate= this.value;
+
+                //hourly - show time and hide to calendar
+                if(rate==1){ 
+                   $("#div_date_from").show();
+                   $("#div_time_to").show();
+                   $("#div_time_from").show();
+
+
+                   $("#div_date_to").hide();
+                   $("#div_month").hide();
+              
+                
+
+                }
+
+                //daily - hide time and show to calendar
+                else if(rate==2){ 
+
+                  $("#div_date_from").show();
+                  $("#div_date_to").show();
+
+                  $("#div_time_to").hide();
+                  $("#div_time_from").hide();
+                  $("#div_month").hide();
+              
+
+
+                }
+                //monthly - hide time and to calendar - show number of months
+                else if(rate ==3){
+
+                  $("#div_date_from").show();
+                  $("#div_month").show();
+                  
+                  
+                  $("#div_time_to").hide();
+                  $("#div_time_from").hide();
+                  $("#div_date_to").hide();
+
+                }
+            });
+
+            $("#space_type").change(function() {
+      
+                   var value=  $( "#space_type" ).val();
+    
+
+                   if(value==1){
+                      $( "#capacity" ).val("");
+
+                      document.getElementById("capacity").disabled = true;
+                   }
+                   else{
+                      document.getElementById("capacity").disabled = false;
+                   }
+            });
+        });
+    </script>
+</head>
+
+<body>
+   
+      <table>
+        <tr>
+          <th>Rate</th>
+        </tr>
+        <tr>
+          <td><button class="rate" id="btn_hourly" value="1">Hourly</button></td>
+          <td><button class="rate" id="btn_daily" value="2">Daily</button></td>
+          <td><button class="rate" id="btn_monthly" value="3">Monthly</button></td>
+        </tr>
+      </table>
+
+    <table>
+      <tr>
+        <td>
+        <div  id="div_date_from" style="display: none;">
+            <table>
+            <tr >
+              <td >Date</td>
+            </tr>
+            <tr>
+              <td id="date_from"><input type ="date"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+
+      <td>
+        <div  id="div_date_to" style="display: none;">
+            <table>
+            <tr >
+              <td>To</td>
+            </tr>
+            <tr>
+              <td id="date_to"><input type ="date"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+
+      <td>
+         <div  id="div_time_from" style="display: none;">
+            <table>
+            <tr >
+              <td >Duration</td>
+            </tr>
+            <tr>
+              <td id="time_from"><input type ="date"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+
+
+       <td>
+         <div  id="div_time_to" style="display: none;">
+            <table>
+            <tr >
+              <td >To</td>
+            </tr>
+            <tr>
+              <td id="time_to"><input type ="date"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+       
+
+      <td>
+         <div  id="div_month" style="display: none;">
+            <table>
+            <tr>
+              <td >Number of Months</td>
+            </tr>
+            <tr>
+              <td id="month"><input type ="text"></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+
+    </tr>
+  </table>
+
+      <br/>
+      <br/>
+
+  <table>
+    <tr>
+      <th> Space Type</th>
+      <th> Capacity</th>
+    </tr>
+    <tr>
+      <td>
+        <select id ="space_type">
+          <option value="1">Desk</option>
+          <option value="2">Meeting Room</option>
+        </select>
+      </td>
+      <td>
+        <input type="text" id="capacity" size ="7" disabled>
+      </td>
+    </tr>
+  </table>
+
+  <div data-role="rangeslider" class="slider">
+        
+        <input class="slider" type="range" name="price-min" id="price-min" value="0" min="0" max="500">
+        
+        <input class="slider" type="range" name="price-max" id="price-max" value="1000" min="0" max="1000">
+  </div>
+  
+
+  <div id="features">
+    <table>
+      <tr>
+        <th>Features</th>
+      </tr>
+      <tr>
+        <td>Screen</td>
+        <td><input type="checkbox" id="screen"></td>
+      </tr>
+      <tr>
+        <td>Projector</td>
+        <td><input type="checkbox" id="projector"></td>
+      </tr>
+      <tr>
+        <td>Whiteboard</td>
+        <td><input type="checkbox" id="whiteboard"></td>
+      </tr>
+      <tr>
+        <td>WIFI</td>
+        <td><input type="checkbox" id="wifi"></td>
+      </tr>
+      <tr>
+        <td>Parking</td>
+        <td><input type="checkbox" id="Parking"></td>
+      </tr>
+      <tr>
+        <td>Kitchen</td>
+        <td><input type="checkbox" id="Kitchen"></td>
+      </tr>
+      <tr>
+        <td>Heater</td>
+        <td><input type="checkbox" id="heater"></td>
+      </tr>
+      <tr>
+        <td>Air Con</td>
+        <td><input type="checkbox" id="air-con"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <button id="submit">Ok</button>
+        </td>
+      </tr>
+
+    </table>
+
+
+  </div>
+</body>
+
+</html>
