@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2018 at 04:18 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- Generation Time: Jun 08, 2018 at 11:35 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -33,10 +35,9 @@ CREATE TABLE `booking` (
   `booking_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `booking_date_start` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `booking_date_end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `number_of_spaces` int(11) NOT NULL,
   `booking_status_type` int(11) NOT NULL,
-  `booking_length` int(11) NOT NULL,
-  `pricing_type` int(11) NOT NULL,
+  `duration` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
   `unit_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -44,8 +45,13 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `user_id`, `space_id`, `booking_date`, `booking_date_start`, `booking_date_end`, `number_of_spaces`, `booking_status_type`, `booking_length`, `pricing_type`, `unit_price`) VALUES
-(1, 2, 1, '2018-05-24 06:00:00', '2018-05-25 04:00:00', '2018-05-25 08:00:00', 1, 1, 2, 2, 10);
+INSERT INTO `booking` (`booking_id`, `user_id`, `space_id`, `booking_date`, `booking_date_start`, `booking_date_end`, `booking_status_type`, `duration`, `rate`, `unit_price`) VALUES
+(1, 2, 1, '2018-05-24 06:00:00', '2018-05-25 04:00:00', '2018-05-25 08:00:00', 1, 2, 2, 10),
+(3, 1, 1, '2018-06-08 01:00:58', '2018-06-12 05:00:00', '2018-06-15 05:00:00', 3, 3, 2, 30),
+(4, 1, 1, '2018-06-08 01:02:13', '2018-06-22 05:00:00', '2018-06-23 21:00:00', 3, 1, 2, 30),
+(5, 1, 1, '2018-06-08 01:02:13', '2018-06-22 05:00:00', '2018-06-23 21:00:00', 3, 1, 2, 30),
+(6, 1, 1, '2018-06-08 01:07:32', '2018-06-09 11:00:00', '2018-06-09 13:00:00', 3, 2, 1, 9),
+(7, 1, 1, '2018-06-08 01:07:32', '2018-06-09 11:00:00', '2018-06-09 13:00:00', 3, 2, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -87,6 +93,7 @@ CREATE TABLE `hubs` (
   `heater` tinyint(1) NOT NULL,
   `air_con` tinyint(1) NOT NULL,
   `wifi` tinyint(1) NOT NULL,
+  `picture` text NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -94,12 +101,15 @@ CREATE TABLE `hubs` (
 -- Dumping data for table `hubs`
 --
 
-INSERT INTO `hubs` (`hub_id`, `name`, `description`, `user_id`, `latitude`, `longitude`, `address`, `category_id`, `parking`, `kitchen`, `printer_scanner`, `heater`, `air_con`, `wifi`, `active`) VALUES
-(1, 'Modern co-working hypercentre', '', 1, 43.6447, 1.54421, '', 1, 1, 0, 1, 1, 1, 1, 1),
-(2, 'Spacious Conference Room', '', 4, 43.6019, 1.43862, '18 Place de la Daurade', 1, 20, 1, 2, 1, 1, 1, 1),
-(3, 'bright studio St Michel', '', 5, 43.5943, 1.45091, '37 Allées Jules Guesde, 31400 Toulouse', 3, 0, 0, 1, 1, 0, 1, 1),
-(4, 'Fully Equipped Meeting Room', '', 2, 43.6283, 1.3798, '7 Avenue Didier Daurat, 31702 Blagnac', 1, 6, 1, 1, 1, 1, 1, 1),
-(5, 'quiet bistro for co-working', '', 3, 43.6067, 1.39694, '7 Rue Georges Vedel, 31300 Toulouse', 3, 0, 0, 0, 1, 1, 1, 1);
+INSERT INTO `hubs` (`hub_id`, `name`, `description`, `user_id`, `latitude`, `longitude`, `address`, `category_id`, `parking`, `kitchen`, `printer_scanner`, `heater`, `air_con`, `wifi`, `picture`, `active`) VALUES
+(1, 'Luminuous Studio', 'Big Studio in the Centre of Toulouse', 1, 43.6447, 1.54421, '2 Boulevard, Armand Duportal, Toulouse', 1, 1, 0, 1, 1, 1, 1, '[\"hub_1/space1.jpg\",\"hub_1/space2.jpeg\",\"hub_1/space3.jpg\"]', 1),
+(2, 'Spacious Conference Room', '', 4, 43.5647, 1.59421, '', 1, 1, 1, 1, 1, 1, 1, '[\"hub_2/conference.jpg\",\"hub_2/meeting_room.jpg\",\"hub_2/meeting2.jpg\"]', 1),
+(3, 'Studio', '', 5, 43.6047, 1.52421, '4 Place ', 3, 0, 0, 1, 1, 0, 1, '[\"hub_3/space1.jpg\",\"hub_3/space2.jpg\",\"hub_3/space3.jpg\"]', 1),
+(4, 'Modern co-working hypercentre', '', 1, 43.6447, 1.54421, '', 1, 1, 0, 1, 1, 1, 1, 'hub_4', 1),
+(5, 'Spacious Conference Room', '', 4, 43.6019, 1.43862, '18 Place de la Daurade', 1, 1, 1, 0, 1, 1, 1, 'hub_5', 1),
+(6, 'bright studio St Michel', '', 5, 43.5943, 1.45091, '37 Allées Jules Guesde, 31400 Toulouse', 3, 0, 0, 1, 1, 0, 1, 'hub_6', 1),
+(7, 'Fully Equipped Meeting Room', '', 2, 43.6283, 1.3798, '7 Avenue Didier Daurat, 31702 Blagnac', 1, 1, 1, 1, 1, 1, 1, 'hub_7', 1),
+(8, 'quiet bistro for co-working', '', 3, 43.6067, 1.39694, '7 Rue Georges Vedel, 31300 Toulouse', 3, 0, 0, 0, 1, 1, 1, 'hub_8', 1);
 
 -- --------------------------------------------------------
 
@@ -141,7 +151,9 @@ CREATE TABLE `hub_reviews` (
 --
 
 INSERT INTO `hub_reviews` (`comment_id`, `hub_id`, `user_id`, `rating`, `comment`, `date_posted`) VALUES
-(1, 1, 2, 4, 'Polite', '2018-05-25 09:48:20');
+(1, 1, 2, 4, 'Perfect Location. Host is friendly and helpful', '2018-05-25 09:48:20'),
+(2, 1, 6, 5, 'Very happy with the service offered. Will surely come again.', '2018-02-11 23:00:00'),
+(3, 1, 4, 2, 'The wifi connection was very poor but the host is very friendly and helpful', '2018-03-21 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -223,22 +235,23 @@ CREATE TABLE `spaces` (
   `size` int(11) DEFAULT NULL,
   `whiteboard` tinyint(1) NOT NULL,
   `screen` tinyint(1) NOT NULL,
-  `projector` tinyint(1) NOT NULL
+  `projector` tinyint(1) NOT NULL,
+  `thumbnail_picture` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `spaces`
 --
 
-INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`) VALUES
-(1, 1, 1, 15, 15, NULL, 1, 1, 1),
-(2, 1, 2, 6, 6, NULL, 1, 1, 1),
-(3, 2, 1, 30, 30, NULL, 4, 2, 1),
-(4, 2, 2, 10, 10, NULL, 2, 2, 1),
-(5, 2, 2, 4, 4, NULL, 1, 1, 0),
-(6, 3, 1, 8, 8, NULL, 1, 0, 0),
-(7, 4, 1, 5, 5, NULL, 0, 0, 0),
-(8, 5, 1, 4, 4, NULL, 0, 0, 0);
+INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`) VALUES
+(1, 1, 1, 1, 15, NULL, 1, 1, 1, 'hub_1/space1.jpg'),
+(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpg'),
+(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/conference.jpg'),
+(4, 3, 2, 10, 2, NULL, 1, 1, 1, 'hub_3/space1.jpg'),
+(5, 2, 2, 4, 4, NULL, 1, 1, 0, ''),
+(6, 3, 1, 8, 8, NULL, 1, 0, 0, ''),
+(7, 4, 1, 5, 5, NULL, 0, 0, 0, ''),
+(8, 5, 1, 4, 4, NULL, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -257,21 +270,15 @@ CREATE TABLE `space_pricing` (
 --
 
 INSERT INTO `space_pricing` (`space_id`, `price_package_id`, `price`) VALUES
-(1, 1, 1),
-(1, 2, 10),
-(1, 3, 40),
-(2, 1, 5),
-(2, 2, 10),
-(2, 3, 20),
-(3, 1, 8),
-(3, 2, 20),
-(3, 3, 35),
-(4, 1, 4),
-(4, 2, 15),
-(4, 3, 28),
-(5, 1, 7),
-(5, 2, 23),
-(5, 3, 35);
+(1, 1, 9),
+(1, 2, 30),
+(1, 3, 400),
+(2, 2, 50),
+(2, 3, 600),
+(3, 1, 7),
+(3, 2, 30),
+(4, 1, 5),
+(4, 2, 20);
 
 -- --------------------------------------------------------
 
@@ -289,8 +296,8 @@ CREATE TABLE `space_type` (
 --
 
 INSERT INTO `space_type` (`space_type_id`, `space_type_description`) VALUES
-(1, 'Individual'),
-(2, 'Meeting');
+(1, 'WorkDesk'),
+(2, 'Conference Room');
 
 -- --------------------------------------------------------
 
@@ -369,33 +376,16 @@ INSERT INTO `user_reviews` (`review_id`, `user_id`, `host_id`, `rating`, `commen
 
 --
 -- Stand-in structure for view `v_booking`
+-- (See below for the actual view)
 --
 CREATE TABLE `v_booking` (
-`booking_id` int(11)
-,`user_id` int(11)
-,`space_id` int(11)
-,`booking_date` timestamp
-,`start_date_and_time` timestamp
-,`booking_length` int(11)
-,`end_date_and_time` timestamp
-,`number_of_spaces` int(11)
-,`status_id` int(11)
-,`status` varchar(20)
-,`hub_id` int(11)
-,`hub_description` text
-,`address` varchar(50)
-,`space_type_id` int(11)
-,`space_type_description` varchar(30)
-,`pricing_type` int(11)
-,`pricing_description` varchar(10)
-,`unit_price` float
-,`total` double
 );
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `v_space`
+-- (See below for the actual view)
 --
 CREATE TABLE `v_space` (
 `user_id` int(11)
@@ -414,6 +404,7 @@ CREATE TABLE `v_space` (
 ,`category_description` varchar(20)
 ,`latitude` float
 ,`longitude` float
+,`address` varchar(50)
 ,`parking` tinyint(1)
 ,`kitchen` tinyint(1)
 ,`printer_scanner` tinyint(1)
@@ -425,6 +416,20 @@ CREATE TABLE `v_space` (
 ,`whiteboard` tinyint(1)
 ,`number_of_guests` int(11)
 ,`number_of_spaces` int(11)
+,`pictures` text
+,`thumbnail` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_space_review`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_space_review` (
+`hub_id` int(11)
+,`reviews_count` bigint(21)
+,`average_rating` decimal(14,4)
 );
 
 -- --------------------------------------------------------
@@ -443,7 +448,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_space`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_space`  AS  select `u`.`user_id` AS `user_id`,`u`.`firstname` AS `firstname`,`u`.`lastname` AS `lastname`,`u`.`Gender` AS `Gender`,`u`.`email` AS `email`,`s`.`space_id` AS `space_id`,`s`.`size` AS `size`,`t`.`space_type_id` AS `space_type_id`,`t`.`space_type_description` AS `space_type_description`,`h`.`hub_id` AS `hub_id`,`h`.`name` AS `name`,`h`.`description` AS `hub_description`,`c`.`category_id` AS `category_id`,`c`.`description` AS `category_description`,`h`.`latitude` AS `latitude`,`h`.`longitude` AS `longitude`,`h`.`parking` AS `parking`,`h`.`kitchen` AS `kitchen`,`h`.`printer_scanner` AS `printer_scanner`,`h`.`air_con` AS `air_con`,`h`.`heater` AS `heater`,`h`.`wifi` AS `wifi`,`s`.`screen` AS `screen`,`s`.`projector` AS `projector`,`s`.`whiteboard` AS `whiteboard`,`s`.`number_of_guests` AS `number_of_guests`,`s`.`number_of_spaces` AS `number_of_spaces` from ((((`users` `u` join `spaces` `s`) join `hubs` `h`) join `space_type` `t`) join `hub_category` `c`) where ((`s`.`hub_id` = `h`.`hub_id`) and (`h`.`user_id` = `u`.`user_id`) and (`t`.`space_type_id` = `s`.`space_type`) and (`c`.`category_id` = `h`.`category_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_space`  AS  select `u`.`user_id` AS `user_id`,`u`.`firstname` AS `firstname`,`u`.`lastname` AS `lastname`,`u`.`Gender` AS `Gender`,`u`.`email` AS `email`,`s`.`space_id` AS `space_id`,`s`.`size` AS `size`,`t`.`space_type_id` AS `space_type_id`,`t`.`space_type_description` AS `space_type_description`,`h`.`hub_id` AS `hub_id`,`h`.`name` AS `name`,`h`.`description` AS `hub_description`,`c`.`category_id` AS `category_id`,`c`.`description` AS `category_description`,`h`.`latitude` AS `latitude`,`h`.`longitude` AS `longitude`,`h`.`address` AS `address`,`h`.`parking` AS `parking`,`h`.`kitchen` AS `kitchen`,`h`.`printer_scanner` AS `printer_scanner`,`h`.`air_con` AS `air_con`,`h`.`heater` AS `heater`,`h`.`wifi` AS `wifi`,`s`.`screen` AS `screen`,`s`.`projector` AS `projector`,`s`.`whiteboard` AS `whiteboard`,`s`.`number_of_guests` AS `number_of_guests`,`s`.`number_of_spaces` AS `number_of_spaces`,`h`.`picture` AS `pictures`,`s`.`thumbnail_picture` AS `thumbnail` from ((((`users` `u` join `spaces` `s`) join `hubs` `h`) join `space_type` `t`) join `hub_category` `c`) where ((`s`.`hub_id` = `h`.`hub_id`) and (`h`.`user_id` = `u`.`user_id`) and (`t`.`space_type_id` = `s`.`space_type`) and (`c`.`category_id` = `h`.`category_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_space_review`
+--
+DROP TABLE IF EXISTS `v_space_review`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_space_review`  AS  select `hub_reviews`.`hub_id` AS `hub_id`,count(0) AS `reviews_count`,avg(`hub_reviews`.`rating`) AS `average_rating` from `hub_reviews` group by `hub_reviews`.`hub_id` ;
 
 --
 -- Indexes for dumped tables
@@ -556,37 +570,44 @@ ALTER TABLE `user_reviews`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `hubs`
 --
 ALTER TABLE `hubs`
-  MODIFY `hub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `hub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `hub_reviews`
 --
 ALTER TABLE `hub_reviews`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `spaces`
 --
 ALTER TABLE `spaces`
   MODIFY `space_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `user_reviews`
 --
 ALTER TABLE `user_reviews`
   MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -652,6 +673,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_reviews`
   ADD CONSTRAINT `FOREIGN_KEY_REVIEW_HOST` FOREIGN KEY (`host_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
