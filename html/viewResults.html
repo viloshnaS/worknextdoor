@@ -10,46 +10,30 @@
     <script src="js/script.js"></script>
      <link rel="stylesheet" href="css/index.css">
      <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3pcVMhkmE6X0bSPvMGBgp7fODiK_CpBM&callback=initMap&libraries=places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
     <script>
         $(document).ready(function(){
-          var results = localStorage.getItem("locationSearchResults");
-          var result_arr = JSON.parse(results);
+   
+          $("#latitude").val(localStorage.getItem("latitude"));
+          $("#longitude").val(localStorage.getItem("longitude"));
+          initResultList();
+          
 
-          display_string ="";
+          $("#btn_submit").click(function(){
 
-          display_string = display_string+"<table>"
-
-          result_arr.forEach(function(hub) {
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+
-            "<a href='viewSpace.html?hub_id='"+hub.hub_id+">"+
-            "<img src='img/hub_1.jpg'>"+
-            "</a>"+
-            "</td>";
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td><b>"+hub.name+"</b></td>";
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+hub.hub_description+"</td>";
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td> EUR"+hub.price+" per "+hub.price_rate+"</td>";
-            display_string = display_string+"/<tr>";
-            
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td> Rating :"+hub.average_rating+"("+hub.reviews_count+")</td>";
-            display_string = display_string+"/<tr>";
+                
+            initResultList();
           });
-          display_string =display_string +"</table>"
-          $('#div_results').html(display_string);
+
+          $("img").click(function(){
+
+                
+            window.location="viewSpace.html";
+          });
         });
     </script>
 </head>
@@ -66,8 +50,8 @@
 
   <table>
     <tr>
-      <td><a href="#popupMap" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Filtersssssss</a></td>
-      <td><button id="submit">Search</button><td>
+      <td><a href="#popupMap" id="btn_filter" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Filters</a></td>
+      <td><button id="btn_submit">Search</button><td>
     </tr>
   </table>
 
@@ -75,11 +59,29 @@
 <div data-role="popup" id="popupMap" data-overlay-theme="a" data-theme="a" data-corners="false" data-tolerance="15,15">
     <a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
     <iframe src="filters.html" width="500" height="600" seamless=""></iframe>
+
+  <input type="hidden" value ="" id="latitude">
+    <input type="hidden" value ="" id="longitude">
+    <input type="hidden" value ="" id="space_rate">
+    <input type="hidden" value ="" id="date_from">
+    <input type="hidden" value ="" id="date_to">
+    <input type="hidden" value ="" id="space_type">
+    <input type="hidden" value ="1" id="capacity">
+    <input type="hidden" value ="0" id="price_min">
+    <input type="hidden" value ="1000000" id="price_max">
+    <input type="hidden" value ="0" id="screen">
+    <input type="hidden" value ="0" id="projector">
+    <input type="hidden" value ="0" id="whiteboard">
+    <input type="hidden" value ="0" id="parking">
+    <input type="hidden" value ="0" id="kitchen">
+    <input type="hidden" value ="0" id="wifi">
+    <input type="hidden" value ="0" id="heater">
+    <input type="hidden" value ="0" id="air_con">
+    <input type="hidden" value ="0" id="printer_scanner">
 </div>
 
-  <div id="div_results">
+  <div id="div_results"></div>
 
-  </div>
   
 </body>
 

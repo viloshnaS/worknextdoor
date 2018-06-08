@@ -141,94 +141,13 @@
 
     </tr>
   </table>
-
-      <br/>
-      <br/>
-
-  <table>
-    <tr>
-      <th> Space Type</th>
-      <th> Capacity</th>
-    </tr>
-    <tr>
-      <td>
-        <select id ="space_type">
-          <option value="">Select</option>
-          <option value="1">Desk</option>
-          <option value="2">Meeting Room</option>
-        </select>
-      </td>
-      <td>
-        <input type="text" id="capacity" value = "1" size ="7">
-      </td>
-    </tr>
-  </table>
-
-  <div data-role="rangeslider" class="slider">
-        
-        <input class="slider" type="range" name="price-min" id="price-min" value="0" min="0" max="500">
-        
-        <input class="slider" type="range" name="price-max" id="price-max" value="1000" min="0" max="1000">
-  </div>
-  
-
-  <div id="features">
-    <table>
-      <tr>
-        <th>Features</th>
-      </tr>
-      <tr>
-        <td>Screen</td>
-        <td><input type="checkbox" id="screen" value="0"></td>
-      </tr>
-      <tr>
-        <td>Projector</td>
-        <td><input type="checkbox" id="projector" value="0"></td>
-      </tr>
-      <tr>
-        <td>Whiteboard</td>
-        <td><input type="checkbox" id="whiteboard" value="0"></td>
-      </tr>
-      <tr>
-        <td>WIFI</td>
-        <td><input type="checkbox" id="wifi" value="0"></td>
-      </tr>
-      <tr>
-        <td>Printer/Scanner</td>
-        <td><input type="checkbox" id="printer_scanner"value="0"></td>
-      </tr>
-      <tr>
-        <td>Parking</td>
-        <td><input type="checkbox" id="parking" value="0"></td>
-      </tr>
-      <tr>
-        <td>Kitchen</td>
-        <td><input type="checkbox" id="kitchen" value="0"></td>
-      </tr>
-      <tr>
-        <td>Heater</td>
-        <td><input type="checkbox" id="heater" value="0"></td>
-      </tr>
-      <tr>
-        <td>Air Con</td>
-        <td><input type="checkbox" id="air-con" value="0"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <button id="submit">Ok</button>
-        </td>
-      </tr>
-
-    </table>
-
+  <button id="submit">Proceed</button>
 
   </div>
 </body>
 
 <script>
         $(document).ready(function(){
-            document.getElementById("capacity").disabled = true;
           
             $(".rate").click(function(){
                 
@@ -280,20 +199,6 @@
                 }
             });
 
-            $("#space_type").change(function() {
-      
-                   var value=  $( "#space_type" ).val();
-    
-
-                   if(value==1){
-                      $( "#capacity" ).val("");
-
-                      document.getElementById("capacity").disabled = true;
-                   }
-                   else{
-                      document.getElementById("capacity").disabled = false;
-                   }
-            });
 
             $("#submit").click(function(){
                 var space_rate =$( "#space_rate" ).val();
@@ -311,8 +216,8 @@
                 else if(space_rate==2){
                   var date_from =$( "#date_from" ).val();
                   var date_to =$( "#date_to" ).val();
-                  date_time_from = date_from+ " "+"07:00:00";
-                  date_time_to = date_to+ " "+"23:00:00";
+                  date_time_from = date_from+ " "+time_from+"07:00:00";
+                  date_time_to = date_to+ " "+time_to+"23:00:00";
                  
                 }
 
@@ -321,116 +226,14 @@
                   var month =$( "#month" ).val();
                   var d = new Date(date_from,'yyyy-mm-dd');
                 }
-                
-                var space_type = $( "#space_type" ).val();
-                var capacity = $( "#capacity" ).val();
-                var price_min = $( "#price-min" ).val();
-                var price_max = $( "#price-max" ).val();
-         
-                if($("#screen").is(':checked')){
-                  var screen = 1;
 
-                }
-                else{
-                  var screen = 0;
-                }
-
-                if($("#wifi").is(':checked')){
-                  var wifi = 1;
-
-                }
-                else{
-                  var wifi = 0;
-                }
-
-                if($("#projector").is(':checked')){
-                  var projector = 1;
-
-                }
-                else{
-                  var projector = 0;
-                }
-
-                if($("#whiteboard").is(':checked')){
-                  var whiteboard = 1;
-
-                }
-                else{
-                  var whiteboard = 0;
-                }
-
-                if($("#kitchen").is(':checked')){
-
-                  alert("cdsfvsdf");
-                  var kitchen = 1;
-
-                }
-                else{
-                  var kitchen = 0;
-                }
-
-                if($("#parking").is(':checked')){
-                  var parking = 1;
-
-                }
-                else{
-                  var parking = 0;
-                }
-                
-
-                if($("#heater").is(':checked')){
-                  var heater = 1;
-
-                }
-                else{
-                  var heater = 0;
-                }
-                
-
-                if($("#air_con").is(':checked')){
-                  var air_con = 1;
-
-                }
-                else{
-                  var air_con = 0;
-                }
-
-                if($("#printer_scanner").is(':checked')){
-                  var printer_scanner = 1;
-
-                }
-                else{
-                  var printer_scanner = 0;
-                }
-                
-                
                 localStorage.setItem("date_from",date_time_from);
                 localStorage.setItem("date_to",date_time_to);
                 localStorage.setItem("space_rate",space_rate);
-                
 
-                window.parent.document.getElementById('space_rate').value=space_rate;
-                window.parent.document.getElementById('date_from').value=date_time_from;
-                window.parent.document.getElementById('date_to').value=date_time_to;
+                window.location="BookingSummary.html"
 
-                window.parent.document.getElementById('space_type').value=space_type;
-                window.parent.document.getElementById('capacity').value=capacity;
-                window.parent.document.getElementById('price_min').value=price_min;
-                window.parent.document.getElementById('price_max').value=price_max;
-                window.parent.document.getElementById('screen').value=screen;
-                window.parent.document.getElementById('projector').value=projector;
-                window.parent.document.getElementById('whiteboard').value=whiteboard;
-                window.parent.document.getElementById('parking').value=parking;
-                window.parent.document.getElementById('kitchen').value=kitchen;
-                window.parent.document.getElementById('heater').value=heater;
-                window.parent.document.getElementById('air_con').value=air_con;
-                window.parent.document.getElementById('printer_scanner').value=printer_scanner;
-
-
-                window.parent.document.getElementById('popupMap').style.display = "none";
-                
-
-            });
+              });
         });
     </script>
 

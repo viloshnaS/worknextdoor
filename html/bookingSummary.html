@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work-next-door searching API</title>
+  <link href="index.css" rel="stylesheet">
+  <script src="js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script>
+
+        $(document).ready(function(){
+
+
+            var space =localStorage.getItem("SpaceDetails");
+            var date_from = localStorage.getItem("date_from");
+            var date_to = localStorage.getItem("date_to");
+            var space_rate = localStorage.getItem("space_rate");
+            
+            
+
+
+            var date_from_str=date_from.substring(0,10);
+            var date_to_str=date_to.substring(0,10);
+            var time_from_str=date_from.substring(11,13);
+            var time_to_str=date_to.substring(11,13);
+            var unit_price ="0";
+            var duration ="0";
+
+           
+
+            var spaceObj = JSON.parse(space);
+
+            $("#span_title").html(spaceObj.space_type_description + " at " + spaceObj.name);
+
+            spaceObj.pricing.forEach(function(price){
+
+              if(space_rate==price.package_id){
+                  unit_price=price.price;
+              }
+
+            });
+
+            $("#span_date_from").html(date_from_str);
+            $("#span_date_to").html(date_to_str);
+            if(space_rate ==1){
+              $("#span_rate").html("Hourly");
+              $("#span_time").html(time_from_str+ " to "+ time_to_str);
+              duration = parseInt(time_to_str)-parseInt(time_from_str);
+              $("#span_duration").html(duration + " Hours");
+              $("#unit_price").html( unit_price +" per hour");
+
+            }
+            else if(space_rate ==2){
+              $("#span_rate").html("Daily");
+              $("#span_time").html("07:00 to 23:00");
+              duration = getNumberOfDays(new Date(date_from_str),new Date(date_to_str));
+
+              alert(duration);
+              $("#span_duration").html(duration + " Days");
+              $("#unit_price").html(unit_price + " per day");
+            }
+            var total =parseInt(duration) * parseFloat(unit_price);
+            $("#total_amount").html(total);
+
+            $("#confirm").click(function(){
+
+              createBooking(spaceObj.space_id,1,date_from,date_to,space_rate,unit_price,duration);
+
+
+            });
+           
+       });
+
+            
+  </script>
+
+</head>
+
+<body>
+  <div id ="booking_details">
+
+    <table>
+      <tr>
+        <th colspan="2"> <span id="span_title"></th>
+      </tr>
+      <tr>
+        <td> Booking Rate</td>
+        <td> <span id="span_rate"></span></td>
+      </tr>
+      <tr>
+        <td> Date From</td>
+        <td> <span id="span_date_from"></span></td>
+      </tr>
+      <tr>
+        <td> Date To</td>
+        <td> <span id="span_date_to"></span></td>
+      </tr>
+      <tr>
+        <td> Time</td>
+        <td> <span id="span_time"></span></td>
+      </tr>
+      <tr>
+        <td> Duration</td>
+        <td> <span id="span_duration"></span></td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td> <span id="unit_price"></span></td>
+      </tr>
+      <tr>
+        <td> Total</td>
+        <td> <span id="total_amount"></span></td>
+      </tr>
+      <tr>
+        <td><button id="confirm">Confirm Booking</button></td>
+      </tr>
+    </table>
+  </div>
+   
+</body>

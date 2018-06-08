@@ -9,34 +9,29 @@
     <script src="js/index.js"></script>
     <script src="js/map.js"></script>
     <script src="js/script.js"></script>
-     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/index.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3pcVMhkmE6X0bSPvMGBgp7fODiK_CpBM&callback=initMap&libraries=places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
     <script>
         $(document).ready(function(){
+
+            localStorage.setItem("date_from","");
+            localStorage.setItem("date_to","");
+            localStorage.setItem("space_rate","");
+
+
             $("button").click(function(){
                 var lat = document.getElementById("latitude").value;
                 var long = document.getElementById("longitude").value;
-                $.ajax({
-                   url : URL+'/spaces/getSpacesByLocation.php',
-                   type : 'GET',
-                   data: { latitude: lat, longitude : long} ,
-                   success : function(result){ // success est toujours en place, bien sûr !
-                        if (typeof(Storage) !== "undefined") {
-                            // Store
-                            localStorage.setItem("locationSearchResults", result);
-                            window.location = "viewResults.html";
-                        }
-   
-                   },
+                localStorage.setItem("latitude",lat);
+                localStorage.setItem("longitude",long);
 
-                   error : function(resultat, statut, erreur){
-
-                   }
-
-                });
+               window.location="viewResults.html";
+                            
                
             });
         });
@@ -44,6 +39,8 @@
 </head>
 
 <body>
+
+    <div class="title">Work Next Door</div>
     <form>
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
         <input type="hidden" id="latitude"/>
@@ -51,7 +48,36 @@
         <div id="map"  style="display: none;"></div> <br>
       
     </form>​
-      <button id="submit">Search</button>
+    
+    <button id="submit">Search</button>
+    <h2>Spaces Near You</h2>
+    <div id ="div_results_thumbnail">
+    </div>
+
+    <div>
+        <h2>Discover Spaces in ....</h2>
+
+        <table>
+            <tr>
+                <td><img class='small_thumbnail' src='img/toulouse.jpg'></td>
+                 <td><img class='small_thumbnail'src='img/paris.jpg'></td>
+            </tr>
+              <tr>
+                <td><h3>Toulouse</h3></td>
+                <td><h3>Paris</h3></td>
+            </tr>
+            <tr>
+                <td><img class='small_thumbnail' src='img/newyork.png'></td>
+                 <td><img class='small_thumbnail' src='img/london.png'></td>
+            </tr>
+             <tr>
+                <td><h3>New York</h3></td>
+                <td><h3>London</h3></td>
+            </tr>
+        </table>
+
+
+    </div>
       
 </body>
 
