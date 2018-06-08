@@ -1,0 +1,18 @@
+#slideshow { 
+   
+    position: relative; 
+    left:10px;
+    right:10px
+    
+}
+
+#slideshow > div { 
+    position: absolute; 
+}
+
+.space_image{
+
+    height: 125px;
+    width: 200px;
+}
+

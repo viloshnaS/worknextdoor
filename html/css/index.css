@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+ @import "//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css";
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -40,7 +43,7 @@ body {
     font-size:12px;
     height:100%;
     margin:0px;
-    padding:0px;
+    padding:20px;
     text-transform:uppercase;
     width:100%;
 }
@@ -126,3 +129,92 @@ iframe {
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
+
+.available{
+    color: green;
+}
+
+.notavailable{
+    color: gray;
+}
+
+.gender{
+    height: 40px;
+    width: 40px;
+}
+
+.euro_icon{
+
+    font-size:15px
+}
+
+.stars-container {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
+
+.stars-container:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: lightgray;
+}
+
+.stars-container:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: gold;
+  overflow: hidden;
+}
+
+.stars-0:after { width: 0%; }
+.stars-1:after { width: 20%; }
+.stars-2:after { width: 40%; }
+.stars-3:after { width: 60%; }
+.stars-4:after { width: 80%; }
+.stars-5:after { width: 100%; }
+
+h3{
+    text-align: left;
+}
+
+.thumbnail{
+
+    height: 125px;
+    width: 200px;
+}
+
+.title{
+text-align: center;
+  font-size: 3em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: purple;
+  text-shadow: 0 1px 2px rgba(black,.15);
+}
+
+.small_thumbnail{
+
+    height: 75px;
+    width: 150px;
+}
+
+.footer-button-left,
+.footer-button-right {
+    position: absolute;
+    margin: 0;
+    top: auto;
+    bottom: 0.24em;
+}
+.footer-button-left {
+    left: 0.4em;
+}
+.footer-button-right {
+    right: 0.4em;
+}
+
