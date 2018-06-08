@@ -12,16 +12,11 @@ function initMap() {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
- 
+            
+            getNearbySpaces(pos.lat,pos.lng);
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        }
+           
+        });
 
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -52,10 +47,30 @@ function initMap() {
       
     }
 
+  };
+
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
         infoWindow.setContent(browserHasGeolocation ?
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
+      };
+
+      function getNearbySpaces(latitude,longitude){
+         fetchResults(latitude,longitude,null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,null,'thumb');
+      };
+
+      function displayHubLocation() {
+        var myLatLng = {lat: 43.6447, lng: 1.54421};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+        });
       }
