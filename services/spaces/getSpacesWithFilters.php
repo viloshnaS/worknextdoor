@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 require('../../connection.php');
+require('../test.php');
 require('../pricing/getSpacePricing.php');
 $connection = $conn;
 
@@ -123,19 +124,33 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	$result = $connection->query($sql);
 
 	$spaces_list=array();
-
+	$distance_array=array();
 
 	if ($result->num_rows > 0) {
 	    // output data of each 
 	   
 	    while($row = $result->fetch_assoc()) {
-	    	$spaces_list[] = $row;	
+	    	$distance = getDistance($latitude,$longitude,$row['latitude'],$row['longitude']);
+	    	$json_string= json_encode($row);
+	    	$json_string = substr($json_string,0,strlen($json_string)-1);
+	 		$json_string= $json_string.",\"distance\":".$distance. "}";	 
+	 		$spaces_list[$row["space_id"]] = json_decode($json_string);
+	 		
+	 		$distance_array[$row["space_id"]]= $distance;
+	    		
+	    }
+
+
+	    asort($distance_array);
+	    $sorted_array=array();
+	    foreach ($distance_array as $key => $value) {
+	    	$sorted_array[]=$spaces_list[$key];
 	    }
 
 
 	} 
 
-	return json_encode($spaces_list);
+	return json_encode($sorted_array);
 
 }
 ?>
