@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Work Next Door</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  </head>
+  <body>
+    <div id="map" width="100%" height="400px"></div>
+     <iframe height='500px' width="100%" src='mapSpaces.html' name ="spaceframe" scrolling="yes"></iframe>
+
+  </body>
+    <script>
+
+      function initMap() {
+          var results_arr = JSON.parse(localStorage.getItem("resultList"));
+          var myLatLng = {lat: parseFloat(localStorage.getItem("latitude")), lng: parseFloat(localStorage.getItem("longitude"))};
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: myLatLng
+          });
+
+
+          results_arr.forEach(function(space){
+                var latlng= {lat: parseFloat(space.latitude), lng: parseFloat(space.longitude)};
+
+                var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: space.name
+              });
+                marker.addListener('click', function() {
+                    window.frames["spaceframe"].location= "mapSpaces.html#div_"+space.space_id;
+                });
+
+        });
+    }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap">
+    </script>
+</html>

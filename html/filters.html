@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/filter.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="js/script.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -18,9 +19,9 @@
 
 <body>
    
-      <table>
+      <table width='100%'>
         <tr>
-          <th>Rate</th>
+          <td class="heading">Rate</td>
         </tr>
         <tr>
           <td><button class="rate" id="btn_hourly" value="1">Hourly</button></td>
@@ -31,41 +32,23 @@
       </table>
 
     <table>
+      <tr >
+              <td class="div_date_from"  style="display: none;">Date</td>
+              <td class="div_date_from"  style="display: none;"><input class="datepicker" id="date_from" type ="date" data-role="date"></td>
+      </tr>
       <tr>
-        <td>
-        <div  id="div_date_from"  style="display: none;">
-            <table>
-            <tr >
-              <td >Date</td>
-            </tr>
-            <tr>
-              <td><input class="datepicker" id="date_from" type ="date"></td>
-            </tr>
-          </table>
-        </div>
-      </td>
+              <td class="div_date_to"  style="display: none;">To</td>
+              <td class="div_date_to"  style="display: none;"><input class="datepicker" id="date_to" type ="date" data-role="date"></td>
+      <tr>
+              <td class="div_month" style="display: none;">Number of Months</td>
+              <td class="div_month" style="display: none;"><input id="month" type ="text" size="3"></td>
+            
+      </tr>
 
-      <td>
-        <div  id="div_date_to" style="display: none;">
-            <table>
-            <tr >
-              <td>To</td>
-            </tr>
-            <tr>
-              <td><input class="datepicker" id="date_to" type ="date"></td>
-            </tr>
-          </table>
-        </div>
-      </td>
 
-      <td>
-         <div  id="div_time_from" style="display: none;">
-            <table>
-            <tr >
-              <td >Duration</td>
-            </tr>
-            <tr>
-              <td >
+      <tr>
+              <td class="div_time" style="display: none;" >Duration</td>
+              <td class="div_time" style="display: none;" >
                   <select id="time_from">
                     <option value="07">07.00</option>
                     <option value="08">08.00</option>
@@ -86,20 +69,10 @@
                     <option value="23">23.00</option>
                   </select>
               </td>
-            </tr>
-          </table>
-        </div>
-      </td>
-
-
-       <td>
-         <div  id="div_time_to" style="display: none;">
-            <table>
-            <tr >
-              <td >To</td>
-            </tr>
-            <tr>
-              <td >
+      </tr>
+      <tr>
+              <td class="div_time" style="display: none;" >To</td>
+              <td class="div_time" style="display: none;">
                   <select id="time_to">
                     <option value="07">07.00</option>
                     <option value="08">08.00</option>
@@ -121,48 +94,32 @@
                   </select>
               </td>
             </tr>
-          </table>
-        </div>
-      </td>
-       
+        </table>       
 
-      <td>
-         <div  id="div_month" style="display: none;">
-            <table>
-            <tr>
-              <td >Number of Months</td>
-            </tr>
-            <tr>
-              <td><input id="month" type ="text"></td>
-            </tr>
-          </table>
-        </div>
-      </td>
-
-    </tr>
-  </table>
-
-      <br/>
-      <br/>
+  <hr>
 
   <table>
     <tr>
-      <th> Space Type</th>
-      <th> Capacity</th>
-    </tr>
-    <tr>
+      <td class="heading"> Space Type</td>
       <td>
-        <select id ="space_type">
+        <select id ="space_type" class="dropdown">
           <option value="">Select</option>
           <option value="1">Desk</option>
           <option value="2">Meeting Room</option>
         </select>
       </td>
+      
+    </tr>
+    <tr>
+      <td class="heading"> Capacity</td>
       <td>
         <input type="text" id="capacity" value = "1" size ="7">
       </td>
     </tr>
   </table>
+
+  <hr>
+  <p class="heading"> Price </p>
 
   <div data-role="rangeslider" class="slider">
         
@@ -171,11 +128,11 @@
         <input class="slider" type="range" name="price-max" id="price-max" value="1000" min="0" max="1000">
   </div>
   
-
+  <hr>
   <div id="features">
     <table>
       <tr>
-        <th>Features</th>
+        <td class="heading">Features</td>
       </tr>
       <tr>
         <td>Screen</td>
@@ -216,7 +173,7 @@
 
       <tr>
         <td>
-          <button id="submit">Ok</button>
+          <button id="submit_btn">Save</button>
         </td>
       </tr>
 
@@ -237,14 +194,13 @@
 
                 //hourly - show time and hide to calendar
                 if(rate==1){ 
-                   $("#div_date_from").show();
-                   $("#div_time_to").show();
-                   $("#div_time_from").show();
+                   $(".div_date_from").show();
+                   $(".div_time").show();
 
 
-                   $("#div_date_to").hide();
-                   $("#div_month").hide();
-                   $( "#space_rate" ).val("1");
+                   $(".div_date_to").hide();
+                   $(".div_month").hide();
+                   $("#space_rate" ).val("1");
 
 
                 }
@@ -252,12 +208,11 @@
                 //daily - hide time and show to calendar
                 else if(rate==2){ 
 
-                  $("#div_date_from").show();
-                  $("#div_date_to").show();
+                  $(".div_date_from").show();
+                  $(".div_date_to").show();
 
-                  $("#div_time_to").hide();
-                  $("#div_time_from").hide();
-                  $("#div_month").hide();
+                  $(".div_time").hide();
+                  $(".div_month").hide();
                 
                   $( "#space_rate" ).val("2");
 
@@ -267,13 +222,12 @@
                 //monthly - hide time and to calendar - show number of months
                 else if(rate ==3){
 
-                  $("#div_date_from").show();
-                  $("#div_month").show();
+                  $(".div_date_from").show();
+                  $(".div_month").show();
                   
                   
-                  $("#div_time_to").hide();
-                  $("#div_time_from").hide();
-                  $("#div_date_to").hide();
+                  $(".div_time").hide();
+                  $(".div_date_to").hide();
 
                   $( "#space_rate" ).val("3");
 
@@ -295,7 +249,7 @@
                    }
             });
 
-            $("#submit").click(function(){
+            $("#submit_btn").click(function(){
                 var space_rate =$( "#space_rate" ).val();
 
                 var date_time_from="";

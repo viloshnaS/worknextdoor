@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Work Next Door</title>
+<link rel="stylesheet" href="css/menu.css" type="text/css" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ <script src="js/index.js"></script>
+    <script src="js/script.js"></script>
+     <link rel="stylesheet" href="css/index.css">
+     <link rel="stylesheet" href="css/common.css">
+     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script>
+    	$(document).ready(function(){
+
+    		var results_arr = JSON.parse(localStorage.getItem("resultList"));
+        
+
+	        var display_string="";
+	        display_string = display_string + "<table> <tr>";
+
+        	results_arr.forEach(function(space){
+              
+
+	            display_string = display_string + "<td width='50%'> <div id='div_"+space.space_id+"'>";
+	            display_string = display_string + "<table>";
+	            display_string = display_string+"<tr>";
+	            display_string = display_string+"<td>"+
+	            "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
+	            "<img class='thumbnail' src='img/"+space.thumbnail+"'>"+
+	            "</a>"+
+	            "</td>";
+	            display_string = display_string+"</tr>";
+
+	            display_string = display_string+"<tr>";
+	            display_string = display_string+"<td><b>"+space.space_type_description+" at "+ space.name+ "</b></td>";
+	            display_string = display_string+"</tr>";
+
+	          
+	            display_string = display_string+"<tr>";
+	            display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+space.price+" per "+space.price_rate+"</td>";
+	            display_string = display_string+"</tr>";
+	            
+	            display_string = display_string+"<tr>";
+
+	            if(!!space.reviews_count){
+	              
+	              display_string = display_string+"<td><span class='stars-container stars-"+space.rating+"''>★★★★★</span>("+space.reviews_count+")</td>";
+	            }
+	            else{
+	              display_string = display_string+"<td>No user review</td>";
+	            }
+	            display_string = display_string+"</tr>";
+
+	            display_string = display_string+"</table> </div>";
+	            display_string = display_string+"</td>";
+
+        });
+
+         display_string = display_string + "</table> </tr>";
+
+        $("#div_spaces").html(display_string);
+       
+    	});
+    </script>
+</head>
+
+<body>
+     
+	<div id="div_spaces"></div>
+     
+</body>
+</html>

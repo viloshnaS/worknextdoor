@@ -5,7 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Work-next-door searching API</title>
-  <link href="index.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+  <link href="css/booking.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="js/script.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -18,7 +21,7 @@
             var date_from = localStorage.getItem("date_from");
             var date_to = localStorage.getItem("date_to");
             var space_rate = localStorage.getItem("space_rate");
-            
+
             
 
 
@@ -29,11 +32,17 @@
             var unit_price ="0";
             var duration ="0";
 
-           
+
+            var _date_from = new Date(date_from_str);
+            var _date_to = new Date(date_to_str);
+
+            
 
             var spaceObj = JSON.parse(space);
 
-            $("#span_title").html(spaceObj.space_type_description + " at " + spaceObj.name);
+            $("#span_type").html(spaceObj.space_type_description + " at " + spaceObj.name);
+            $("#span_host").html("Hosted by " + spaceObj.firstname);
+            $("#span_picture").html("<img src='img/women.png' class='user_image'/>");
 
             spaceObj.pricing.forEach(function(price){
 
@@ -43,31 +52,32 @@
 
             });
 
-            $("#span_date_from").html(date_from_str);
-            $("#span_date_to").html(date_to_str);
+            
+          
             if(space_rate ==1){
+              $("#span_date_from").html(_date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear());
               $("#span_rate").html("Hourly");
-              $("#span_time").html(time_from_str+ " to "+ time_to_str);
+              $("#span_time").html(time_from_str+ ":00 to "+ time_to_str+":00");
               duration = parseInt(time_to_str)-parseInt(time_from_str);
               $("#span_duration").html(duration + " Hours");
               $("#unit_price").html( unit_price +" per hour");
 
             }
             else if(space_rate ==2){
+              $("#span_date_from").html(_date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear()+ " to "+_date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_from.getFullYear() );
               $("#span_rate").html("Daily");
               $("#span_time").html("07:00 to 23:00");
               duration = getNumberOfDays(new Date(date_from_str),new Date(date_to_str));
-
-              alert(duration);
+              
               $("#span_duration").html(duration + " Days");
-              $("#unit_price").html(unit_price + " per day");
+              $("#unit_price").html("<i class='material-icons euro_icon'>euro_symbol</i> "+unit_price + " per day");
             }
             var total =parseInt(duration) * parseFloat(unit_price);
-            $("#total_amount").html(total);
+            $("#total_amount").html("<i class='material-icons euro_icon'>euro_symbol</i> "+total);
 
-            $("#confirm").click(function(){
+            $("#confirmBtn").click(function(){
 
-              createBooking(spaceObj.space_id,1,date_from,date_to,space_rate,unit_price,duration);
+              createBooking(spaceObj.space_id,1,date_from,date_to,space_rate,unit_price,duration,space.name);
 
 
             });
@@ -82,42 +92,64 @@
 <body>
   <div id ="booking_details">
 
+    <h2> Review your booking details </h2>
     <table>
       <tr>
-        <th colspan="2"> <span id="span_title"></th>
+        <td><span id="span_type"></span></td>
+        <td rowspan='2'><span id="span_picture"></span></td>
+
       </tr>
       <tr>
-        <td> Booking Rate</td>
+        <td><span id="span_host"></span></td>
+        
+      </tr>
+
+    </table>
+
+    <br/>
+
+    <table id="main">
+      <tr>
+        <th>Rate</th>
         <td> <span id="span_rate"></span></td>
       </tr>
+
+  
+      
       <tr>
-        <td> Date From</td>
+        <th> Date </th>
         <td> <span id="span_date_from"></span></td>
       </tr>
+       
+      
       <tr>
-        <td> Date To</td>
-        <td> <span id="span_date_to"></span></td>
-      </tr>
-      <tr>
-        <td> Time</td>
+        <th> Time</th>
         <td> <span id="span_time"></span></td>
       </tr>
+     
+   
       <tr>
-        <td> Duration</td>
+        <th> Duration</th>
         <td> <span id="span_duration"></span></td>
       </tr>
+     
+ 
       <tr>
-        <td>Price</td>
+        <th>Price</th>
         <td> <span id="unit_price"></span></td>
       </tr>
-      <tr>
-        <td> Total</td>
+    
+
+      <tr style="border-bottom:0px">
+        <th>Total</th>
         <td> <span id="total_amount"></span></td>
       </tr>
-      <tr>
-        <td><button id="confirm">Confirm Booking</button></td>
+       <tr style="border-bottom:0px">
+        <td colspan='2' align="right"> <button id="confirmBtn">Confirm Booking</button></td>
       </tr>
     </table>
+ 
+    
   </div>
    
 </body>

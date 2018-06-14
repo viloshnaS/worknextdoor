@@ -10,8 +10,8 @@
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/slideshow.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/space_details.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&sensor=false&v=3&libraries=geometry"></script>    
@@ -34,12 +34,16 @@
 
      <div data-role="popup" id="popupReview" data-overlay-theme="a" data-theme="a" data-corners="false" data-tolerance="15,15">
     <a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-    <iframe src="spaceReviews.html" width="500" height="600" seamless=""></iframe>
+    <iframe class="review_frame" src="spaceReviews.html" scrolling='yes'></iframe>
     </div>
 
- <div data-role="footer"  data-position="fixed">
-    <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left">Favourite</a>
-<div id="bookBtn">
+    <div data-role="footer" data-position="fixed" id="footer">
+        <div id="bookBtn" align="center"></div>
+    </div>
+
+   
+
+ 
 
 </div>
 </div>
@@ -49,16 +53,6 @@
 <script>
         $(document).ready(function(){
 
-            $("#slideshow > div:gt(0)").hide();
-
-                    setInterval(function() { 
-                      $('#slideshow > div:first')
-                        .fadeOut(1000)
-                        .next()
-                        .fadeIn(1000)
-                        .end()
-                        .appendTo('#slideshow');
-                    },  5000);
              $.urlParam = function(name){
                 var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
                 return results[1] || 0;
@@ -70,21 +64,25 @@
 
             getSpaceDestails(space_id);
 
+            var height = $(window).height();
+            $('.review_frame').css('height', height * 0.8);
+
+
             var bookBtn = "";
 
             if(localStorage.getItem("space_rate") != ""){
 
-                bookBtn = "<a href='bookingSummary.html' class='ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-left' data-ajax='false'>Book Now</a>"
+                bookBtn = "<a href='bookingSummary.html' id='book_btn' class='ui-btn ' data-ajax='false'>Book</a>"
 
             }
             else{
-                bookBtn = "<a href='booking.html' class='ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-left' data-ajax='false'>Book</a>"
+                bookBtn = "<a href='booking.html' id='book_btn' class='ui-btn' data-ajax='false'>Check Available</a>"
             }
 
             $("#bookBtn").html(bookBtn);
 
             
-            
+           
 
 
 
@@ -92,9 +90,6 @@
     });
     </script>
 
-    <script>
-        
-
-    </script>
+    
 
 </html>

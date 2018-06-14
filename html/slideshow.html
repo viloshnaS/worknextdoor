@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/space_details.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/script.js"></script>
+    
+</head>
+
+<body>
+   
+     
+
+<div class="picture_div">
+</div>
+
+
+</body>
+
+<script>
+
+  $(document).ready(function(){
+
+    $(".picture_div").html(populateSlideshow());
+
+            $("#slideshow > div:gt(0)").hide();
+
+                    setInterval(function() { 
+                      $('#slideshow > div:first')
+                        .fadeOut(1000)
+                        .next()
+                        .fadeIn(1000)
+                        .end()
+                        .appendTo('#slideshow');
+                    },  5000);
+             
+
+            
+
+        });
+</script>
+
+</html>

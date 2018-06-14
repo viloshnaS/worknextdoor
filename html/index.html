@@ -5,17 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Work-next-door searching API</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
     <script src="js/index.js"></script>
     <script src="js/map.js"></script>
     <script src="js/script.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/menu.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+   
     <script>
         $(document).ready(function(){
 
@@ -24,60 +33,57 @@
             localStorage.setItem("space_rate","");
 
 
-            $("button").click(function(){
-                var lat = document.getElementById("latitude").value;
-                var long = document.getElementById("longitude").value;
-                localStorage.setItem("latitude",lat);
-                localStorage.setItem("longitude",long);
-
-               window.location="viewResults.html";
-                            
-               
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+                $("#footer").toggleClass("toggled");
             });
         });
     </script>
+     
 </head>
 
 <body>
 
-    <div class="title">Work Next Door</div>
-    <form>
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        <input type="hidden" id="latitude"/>
-        <input type="hidden" id="longitude"/>
-        <div id="map"  style="display: none;"></div> <br>
-      
-    </form>​
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" class='menu'>
+                <h3>Menu</h3>
+                <a href="#"><i class='material-icons'>search</i> Search Spaces</a>
+                <a href="#"><i class='material-icons'>meeting_room</i>Offer Spaces</a>
+                <a href="#"><i class='material-icons'>people</i>Organise Meetings</a>
+                <a href="#"><i class='material-icons'>stars</i>Rate Us</a>
+                <a href="#"><i class='material-icons'>settings</i>Settings</a>
+                <a href="#"><i class='material-icons'>contact_support</i>FAQ</a>
+        </div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="title" align="center" >Work Next Door</div>            
+            <div><input id="pac-input" class="controls" type="Search" placeholder="Location"></div>
+            <div id="map"  style="display: none;"></div> <br>
+            <h2>Spaces Near You</h2>
+            <div id ="div_results_thumbnail">
+            </div>
+
+                <div data-role="footer" id="footer" data-position="fixed">
+                    <div>
+                    <table width='100%' id="nav-bar_table">
+                        <tr>
+                        <td align="center"><a href="#menu-toggle"  id="menu-toggle"><i class='material-icons footer_icon'>menu</i></a> </td>
+                        <td align="center"><a href="#" id="inbox"><i class='material-icons footer_icon'>message</i></a></a></td>
+                        <td align="center"><a href="#" id="profile"><i class='material-icons footer_icon'>                         person_outline</i></a></td>
+                        </tr>
+                    </table>
+                </div>
+            
+                </div>
+         
+        </div>
+    </div>
+
     
-    <button id="submit">Search</button>
-    <h2>Spaces Near You</h2>
-    <div id ="div_results_thumbnail">
-    </div>
-
-    <div>
-        <h2>Discover Spaces in ....</h2>
-
-        <table>
-            <tr>
-                <td><img class='small_thumbnail' src='img/toulouse.jpg'></td>
-                 <td><img class='small_thumbnail'src='img/paris.jpg'></td>
-            </tr>
-              <tr>
-                <td><h3>Toulouse</h3></td>
-                <td><h3>Paris</h3></td>
-            </tr>
-            <tr>
-                <td><img class='small_thumbnail' src='img/newyork.png'></td>
-                 <td><img class='small_thumbnail' src='img/london.png'></td>
-            </tr>
-             <tr>
-                <td><h3>New York</h3></td>
-                <td><h3>London</h3></td>
-            </tr>
-        </table>
-
-
-    </div>
       
 </body>
 
