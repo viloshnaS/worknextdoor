@@ -1,0 +1,70 @@
+
+hr { 
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-style: inset;
+    border-width: 1px;
+} 
+
+.euro_icon{
+
+    font-size:15px
+}
+
+.footer_icon{
+
+    font-size:40px;
+    color:#631762;
+}
+
+.check_icon{
+
+    font-size:25px;
+    color:green;
+}
+
+.close_icon{
+
+    font-size:25px;
+    color:red;
+}
+
+.stars-container {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
+
+.stars-container:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: lightgray;
+}
+
+.stars-container:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '★★★★★';
+  color: purple;
+  overflow: hidden;
+}
+
+.stars-0:after { width: 0%; }
+.stars-1:after { width: 20%; }
+.stars-2:after { width: 40%; }
+.stars-3:after { width: 60%; }
+.stars-4:after { width: 80%; }
+.stars-5:after { width: 100%; }
+
+.user_image{
+	border-radius: 50%;
+	height: 40px;
+    width: 40px;
+    border:1px solid black;
+}

@@ -1,0 +1,55 @@
+#btn_hourly, #btn_daily, #btn_monthly,#submit_btn {
+	-moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
+	-webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
+	box-shadow: 0px 10px 14px -7px #aa8cc5;
+	background-color:#ffffff;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:1px solid #aa8cc5;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Verdana;
+	font-size:15px;
+	padding:10px 14px;
+	text-decoration:none;
+}
+#btn_hourly:hover, #btn_daily:hover, #btn_monthly:hover, #submit_btn:hover{
+	background-color:#aa8cc5;
+}
+#btn_hourly:active, #btn_daily:active, #btn_monthly:active,#submit_btn:active {
+	position:relative;
+	top:1px;
+}
+
+.heading{
+	text-transform: uppercase;
+    color:black;
+    font-size:18px;
+    font-family:Vernanda;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+td{
+	padding: 10px;
+	text-transform: capitalize;
+	font-size:15px;
+	font-family:Vernanda;
+}
+
+
+
+.slider {
+    width: 250px;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+p{
+	padding: 15px;
+}

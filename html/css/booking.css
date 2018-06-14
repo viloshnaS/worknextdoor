@@ -1,0 +1,84 @@
+body{
+  background-color:white;
+}
+
+h2{
+  font-family: Veranda;
+  font-size:30px;
+  text-transform: capitalize;
+  padding-left:20px;
+  padding-right:10px;
+}
+
+th{
+  font-family: Veranda;
+  font-size:20px;
+  text-transform: capitalize;
+  padding-left:20px;
+  font-weight:bold;
+  padding-bottom:10px;
+  width:50%;
+}
+
+#main td{
+  width:50%;
+  padding-bottom:10px;
+
+}
+
+td{
+  padding-right:20px;
+  font-family: Veranda;
+  font-size:20px; 
+  padding-left:20px;
+
+}
+
+
+#confirmBtn{
+  right:0px;
+  padding:10px;
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  border-radius: 11px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #946ecc;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+#confirmBtn:hover{
+  background: #6226a3;
+  text-decoration: none;
+}
+
+#confirmBtn {
+  -moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  -webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  box-shadow: 0px 10px 14px -7px #aa8cc5;
+  background-color:#ffffff;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+  border-radius:8px;
+  border:1px solid #aa8cc5;
+  display:inline-block;
+  cursor:pointer;
+  color:#000000;
+  font-family:Verdana;
+  font-size:15px;
+  padding:10px 14px;
+  text-decoration:none;
+}
+#confirmBtn:hover{
+  background-color:#aa8cc5;
+}
+#confirmBtn:active {
+  position:relative;
+  top:1px;
+}
+
+
+
+

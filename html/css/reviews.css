@@ -1,0 +1,28 @@
+td{
+
+	padding-right: 10px;
+	padding-bottom: 10px;
+	
+	font-family: Veranda;
+	font-size:15px;
+}
+
+#div_reviews{
+	padding-top:20px;
+}
+
+h2{
+  font-family: Veranda;
+  font-size:25px;
+  text-transform: capitalize;
+  padding-left:20px;
+  padding-right:10px;
+  color:black;
+}
+
+p{
+
+	font-family: Veranda;
+	font-size:15px;
+
+}

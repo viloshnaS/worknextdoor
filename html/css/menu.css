@@ -1,0 +1,70 @@
+
+
+.menu h3 {
+	color: white;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	background: #631762;
+}
+
+.menu a {
+	display: block;
+	color: #000;
+	font-size: 1.1em;
+	font-weight: 300;
+	background: #fff;
+	font-family:veranda;
+}
+
+.menu a:hover {
+	background: #885ead;
+	color: #000;
+}
+
+.menu a:active {
+	background: #885ead;
+	color: #000;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.menu {
+	width: 240px;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+}
+
+.menu a {
+	border-bottom: 1px solid #7647a2;
+	padding: 1em;
+}
+
+.menu-left {
+	left: -240px;
+}
+
+.menu-left.menu-open {
+	left: 0px;
+}
+
+/* Push classes applied to the body */
+
+.menu-push-toright {
+	left: 240px;
+}
+
+@media screen and (max-height: 26.375em){
+
+	.menu-push-toright {
+		left: 190px;
+	}
+}
+
+i{
+	padding-right:20px;
+}
+
+a {text-decoration: none}
