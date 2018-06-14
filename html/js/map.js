@@ -5,13 +5,17 @@ function initMap() {
         });
         infoWindow = new google.maps.InfoWindow;
 
+
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
+  
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            localStorage.setItem("myLatitude",pos.lat);
+            localStorage.setItem("myLongitude",pos.lng);
             
             getNearbySpaces(pos.lat,pos.lng);
 
@@ -39,8 +43,13 @@ function initMap() {
                 return;
             }
             else{
-              document.getElementById("latitude").value=place.geometry.location.lat();
-              document.getElementById("longitude").value=place.geometry.location.lng();
+
+              localStorage.setItem("latitude",place.geometry.location.lat());
+              localStorage.setItem("longitude",place.geometry.location.lng());
+
+               window.location="viewResults.html";
+              
+
             }
           });
       });
@@ -58,19 +67,8 @@ function initMap() {
       };
 
       function getNearbySpaces(latitude,longitude){
+        alert("1");
          fetchResults(latitude,longitude,null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,null,'thumb');
       };
 
-      function displayHubLocation() {
-        var myLatLng = {lat: 43.6447, lng: 1.54421};
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: myLatLng
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-        });
-      }
+    

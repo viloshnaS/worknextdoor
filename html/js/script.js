@@ -3,10 +3,6 @@ var URL ="http://localhost:80/services";
 var months = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
 
-(function(globals){
-  "use strict";
-  globals.commutingTime = "cacads";
-}(this));
 
 
 function initHomePage() {
@@ -27,6 +23,8 @@ function initHomePage() {
 };
 
 function displayResultList( results){
+         
+          localStorage.setItem("resultList",results);
 
 		      var result_arr = JSON.parse(results);
 
@@ -34,26 +32,34 @@ function displayResultList( results){
 
           display_string = display_string+"<table>";
 
+
           result_arr.forEach(function(hub) {
+            display_string = display_string+"<tr >";
+            display_string = display_string+"<td class='list_thumb'>";
+            display_string = display_string+"<table>";
             display_string = display_string+"<tr>";
             display_string = display_string+"<td>"+
             "<a href='viewSpace.html?space_id="+hub.space_id+"' data-transition='slide' data-ajax='false'>"+
             "<img class='thumbnail' src='img/"+hub.thumbnail+"'>"+
             "</a>"+
             "</td>";
-            display_string = display_string+"/<tr>";
+            display_string = display_string+"</tr>";
 
             display_string = display_string+"<tr>";
             display_string = display_string+"<td><b>"+hub.space_type_description+"</b></td>";
-            display_string = display_string+"/<tr>";
+            display_string = display_string+"</tr>";
 
             display_string = display_string+"<tr>";
             display_string = display_string+"<td>"+hub.name+"</td>";
-            display_string = display_string+"/<tr>";
+            display_string = display_string+"</tr>";
 
             display_string = display_string+"<tr>";
             display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+hub.price+" per "+hub.price_rate+"</td>";
-            display_string = display_string+"/<tr>";
+            display_string = display_string+"</tr>";
+
+            display_string = display_string+"<tr>";
+            display_string = display_string+"<td>Distance : "+hub.distance+" Km</td>";
+            display_string = display_string+"</tr>";
             
             display_string = display_string+"<tr>";
 
@@ -64,7 +70,11 @@ function displayResultList( results){
             else{
               display_string = display_string+"<td>No user review</td>";
             }
-            display_string = display_string+"/<tr>";
+            display_string = display_string+"</tr>";
+
+            display_string = display_string+"</table>";
+            display_string = display_string+"</td>";
+            display_string = display_string+"</tr>";
           });
           display_string =display_string +"</table>";
 	
@@ -73,52 +83,65 @@ function displayResultList( results){
 
 };
 
-function displayResultsThumbnail(response){
 
+function getDisplayStringThumbnail(space){
+
+  display_string ="";
+  display_string = display_string+"<table>";
+  display_string = display_string+"<tr>";
+
+  var height = Number($(window).height())*10/100;
+  var width = Number($(window).width())*35/100;
+
+  display_string = display_string+"<tr><td>" +
+  "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
+  "<img class='small_thumbnail' src='img/"+space.thumbnail+"' width='"+width+"' height='"+height+"'>"+
+  "</a>"+
+  "</td>";
+
+  display_string = display_string+"</tr>";
+
+  display_string = display_string+"<tr>";
+  display_string = display_string+"<td>"+space.space_type_description+"</td>";
+  display_string = display_string+"</tr>";
+
+  display_string = display_string+"<tr>";
+  display_string = display_string+"<th>"+space.name+"</th>";
+  display_string = display_string+"</tr>";
+
+  display_string = display_string+"<tr>";
+  display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+space.price+" per "+space.price_rate+"</td>";
+  display_string = display_string+"</tr>";
+
+  display_string = display_string+"<tr>";
+  display_string = display_string+"<td>Distance : "+space.distance+" Km</div></td>";
+  display_string = display_string+"</tr>";
+
+  display_string = display_string+"</table>";
+
+  return display_string;
+
+
+  
+};
+
+
+
+function displayResultsThumbnail(response){
 
           var spaces = JSON.parse(response);
 
           display_string ="";
 
-          display_string = display_string+"<table>";
+          
+
+          display_string = display_string+"<table width='100%'>";
           for (i = 0; i < spaces.length; i+=2) { 
     
             display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+
-            "<a href='viewSpace.html?space_id="+spaces[i].space_id+"' data-transition='slide' data-ajax='false'>"+
-            "<img class='small_thumbnail' src='img/"+spaces[i].thumbnail+"'>"+
-            "</a>"+
-            "</td>";
-
-            display_string = display_string+"<td>"+
-            "<a href='viewSpace.html?space_id="+spaces[i+1].space_id+"' data-transition='slide' data-ajax='false'>"+
-            "<img class='small_thumbnail' src='img/"+spaces[i+1].thumbnail+"'>"+
-            "</a>"+
-            "</td>";
-
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td><b>"+spaces[i].space_type_description+"</b></td>";
-            display_string = display_string+"<td><b>"+spaces[i+1].space_type_description+"</b></td>";
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+spaces[i].name+"</td>";
-            display_string = display_string+"<td>"+spaces[i+1].name+"</td>";
-            display_string = display_string+"/<tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+spaces[i].price+" per "+spaces[i].price_rate+"</td>";
-            display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+spaces[i+1].price+" per "+spaces[i+1].price_rate+"</td>";
-            
-            display_string = display_string+"/<tr>";
-            
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>Distance here</td>";
-            display_string = display_string+"<td>Distance here</td>";
-            display_string = display_string+"/<tr>";
-
+            display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i])+"</td>";
+            display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i+1])+"</td>";
+            display_string = display_string+"</tr>";
           }
           display_string =display_string +"</table>";
 
@@ -162,9 +185,11 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
                   _space_type,_capacity,_price_min,_price_max,_screen,_projector,_whiteboard,
                   _wifi,_kitchen,_parking,_heater,_air_con,_printer_scanner,_display){
 
+
 	$.ajax({
                    url : URL+'/spaces/getSpacesWithFilters.php',
                    type : 'GET',
+                   crossDomain: true,
                    data: { latitude:_latitude,
                           longitude:_longitude,
                           space_rate:_space_rate,
@@ -186,12 +211,13 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
-
+                      
                       if(_display=='list'){
-          				
+          				      
                          displayResultList(response);
                       }
                       else if(_display=='thumb'){
+                       
                         displayResultsThumbnail(response);
                       }
                   }
@@ -199,6 +225,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
                    error : function(resultat, statut, erreur){
 
+                   
                    }
 
                 });
@@ -227,6 +254,8 @@ function getSpaceDestails(id){
 
 function displaySpaceDetails(results){
 
+
+
     var space = JSON.parse(results);
     var displayString ="";
 
@@ -234,28 +263,22 @@ function displaySpaceDetails(results){
 
     var pictures = JSON.parse(space.pictures);
 
-    displayString = displayString + "<p><div id='slideshow'>";
-
-      pictures.forEach(function(picture) {
-
-        displayString = displayString + "<div><img class='space_image' src='img/"+picture+"'></div>";
-
-      });
-
- 
-         
-     displayString = displayString + "</div></p> <br/><br/><br><br/><br/><br/><br/><br/>";
+    var height = Number($(window).height())*40/100;
 
   
+   displayString = displayString +"<iframe class='picture_frame' src='slideshow.html' scrolling='no' height='"+height+"px' seamless=''></iframe>";
+
+
+    displayString = displayString + "<div class='relative'>";
     if(space.space_type_id=='1'){
-      displayString = displayString + "<h3>"+space.space_type_description+"</h3>";
+      displayString = displayString + "<p><h3>"+space.space_type_description+"</h3></p>";
     }
     else{
-      displayString = displayString + "<h3>"+space.space_type_description+" : " 
-      + space.number_of_guests+" guests</h3>";
+      displayString = displayString + "<p><h3>"+space.space_type_description+" : " 
+      + space.number_of_guests+" guests</h3></p>";
     }
     
-    displayString = displayString + "<h1>"+space.name+"</h1>";
+    displayString = displayString + "<p><h2>"+space.name+"</h2></p>";
 
     if(!!space.reviews_count){
       displayString = displayString + "<p> <span class='stars-container stars-"+space.rating+"'>★★★★★</span>("+space.reviews_count+")</p>";
@@ -264,9 +287,11 @@ function displaySpaceDetails(results){
       displayString = displayString + "<p>No rating</p>"
 
     }
+
+    displayString = displayString + "<hr>";
+
     displayString = displayString + "<p>"+space.address+"</p>";
     
-   
 
     lat1=localStorage.getItem("latitude");
     long1=localStorage.getItem("longitude");
@@ -289,8 +314,10 @@ function displaySpaceDetails(results){
 
     displayString = displayString + "</table>";
 
+     displayString = displayString + "<hr>";
 
-    displayString = displayString + "<h3>Price Rate : </h3>";
+
+    displayString = displayString + "<p><h3>Price Rate : </h3></p>";
 
    
    
@@ -300,11 +327,23 @@ function displaySpaceDetails(results){
       displayString = displayString + "<p>"+price.description+": "+price.price+"<i class='material-icons euro_icon'>euro_symbol</i></p>";
       
     });
+
+     displayString = displayString + "<hr>";
    
 
-    displayString = displayString + "<h3>The venue : </h3>";
+    displayString = displayString + "<p><h3>The venue : </h3></p>";
     displayString = displayString + "<p>"+space.hub_description+"</p>";
-    displayString = displayString + "<p>Hosted by: "+space.firstname +" "+ space.lastname+"</p>";
+    displayString = displayString + "<table>";
+    displayString = displayString + "<tr>";
+
+
+    displayString = displayString + "<td>Hosted by: "+space.firstname+"</td>";
+    displayString = displayString + "<td><img src='img/women.png' class='user_image'/></td>";
+    
+    displayString = displayString + "</tr>";
+    displayString = displayString + "</table>";
+
+    displayString = displayString + "<hr>";
 
     displayString = displayString + "<h3>Amenities : </h3>";
 
@@ -312,33 +351,33 @@ function displaySpaceDetails(results){
     displayString = displayString + "<tr>";
     
     if(space.wifi=='1'){
-      displayString = displayString + "<td class='available'> WIFI </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>WIFI </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> WIFI </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i> WIFI </td>";
     }
 
     if(space.printer_scanner=='1'){
-      displayString = displayString + "<td class='available'> Printer/Scanner </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Printer/Scanner </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Printer/Scanner </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Printer/Scanner </td>";
     }
     displayString = displayString + "</tr>";
     displayString = displayString + "<tr>";
 
     if(space.projector=='1'){
-      displayString = displayString + "<td class='available'> Projector </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Projector </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Projector </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Projector </td>";
     }
 
     if(space.screen=='1'){
-      displayString = displayString + "<td class='available'> Screen </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Screen </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Screen </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Screen </td>";
     }
 
      displayString = displayString + "</tr>";
@@ -346,17 +385,17 @@ function displaySpaceDetails(results){
      displayString = displayString + "<tr>";
 
     if(space.air_con=='1'){
-      displayString = displayString + "<td class='available'> Air Conditioner </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Air Conditioner </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Air Conditioner </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Air Conditioner </td>";
     }
 
     if(space.heater=='1'){
-      displayString = displayString + "<td class='available'> Heater </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Heater </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Heater </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Heater </td>";
     }
 
      displayString = displayString + "</tr>";
@@ -365,26 +404,26 @@ function displaySpaceDetails(results){
      displayString = displayString + "<tr>";
 
     if(space.kitchen=='1'){
-      displayString = displayString + "<td class='available'> Kitchen </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Kitchen </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Kitchen </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Kitchen </td>";
     }
 
     if(space.parking=='1'){
-      displayString = displayString + "<td class='available'> Parking </td>";
+      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Parking </td>";
     }
     else{
-      displayString = displayString + "<td class='notavailable'> Parking </td>";
+      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Parking </td>";
     }
 
      displayString = displayString + "</tr>";
 
     displayString = displayString + "</table>";
 
-   displayString = displayString +"<div>";
-   displayString = displayString +"<iframe src='maps.html' width='250' height='150' seamless=''></iframe>";
-   displayString = displayString +"</div>";
+    var height = Number($(window).height())*60/100;
+
+   displayString = displayString +"<iframe height='"+height+"px' class='map_frame' src='maps.html'></iframe>";
 
     if(!!space.reviews_count){
       displayString = displayString + "<a href='#popupReview' id='link_review' data-transition='slideup' class='ui-corner-all ui-shadow' data-rel='popup'>View Reviews("+space.reviews_count+")</a>";
@@ -395,7 +434,8 @@ function displaySpaceDetails(results){
 
     displayString = displayString +"<input id='hub_lat' type='hidden' value='"+space.latitude+"'>";
     displayString = displayString +"<input id='hub_lng' type='hidden' value='"+space.longitude+"'>";
-
+    displayString = displayString + "</div>";
+    displayString = displayString + "<br/><br/><br/><br/><br/>";
     $('#space_details').html(displayString);
     calculateTime(lat1,long1,lat2,long2,'WALKING');
     calculateTime(lat1,long1,lat2,long2,'BICYCLING');
@@ -405,6 +445,30 @@ function displaySpaceDetails(results){
 
 
 };
+
+function populateSlideshow(){
+
+  var results=localStorage.getItem("SpaceDetails");
+  var space = JSON.parse(results);
+  var pictures =JSON.parse(space.pictures);
+
+
+    displayString = "<div id='slideshow'>";
+
+      pictures.forEach(function(picture) {
+        displayString = displayString + "<div>";  
+
+        displayString = displayString + "<img class='space_image' src='img/"+picture+"'>";
+        displayString = displayString + "</div>";
+      });
+ 
+         
+     displayString = displayString + "</div>";
+
+     return displayString;
+
+
+}
 
 function calculateTime(lat1,long1,lat2,long2,mode){
 
@@ -449,6 +513,35 @@ function calculateTime(lat1,long1,lat2,long2,mode){
 
 };
 
+function calculateDistance(lat1,long1,lat2,long2,id){
+
+
+            var origin = new google.maps.LatLng(lat1, long1);
+            var destination = new google.maps.LatLng(lat2,long2);
+
+            var service = new google.maps.DistanceMatrixService();
+            var distance="";
+            service.getDistanceMatrix(
+                  {
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: 'DRIVING'
+                  }, function(response,status){
+
+
+                      var results = response.rows[0].elements;
+                      distance = (results[0].distance.text);
+                    
+                        $("#distance_"+id).html(distance);
+                      
+
+                    }
+                  ); 
+
+};
+
+
+
 function getSpaceReviews(id){
   $.ajax({
                    url : URL+'/reviews/getSpaceReviews.php',
@@ -483,11 +576,11 @@ function displaySpaceReviews(results){
             display_string = display_string+"<tr>";
 
             if(review.gender=='M'){
-              display_string = display_string+"<td rowspan=2><img class='gender' src='img/boy.jpg'/></td>";
+              display_string = display_string+"<td rowspan=2><img class='user_image' src='img/boy.jpg'/></td>";
 
             }
             else{
-              display_string = display_string+"<td rowspan=2><img class='gender'src='img/women.png'/></td>";
+              display_string = display_string+"<td rowspan=2><img class='user_image'src='img/women.png'/></td>";
             }
 
             display_string = display_string+"<td><b>"+review.firstname+"</b><td>";
@@ -531,8 +624,8 @@ function getNumberOfDays(date1,date2){
 
 };
 
-function createBooking(_space_id,_user_id,_date_from,_date_to,_space_rate,_unit_price,_duration){
-  alert(_space_id);
+function createBooking(_space_id,_user_id,_date_from,_date_to,_space_rate,_unit_price,_duration,_name){
+
   $.ajax({
                    url : URL+'/bookings/createBooking.php',
                    type : 'POST',
@@ -542,12 +635,13 @@ function createBooking(_space_id,_user_id,_date_from,_date_to,_space_rate,_unit_
                           date_to:_date_to,
                           space_rate:_space_rate,
                           unit_price:_unit_price,
-                          duration:_duration
+                          duration:_duration,
+                          hub_name:_name
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
 
                       
-                      alert(response);
+                      alert("Booking Successful. Booking number: WND00019");
                   }
             ,
 
@@ -558,6 +652,5 @@ function createBooking(_space_id,_user_id,_date_from,_date_to,_space_rate,_unit_
                 });
 
 }
-
 
 
