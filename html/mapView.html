@@ -4,37 +4,41 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Work Next Door</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+        
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/mapview.css">
   </head>
   <body>
-    <div id="map" width="100%" height="400px"></div>
-     <iframe height='500px' width="100%" src='mapSpaces.html' name ="spaceframe" scrolling="yes"></iframe>
+
+    <div id="div_map"></div>
+    <div id="div_spaces"></div>
 
   </body>
-    <script>
+  <script>
 
       function initMap() {
           var results_arr = JSON.parse(localStorage.getItem("resultList"));
           var myLatLng = {lat: parseFloat(localStorage.getItem("latitude")), lng: parseFloat(localStorage.getItem("longitude"))};
 
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+          var map = new google.maps.Map(document.getElementById('div_map'), {
+            zoom: 10,
             center: myLatLng
           });
+
+          var display_string="";
+          display_string = display_string + "<table> <tr>";
+
+          var height = $(window).height();
+
+          var width =  $(window).width();
+
+          var img_width=width*0.7;
+          var img_height=height*0.2;
+
+          $('#div_map').css('height', height * 0.65);
+          $('#div_spaces').css('height', height * 0.35);
 
 
           results_arr.forEach(function(space){
@@ -46,13 +50,57 @@
                 title: space.name
               });
                 marker.addListener('click', function() {
-                    window.frames["spaceframe"].location= "mapSpaces.html#div_"+space.space_id;
+
+                    $('#div_spaces').animate({
+                      scrollLeft: $("#div_"+space.space_id).offset().left
+                    }, 1000)
                 });
 
+
+              display_string = display_string + "<td> <div id='div_"+space.space_id+"'' class='div_class'>";
+              display_string = display_string + "<table>";
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td>"+
+              "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
+              "<img src='img/"+space.thumbnail+"' width='"+img_width+"' height='"+img_height+"'>"+
+              "</a>"+
+              "</td>";
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td><b>"+space.space_type_description+" at "+ space.name+ "</b></td>";
+              display_string = display_string+"</tr>";
+
+            
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+space.price+" per "+space.price_rate+"</td>";
+              display_string = display_string+"</tr>";
+              
+              display_string = display_string+"<tr>";
+
+              if(!!space.reviews_count){
+                
+                display_string = display_string+"<td><span class='stars-container stars-"+space.rating+"''>★★★★★</span>("+space.reviews_count+")</td>";
+              }
+              else{
+                display_string = display_string+"<td>No user review</td>";
+              }
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"</table> </div>";
+              display_string = display_string+"</td>";
+
         });
+          display_string = display_string + "</table> </tr>";
+      
+
+
+        $("#div_spaces").html(display_string);
     }
     </script>
+   
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap">
     </script>
+    
 </html>
