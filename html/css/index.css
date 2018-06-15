@@ -280,3 +280,11 @@ input{
 .header{
   background-color: white;
 }
+
+#mapview_btn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px; 
+    height:50px;
+    width:50px;
+}
