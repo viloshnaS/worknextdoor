@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2018 at 11:35 AM
+-- Generation Time: Jun 12, 2018 at 07:27 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -51,7 +51,27 @@ INSERT INTO `booking` (`booking_id`, `user_id`, `space_id`, `booking_date`, `boo
 (4, 1, 1, '2018-06-08 01:02:13', '2018-06-22 05:00:00', '2018-06-23 21:00:00', 3, 1, 2, 30),
 (5, 1, 1, '2018-06-08 01:02:13', '2018-06-22 05:00:00', '2018-06-23 21:00:00', 3, 1, 2, 30),
 (6, 1, 1, '2018-06-08 01:07:32', '2018-06-09 11:00:00', '2018-06-09 13:00:00', 3, 2, 1, 9),
-(7, 1, 1, '2018-06-08 01:07:32', '2018-06-09 11:00:00', '2018-06-09 13:00:00', 3, 2, 1, 9);
+(7, 1, 1, '2018-06-08 01:07:32', '2018-06-09 11:00:00', '2018-06-09 13:00:00', 3, 2, 1, 9),
+(8, 1, 1, '2018-06-10 21:15:45', '2018-06-13 09:00:00', '2018-06-13 16:00:00', 3, 7, 1, 9),
+(9, 1, 1, '2018-06-10 21:15:45', '2018-06-13 09:00:00', '2018-06-13 16:00:00', 3, 7, 1, 9),
+(10, 1, 1, '2018-06-10 21:25:17', '2018-06-10 21:25:17', '2018-06-10 21:25:17', 3, 1, 2, 30),
+(11, 1, 1, '2018-06-10 21:25:17', '2018-06-10 21:25:17', '2018-06-10 21:25:17', 3, 1, 2, 30),
+(12, 1, 1, '2018-06-10 21:25:40', '2018-06-10 21:25:40', '2018-06-10 21:25:40', 3, 1, 2, 30),
+(13, 1, 1, '2018-06-10 21:25:40', '2018-06-10 21:25:40', '2018-06-10 21:25:40', 3, 1, 2, 30),
+(14, 1, 1, '2018-06-10 21:28:51', '2018-06-13 05:00:00', '2018-06-13 10:00:00', 3, 5, 1, 9),
+(15, 1, 1, '2018-06-10 21:28:51', '2018-06-13 05:00:00', '2018-06-13 10:00:00', 3, 5, 1, 9),
+(16, 1, 1, '2018-06-10 21:52:16', '2018-06-13 05:00:00', '2018-06-13 08:00:00', 3, 3, 1, 9),
+(17, 1, 1, '2018-06-10 21:52:16', '2018-06-13 05:00:00', '2018-06-13 08:00:00', 3, 3, 1, 9),
+(18, 4, 1, '2018-06-11 09:14:06', '2018-06-14 07:00:00', '2018-06-14 10:00:00', 3, 3, 1, 5),
+(19, 4, 1, '2018-06-11 09:14:06', '2018-06-14 07:00:00', '2018-06-14 10:00:00', 3, 3, 1, 5),
+(20, 1, 1, '2018-06-11 09:16:37', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 9),
+(21, 1, 1, '2018-06-11 09:16:37', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 9),
+(22, 1, 1, '2018-06-11 09:17:21', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 9),
+(23, 1, 1, '2018-06-11 09:17:21', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 9),
+(24, 3, 1, '2018-06-11 09:36:25', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 7),
+(25, 3, 1, '2018-06-11 09:36:25', '2018-06-12 07:00:00', '2018-06-12 10:00:00', 3, 3, 1, 7),
+(26, 4, 1, '2018-06-11 10:00:51', '2018-06-14 05:00:00', '2018-06-15 21:00:00', 3, 1, 2, 20),
+(27, 4, 1, '2018-06-11 10:00:51', '2018-06-14 05:00:00', '2018-06-15 21:00:00', 3, 1, 2, 20);
 
 -- --------------------------------------------------------
 
@@ -102,8 +122,8 @@ CREATE TABLE `hubs` (
 --
 
 INSERT INTO `hubs` (`hub_id`, `name`, `description`, `user_id`, `latitude`, `longitude`, `address`, `category_id`, `parking`, `kitchen`, `printer_scanner`, `heater`, `air_con`, `wifi`, `picture`, `active`) VALUES
-(1, 'Luminuous Studio', 'Big Studio in the Centre of Toulouse', 1, 43.6447, 1.54421, '2 Boulevard, Armand Duportal, Toulouse', 1, 1, 0, 1, 1, 1, 1, '[\"hub_1/space1.jpg\",\"hub_1/space2.jpeg\",\"hub_1/space3.jpg\"]', 1),
-(2, 'Spacious Conference Room', '', 4, 43.5647, 1.59421, '', 1, 1, 1, 1, 1, 1, 1, '[\"hub_2/conference.jpg\",\"hub_2/meeting_room.jpg\",\"hub_2/meeting2.jpg\"]', 1),
+(1, 'Luminuous Studio', 'Big Studio in the Centre of Toulouse', 1, 43.6447, 1.54421, '2 Boulevard, Armand Duportal, Toulouse', 1, 1, 0, 1, 1, 1, 1, '[\"hub_1/space1.jpeg\",\"hub_1/space2.jpeg\",\"hub_1/space3.jpeg\"]', 1),
+(2, 'Spacious Conference Room', '', 4, 43.5647, 1.59421, '', 1, 1, 1, 1, 1, 1, 1, '[\"hub_2/conference.jpeg\",\"hub_2/meeting_room.jpeg\",\"hub_2/meeting2.jpeg\"]', 1),
 (3, 'Studio', '', 5, 43.6047, 1.52421, '4 Place ', 3, 0, 0, 1, 1, 0, 1, '[\"hub_3/space1.jpg\",\"hub_3/space2.jpg\",\"hub_3/space3.jpg\"]', 1),
 (4, 'Modern co-working hypercentre', '', 1, 43.6447, 1.54421, '', 1, 1, 0, 1, 1, 1, 1, 'hub_4', 1),
 (5, 'Spacious Conference Room', '', 4, 43.6019, 1.43862, '18 Place de la Daurade', 1, 1, 1, 0, 1, 1, 1, 'hub_5', 1),
@@ -154,21 +174,6 @@ INSERT INTO `hub_reviews` (`comment_id`, `hub_id`, `user_id`, `rating`, `comment
 (1, 1, 2, 4, 'Perfect Location. Host is friendly and helpful', '2018-05-25 09:48:20'),
 (2, 1, 6, 5, 'Very happy with the service offered. Will surely come again.', '2018-02-11 23:00:00'),
 (3, 1, 4, 2, 'The wifi connection was very poor but the host is very friendly and helpful', '2018-03-21 23:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payment`
---
-
-CREATE TABLE `payment` (
-  `payment_id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `number_spaces` int(11) NOT NULL,
-  `total_amount` float NOT NULL,
-  `payment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `payment_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -244,9 +249,9 @@ CREATE TABLE `spaces` (
 --
 
 INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`) VALUES
-(1, 1, 1, 1, 15, NULL, 1, 1, 1, 'hub_1/space1.jpg'),
-(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpg'),
-(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/conference.jpg'),
+(1, 1, 1, 1, 15, NULL, 1, 1, 1, 'hub_1/space1.jpeg'),
+(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpeg'),
+(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/conference.jpeg'),
 (4, 3, 2, 10, 2, NULL, 1, 1, 1, 'hub_3/space1.jpg'),
 (5, 2, 2, 4, 4, NULL, 1, 1, 0, ''),
 (6, 3, 1, 8, 8, NULL, 1, 0, 0, ''),
@@ -331,6 +336,7 @@ CREATE TABLE `users` (
   `lastname` varchar(100) NOT NULL,
   `Gender` char(1) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `zipCode` varchar(10) NOT NULL,
   `city` varchar(30) NOT NULL,
   `country` varchar(30) NOT NULL,
@@ -342,44 +348,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `Gender`, `email`, `zipCode`, `city`, `country`, `profession_id`, `host`) VALUES
-(1, 'Viloshna', 'Sonoo', 'F', 'viloshna.sonoo@gmail.com', '31000', 'Toulouse', 'France', 1, 0),
-(2, 'Shujun', 'Hou', 'F', 'shujunhou99@gmail.com', '31300', 'Toulouse', 'France', 1, 0),
-(3, 'Oluchi', 'Onuorah', 'F', 'oluuchii@gmail.com', '31300', 'Toulouse', 'France', 1, 0),
-(4, 'Dieu', 'Vu Dinh', 'M', 'dieuvd.it2@gmail.com', '31300', 'Toulouse', 'France', 1, 0),
-(5, 'Xutong', 'Jin', 'F', 'rosa.jin.cueb@hotmail.com', '31300', 'Toulouse', 'France', 1, 0),
-(6, 'Kaichi', 'Cong', 'M', 'congkaichi@gmail.com', '31300', 'Toulouse', 'France', 1, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_reviews`
---
-
-CREATE TABLE `user_reviews` (
-  `review_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `host_id` int(11) NOT NULL,
-  `rating` int(11) NOT NULL,
-  `comment` text NOT NULL,
-  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_reviews`
---
-
-INSERT INTO `user_reviews` (`review_id`, `user_id`, `host_id`, `rating`, `comment`, `date_posted`) VALUES
-(1, 2, 1, 4, 'good', '2018-05-25 08:09:35');
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `v_booking`
--- (See below for the actual view)
---
-CREATE TABLE `v_booking` (
-);
+INSERT INTO `users` (`user_id`, `firstname`, `lastname`, `Gender`, `email`, `phone`, `zipCode`, `city`, `country`, `profession_id`, `host`) VALUES
+(1, 'Viloshna', 'Sonoo', 'F', 'viloshna.sonoo@gmail.com', '0752415680', '31000', 'Toulouse', 'France', 1, 0),
+(2, 'Shujun', 'Hou', 'F', 'shujunhou99@gmail.com', '0914873411', '31300', 'Toulouse', 'France', 1, 0),
+(3, 'Oluchi', 'Onuorah', 'F', 'oluuchii@gmail.com', '0789378436', '31300', 'Toulouse', 'France', 1, 0),
+(4, 'Dieu', 'Vu Dinh', 'M', 'dieuvd.it2@gmail.com', '0634249853', '31300', 'Toulouse', 'France', 1, 0),
+(5, 'Xutong', 'Jin', 'F', 'rosa.jin.cueb@hotmail.com', '0573984309', '31300', 'Toulouse', 'France', 1, 0),
+(6, 'Kaichi', 'Cong', 'M', 'congkaichi@gmail.com', '', '31300', 'Toulouse', 'France', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -431,15 +406,6 @@ CREATE TABLE `v_space_review` (
 ,`reviews_count` bigint(21)
 ,`average_rating` decimal(14,4)
 );
-
--- --------------------------------------------------------
-
---
--- Structure for view `v_booking`
---
-DROP TABLE IF EXISTS `v_booking`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_booking`  AS  select `b`.`booking_id` AS `booking_id`,`b`.`user_id` AS `user_id`,`b`.`space_id` AS `space_id`,`b`.`booking_date` AS `booking_date`,`b`.`booking_date_start` AS `start_date_and_time`,`b`.`booking_length` AS `booking_length`,`b`.`booking_date_end` AS `end_date_and_time`,`b`.`number_of_spaces` AS `number_of_spaces`,`b`.`booking_status_type` AS `status_id`,`st`.`description` AS `status`,`h`.`hub_id` AS `hub_id`,`h`.`description` AS `hub_description`,`h`.`address` AS `address`,`t`.`space_type_id` AS `space_type_id`,`t`.`space_type_description` AS `space_type_description`,`b`.`pricing_type` AS `pricing_type`,`pp`.`description` AS `pricing_description`,`b`.`unit_price` AS `unit_price`,(`b`.`unit_price` * `b`.`booking_length`) AS `total` from ((((((`booking` `b` join `status` `st`) join `spaces` `s`) join `hubs` `h`) join `space_type` `t`) join `space_pricing` `p`) join `pricing_package` `pp`) where ((`b`.`space_id` = `s`.`space_id`) and (`b`.`booking_status_type` = `st`.`status_type_id`) and (`s`.`hub_id` = `h`.`hub_id`) and (`s`.`space_type` = `t`.`space_type_id`) and (`b`.`pricing_type` = `p`.`price_package_id`) and (`b`.`pricing_type` = `pp`.`package_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -502,14 +468,6 @@ ALTER TABLE `hub_reviews`
   ADD KEY `FOREIGN_KEY_REVIEW_HUBS` (`hub_id`);
 
 --
--- Indexes for table `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `FOREIGN_KEY_PAYMENT_STATUS` (`payment_status`),
-  ADD KEY `FOREIGN_KEY_PAYMENT_BOOKING` (`booking_id`);
-
---
 -- Indexes for table `pricing_package`
 --
 ALTER TABLE `pricing_package`
@@ -556,13 +514,6 @@ ALTER TABLE `users`
   ADD KEY `FOREIGN_KEY_USER_PROFESSION` (`profession_id`);
 
 --
--- Indexes for table `user_reviews`
---
-ALTER TABLE `user_reviews`
-  ADD PRIMARY KEY (`review_id`),
-  ADD KEY `FOREIGN_KEY_REVIEW_HOST` (`host_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -570,7 +521,7 @@ ALTER TABLE `user_reviews`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `hubs`
@@ -585,12 +536,6 @@ ALTER TABLE `hub_reviews`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `payment`
---
-ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `spaces`
 --
 ALTER TABLE `spaces`
@@ -601,12 +546,6 @@ ALTER TABLE `spaces`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `user_reviews`
---
-ALTER TABLE `user_reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -642,13 +581,6 @@ ALTER TABLE `hub_reviews`
   ADD CONSTRAINT `FOREIGN_KEY_REVIEW_USER` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `payment`
---
-ALTER TABLE `payment`
-  ADD CONSTRAINT `FOREIGN_KEY_PAYMENT_BOOKING` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FOREIGN_KEY_PAYMENT_STATUS` FOREIGN KEY (`payment_status`) REFERENCES `status` (`status_type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `spaces`
 --
 ALTER TABLE `spaces`
@@ -667,12 +599,6 @@ ALTER TABLE `space_pricing`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `FOREIGN_KEY_USER_PROFESSION` FOREIGN KEY (`profession_id`) REFERENCES `profession_category` (`profession_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_reviews`
---
-ALTER TABLE `user_reviews`
-  ADD CONSTRAINT `FOREIGN_KEY_REVIEW_HOST` FOREIGN KEY (`host_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
