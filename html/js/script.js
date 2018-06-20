@@ -24,8 +24,7 @@ function initHomePage() {
 
 function displayResultList( results){
          
-          localStorage.setItem("resultList",results);
-
+          $('#div_results').html(results);
 		      var result_arr = JSON.parse(results);
 
           display_string ="";
@@ -89,10 +88,8 @@ function getDisplayStringThumbnail(space){
   display_string ="";
   display_string = display_string+"<table>";
   display_string = display_string+"<tr>";
-
   var height = Number($(window).height())*10/100;
   var width = Number($(window).width())*35/100;
-
   display_string = display_string+"<tr><td>" +
   "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
   "<img class='small_thumbnail' src='img/"+space.thumbnail+"' width='"+width+"' height='"+height+"'>"+
@@ -128,21 +125,23 @@ function getDisplayStringThumbnail(space){
 
 
 function displayResultsThumbnail(response){
-
+          
           var spaces = JSON.parse(response);
+
 
           display_string ="";
 
           
 
           display_string = display_string+"<table width='100%'>";
-          for (i = 0; i < spaces.length; i+=2) { 
+          for (i = 0; i <= 2; i+=2) { 
     
             display_string = display_string+"<tr>";
             display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i])+"</td>";
             display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i+1])+"</td>";
             display_string = display_string+"</tr>";
           }
+          display_string =display_string +"<tr><td><a href='viewResults.html> View More </a></td></tr>";
           display_string =display_string +"</table>";
 
            $('#div_results_thumbnail').html(display_string);
@@ -211,7 +210,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
-                      
+                      localStorage.setItem("resultList",response);
                       if(_display=='list'){
           				      
                          displayResultList(response);
@@ -234,17 +233,23 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
 
 function getSpaceDestails(id){
+
   $.ajax({
-                   url : URL+'/spaces/getSpaceById.php',
-                   type : 'GET',
-                   data: { space_id:id } ,
-                   success : function(response){ // success est toujours en place, bien sûr !
+                   url : URL+'/spaces/getSpaceById.php', // URL of Web Service
+                   type : 'GET', //web Service method
+                   crossDomain: true, // to enable cross origin resource(CORS) sharing
+                   data: { space_id:id } , // the parameters
+                   success : function(response){ 
+                    // is request is a success, this block is executed
                   
                          displaySpaceDetails(response);
                         }
             ,
 
                    error : function(resultat, statut, erreur){
+                    // in case of error log will be added
+
+                        console.log("Error encountered. Could not retrieve details");
 
                    }
 
@@ -338,8 +343,12 @@ function displaySpaceDetails(results){
 
 
     displayString = displayString + "<td>Hosted by: "+space.firstname+"</td>";
-    displayString = displayString + "<td><img src='img/women.png' class='user_image'/></td>";
-    
+    if(space.user_picture!=''){
+              displayString = displayString+"<td><img class='user_image' src='img/user/"+space.user_picture+"'/></td>";
+            }
+            else{
+              displayString = displayString+"<td><img class='user_image'src='img/generic.jpg'/></td>";
+            }
     displayString = displayString + "</tr>";
     displayString = displayString + "</table>";
 
@@ -491,6 +500,7 @@ function calculateTime(lat1,long1,lat2,long2,mode){
 
                       var results = response.rows[0].elements;
                       duration = (results[0].duration.text);
+
                       duration =duration.replace("hours","H");
                       if(mode == 'WALKING'){
                         $("#walk").html("<i class='material-icons'>directions_walk</i> " +duration);
@@ -546,6 +556,7 @@ function getSpaceReviews(id){
   $.ajax({
                    url : URL+'/reviews/getSpaceReviews.php',
                    type : 'GET',
+                   crossDomain: true,
                    data: { space_id:id } ,
                    success : function(response){ // success est toujours en place, bien sûr !
                   
@@ -563,49 +574,33 @@ function getSpaceReviews(id){
 
 
 function displaySpaceReviews(results){
-
-   var result_arr = JSON.parse(results);
-
+          var result_arr = JSON.parse(results); // converting results to JSON object
           display_string ="";
-
-          
-
-          result_arr.forEach(function(review) {
+          result_arr.forEach(function(review) { //looping through JSON array
             var reviewDate = new Date(review.date_posted);
             display_string = display_string+"<table>";
-            display_string = display_string+"<tr>";
-
-            if(review.gender=='M'){
-              display_string = display_string+"<td rowspan=2><img class='user_image' src='img/boy.jpg'/></td>";
-
+            display_string = display_string+"<tr>"; 
+            if(review.picture!=''){
+              display_string = display_string+"<td rowspan=2><img class='user_image' src='img/user/"+review.picture+"'/></td>";
             }
             else{
-              display_string = display_string+"<td rowspan=2><img class='user_image'src='img/women.png'/></td>";
+              display_string = display_string+"<td rowspan=2><img class='user_image'src='img/generic.jpg'/></td>";
             }
 
             display_string = display_string+"<td><b>"+review.firstname+"</b><td>";
             display_string = display_string+"<td><td>";
             display_string = display_string+"</tr>";
-
             display_string = display_string+"<tr>";
-
             display_string = display_string+"<td>"+months[reviewDate.getMonth()] +" "+reviewDate.getFullYear()+"<td>";
-
             display_string = display_string+"<td><span class='stars-container stars-"+review.rating+"''>★★★★★</span></td>";
-
             display_string = display_string+"</tr>";
-
             display_string = display_string+"</table>";
-
             display_string = display_string+"<p>"+review.comment+"</p>";
-
             display_string = display_string+"<hr>";
-
           });
-
-          $("#div_reviews").html(display_string);
-
+          $("#div_reviews").html(display_string); // displaying the HTML string in a div
 };
+
 
 function getNumberOfDays(date1,date2){
 
@@ -629,19 +624,47 @@ function createBooking(_space_id,_user_id,_date_from,_date_to,_space_rate,_unit_
   $.ajax({
                    url : URL+'/bookings/createBooking.php',
                    type : 'POST',
+                   crossDomain: true,
                    data: { space_id:_space_id,
                           user_id:_user_id,
                           date_from:_date_from,
                           date_to:_date_to,
                           space_rate:_space_rate,
                           unit_price:_unit_price,
-                          duration:_duration,
-                          hub_name:_name
+                          hub_name:_name,
+                          duration:_duration
+                          
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
+                      localStorage.setItem("booking_id",response);
+                
+                      window.location="bookingConfirmation.html";
+                  }
+            ,
 
-                      
-                      alert("Booking Successful. Booking number: WND00019");
+                   error : function(resultat, statut, erreur){
+
+                   }
+
+                });
+
+}
+
+
+function getAvailableDates(_space_id){
+  localStorage.setItem("booked_dates","");
+
+  return $.ajax({
+                   url : URL+'/bookings/getAvailableDates.php',
+                   type : 'GET',
+                   crossDomain: true,
+                   data: { space_id:_space_id
+                          
+                          } ,
+                   success : function(response){ // success est toujours en place, bien sûr !
+                      localStorage.setItem("booked_dates",response);
+                    
+                     
                   }
             ,
 

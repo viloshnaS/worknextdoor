@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="css/space_details.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&sensor=false&v=3&libraries=geometry"></script>    
     
 </head>
 
 <body>
-    <input type="hidden" id="space_id"/>
+    <input type="hidden" id="space_id">
+    <div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
 
     <div id ="space_details">
 
@@ -65,7 +68,9 @@
             getSpaceDestails(space_id);
 
             var height = $(window).height();
-            $('.review_frame').css('height', height * 0.8);
+            var width = $(window).width();
+            $('.review_frame').css('height', height * 0.9);
+            $('.review_frame').css('width', width * 0.9);
 
 
             var bookBtn = "";
@@ -76,16 +81,22 @@
 
             }
             else{
-                bookBtn = "<a href='booking.html' id='book_btn' class='ui-btn' data-ajax='false'>Check Available</a>"
+                bookBtn = "<a href='booking.html?space_id="+space_id+ "'id='book_btn' class='ui-btn' data-ajax='false'>Check Availability</a>"
             }
 
             $("#bookBtn").html(bookBtn);
 
             
-           
+           $("#back").click(function(){
 
+                history.back();
 
+            });
+           $("#home").click(function(){
 
+                window.location="index.html";
+
+            });
             
     });
     </script>

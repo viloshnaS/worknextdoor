@@ -123,7 +123,6 @@ h1 {
 .title{
   text-align: center;
   margin-top: 20px;
-  margin-bottom: 10px;
   margin-right: 20px;
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(black,.15);
@@ -179,7 +178,6 @@ h1{
    border: 0px;
    width:"100%";
    height:"100%";
-   ;
 }
 
 #footer{
@@ -288,3 +286,37 @@ input{
     height:50px;
     width:50px;
 }
+
+#div_location{
+   margin-top:1em;
+  
+}
+
+#div_location td{
+   padding-left:20px;
+   padding-right:20px;
+  
+}
+
+#more_btn {
+  -moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  -webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  box-shadow: 0px 10px 14px -7px #aa8cc5;
+  background-color:#ffffff;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+  border-radius:8px;
+  border:1px solid #aa8cc5;
+  display:inline-block;
+  cursor:pointer;
+  color:#000000;
+  font-family:Verdana;
+  font-size:15px;
+  text-decoration:none;
+}
+
+#more_btn:active {
+  position:relative;
+  top:1px;
+}
+

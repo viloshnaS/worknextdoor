@@ -4,27 +4,32 @@
 <head>
 
     <title>Work-next-door searching API</title>
-
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/filter.css">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
+  <link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
+    <link rel="stylesheet" href="css/filter.css">    
+    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="js/script.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+  
+    
 
     
-</head>
+</head>                                                             
 
 <body>
-   
+   <div id="back"><i class='material-icons'>arrow_back</i></div>
+  <div id="homeBtn"><i class='material-icons'>home</i></div>
+  <div id="heading">Choose your dates </div>
+  <br>
+
 <table width='100%'>
-        <tr>
-          <td class="heading">Rate</td>
-        </tr>
         <tr>
           <td><button class="rate" id="btn_hourly" value="1">Hourly</button></td>
           <td><button class="rate" id="btn_daily" value="2">Daily</button></td>
@@ -36,11 +41,11 @@
     <table>
       <tr >
               <td class="div_date_from"  style="display: none;">Date</td>
-              <td class="div_date_from"  style="display: none;"><input class="datepicker" id="date_from" type ="date" data-role="date"></td>
+              <td class="div_date_from"  style="display: none;"><input class="datepicker" id="date_from" type ="text"></td>
       </tr>
       <tr>
               <td class="div_date_to"  style="display: none;">To</td>
-              <td class="div_date_to"  style="display: none;"><input class="datepicker" id="date_to" type ="date" data-role="date"></td>
+              <td class="div_date_to"  style="display: none;"><input class="datepicker" id="date_to" type ="text"></td>
       <tr>
               <td class="div_month" style="display: none;">Number of Months</td>
               <td class="div_month" style="display: none;"><input id="month" type ="text" size="3"></td>
@@ -52,6 +57,7 @@
               <td class="div_time" style="display: none;" >Duration</td>
               <td class="div_time" style="display: none;" >
                   <select id="time_from">
+                    <option value=""></option>
                     <option value="07">07.00</option>
                     <option value="08">08.00</option>
                     <option value="09">09.00</option>
@@ -76,6 +82,7 @@
               <td class="div_time" style="display: none;" >To</td>
               <td class="div_time" style="display: none;">
                   <select id="time_to">
+                    <option value=""></option>
                     <option value="07">07.00</option>
                     <option value="08">08.00</option>
                     <option value="09">09.00</option>
@@ -106,6 +113,54 @@
 
 <script>
         $(document).ready(function(){
+
+          $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+            var space_id = $.urlParam('space_id');
+
+            $.when(getAvailableDates(space_id)).done(function(){
+                var results = localStorage.getItem("booked_dates");
+
+                var unavailableDates =[];
+                var date_arr = JSON.parse(results);
+
+                date_arr.forEach(function(dateObj) {
+               
+                    unavailableDates.push(dateObj);
+                });
+
+                $('.datepicker').datepicker({
+                  dateFormat: 'yy-mm-dd',
+                  inline: true,
+                  showOtherMonths: true,
+                  dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                  minDate:new Date(),
+                  beforeShowDay: function(date){
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [ unavailableDates.indexOf(string) == -1 ]
+                }
+                });
+
+                 $('#date_from').change(function(){
+
+                  var this_date = new Date($(this).val());
+                
+                      $('#date_to').datepicker('option', 'minDate', this_date);
+
+                });
+
+
+                
+
+
+          });
+
+
+            
+
           
            $(".rate").click(function(){
                 
@@ -154,33 +209,102 @@
                 }
             });
 
+            $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#homeBtn").click(function(){
+
+                window.location="index.html";
+
+            });
+
 
             $("#submit_btn").click(function(){
                 var space_rate =$( "#space_rate" ).val();
 
                 var date_time_from="";
                 var date_time_to="";
+                var date_from =$( "#date_from" ).val();
+                if(space_rate ==""){
+                    
+                    alert("Please select a rate");
+                    return false;
+
+                }
+                if(date_from == ""){
+                    
+                    alert("Please select a date");
+                    return false;
+
+                }
                 if(space_rate==1){
-                  var date_from =$( "#date_from" ).val();
+                  
               
                   var time_from =$( "#time_from" ).val();
                   var time_to =$("#time_to" ).val();
+                  if(time_to =="" || time_from =="" ){
+                    
+                    alert("Please select the time");
+                    return false;
+
+
+                  }
+                  if(Number(time_to) <= Number(time_from)){
+                    
+                    alert("Please input a valid time");
+                    return false;
+
+                  }
                   date_time_from = date_from+ " "+time_from+":00:00";
                   date_time_to = date_from+ " "+time_to+":00:00";
                 }
                 else if(space_rate==2){
-                  var date_from =$( "#date_from" ).val();
+                  
                   var date_to =$( "#date_to" ).val();
+                     if(date_to ==""){
+                  
+                    alert("Please select the end date");
+                    return false;
+
+
+                  }
+
+                  if(new Date(date_to) < new Date(date_from)){
+                    
+                    alert("The end date must be greater than start date.");
+                    return false;
+
+
+                  }
                   date_time_from = date_from+ " "+"07:00:00";
                   date_time_to = date_to+ " "+"23:00:00";
                  
                 }
 
                  else if(space_rate==3){
-                  var date_from =$( "#date_from" ).val();
-                  var month =$( "#month" ).val();
-                  var d = new Date(date_from,'yyyy-mm-dd');
+
+                  var duration =$( "#month" ).val();
+                  if(duration ==""){
+                    
+                    alert("Please input a valid duration");
+                    return false;
+                  }
+                  var dateFrom = new Date(date_from);
+                  dateFrom.setMonth(dateFrom.getMonth()+ parseInt(duration));
+                  var day = dateFrom.getDate();
+                  var month= dateFrom.getMonth() + 1;
+                  var year= dateFrom.getFullYear();
+                  if(month < 10){
+                    month = "0"+month;
+                  }
+                  date_time_from = date_from+ " "+"07:00:00";
+                  date_time_to = year+"-"+month+"-"+day+ " "+"23:00:00";
+                  
+
                 }
+                
 
 
 

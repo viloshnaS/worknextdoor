@@ -2,12 +2,36 @@ body{
   background-color:white;
 }
 
-h2{
+#heading{
   font-family: Veranda;
-  font-size:30px;
+  font-size:25px;
   text-transform: capitalize;
+  padding-top:20px;
+  padding-right:50px;
+  padding-left: 50px;
+  padding-left: 20px;
+  text-align:center;
+}
+/*
+
+
+
+td{
+  padding-right:20px;
+  font-family: Veranda;
+  font-size:20px; 
   padding-left:20px;
-  padding-right:10px;
+
+}
+
+*/
+
+#summary_table td{
+  padding-right:20px;
+  font-family: Veranda;
+  font-size:20px; 
+  padding-left:20px;
+
 }
 
 th{
@@ -20,41 +44,15 @@ th{
   width:50%;
 }
 
+
 #main td{
   width:50%;
   padding-bottom:10px;
 
 }
 
-td{
-  padding-right:20px;
-  font-family: Veranda;
-  font-size:20px; 
-  padding-left:20px;
 
-}
-
-
-#confirmBtn{
-  right:0px;
-  padding:10px;
-  -webkit-border-radius: 11;
-  -moz-border-radius: 11;
-  border-radius: 11px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 20px;
-  background: #946ecc;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-
-#confirmBtn:hover{
-  background: #6226a3;
-  text-decoration: none;
-}
-
-#confirmBtn {
+#confirmBtn,#changeBtn{
   -moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
   -webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
   box-shadow: 0px 10px 14px -7px #aa8cc5;
@@ -71,14 +69,42 @@ td{
   padding:10px 14px;
   text-decoration:none;
 }
-#confirmBtn:hover{
+#confirmBtn:hover,#changeBtn:hover{
   background-color:#aa8cc5;
 }
-#confirmBtn:active {
+#confirmBtn:active,#changeBtn:active {
   position:relative;
   top:1px;
+  color: #631762;
 }
 
+
+div#back{
+
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #631762;
+
+
+}
+
+div#homeBtn{
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #631762;
+}
+
+#summary_table,#booking_confirmation{
+  margin-top:50px;
+}
+
+.euro_icon{
+
+    font-size:10px
+}
 
 
 

@@ -18,10 +18,25 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
     <script>
         $(document).ready(function(){
+
+          $.urlParam = function(name){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+
+          var display = $.urlParam('display');
+
    
           $("#latitude").val(localStorage.getItem("latitude"));
           $("#longitude").val(localStorage.getItem("longitude"));
-          initResultList();
+
+          if(display=="search"){
+            initResultList();
+          }
+          else{
+            displayResultList(localStorage.getItem("resultList"));
+          }
+          
 
           var height = $(window).height();
           $('#filter_frame').css('height', height*0.8);
@@ -47,13 +62,31 @@
 
             });
 
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
         });
     </script>
 </head>
 
 <body>
-
-        <input id="pac-input" class="controls" type="Search" placeholder="Location">
+        <div id="div_location">
+          <table>
+            <tr>
+                <td width="10%"><span id="back"><i class='material-icons'>arrow_back</i></span></td>
+                <td width ="100%"><input id="pac-input" class="controls" type="Search" placeholder="Location" size="100"></td>
+                <td width ="10%"><span id="home"><i class='material-icons'>home</i></span></td>
+          </tr>
+          </table>
+        </div>
         <input type="hidden" id="latitude">
         <input type="hidden" id="longitude">
         <div id="map"  style="display: none;"></div> <br>
@@ -69,6 +102,7 @@
 
 <div data-role="popup" id="popupMap" data-overlay-theme="a" data-theme="a" data-corners="false" data-tolerance="15,15">
     <a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+<a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Save</a>
     <iframe src="filters.html" id="filter_frame" seamless=""></iframe>
 
   <input type="hidden" value ="" id="latitude">

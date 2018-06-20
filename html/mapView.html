@@ -6,25 +6,49 @@
     <title>Work Next Door</title>
         
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/mapview.css">
+    <link rel="stylesheet" href="css/common.css">
   </head>
   <body>
 
     <div id="div_map"></div>
+
+    <div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
+  
     <div id="div_spaces"></div>
 
   </body>
   <script>
+      $(document).ready(function(){
+          $("#back").click(function(){
+            history.back();
+          
+          });
+
+          $("#home").click(function(){
+            window.location="index.html";
+          
+          });
+      });
+
+           
 
       function initMap() {
           var results_arr = JSON.parse(localStorage.getItem("resultList"));
           var myLatLng = {lat: parseFloat(localStorage.getItem("latitude")), lng: parseFloat(localStorage.getItem("longitude"))};
 
+
+      
+ 
+
           var map = new google.maps.Map(document.getElementById('div_map'), {
             zoom: 10,
-            center: myLatLng
+            center: myLatLng,
+            mapTypeControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            fullscreenControl: false
           });
 
           var display_string="";

@@ -4,14 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Work-next-door searching API</title>
+  <title>Work-next-door</title>
   <link href="css/index.css" rel="stylesheet">
   <link href="css/booking.css" rel="stylesheet">
   <link href="css/common.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="js/script.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   <script>
 
         $(document).ready(function(){
@@ -42,7 +41,16 @@
 
             $("#span_type").html(spaceObj.space_type_description + " at " + spaceObj.name);
             $("#span_host").html("Hosted by " + spaceObj.firstname);
-            $("#span_picture").html("<img src='img/women.png' class='user_image'/>");
+            alert(spaceObj.user_picture);
+            if(spaceObj.user_picture!=''){
+              $("#span_picture").html("<img src='img/users/"+spaceObj.user_picture+"' class='user_image'/>");
+             
+            }
+            else{
+              $("#span_picture").html("<img src='img/generic.jpg' class='user_image'/>");
+              
+            }
+            
 
             spaceObj.pricing.forEach(function(price){
 
@@ -77,8 +85,25 @@
 
             $("#confirmBtn").click(function(){
 
-              createBooking(spaceObj.space_id,1,date_from,date_to,space_rate,unit_price,duration,space.name);
+              createBooking(spaceObj.space_id,2,date_from,date_to,space_rate,unit_price,duration,spaceObj.name);
 
+
+            });
+
+            $("#changeBtn").click(function(){
+
+              window.location="booking.html?space_id="+spaceObj.space_id;
+
+            });
+
+             $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#homeBtn").click(function(){
+
+                window.location="index.html";
 
             });
            
@@ -90,10 +115,11 @@
 </head>
 
 <body>
+  <div id="back"><i class='material-icons'>arrow_back</i></div>
+  <div id="homeBtn"><i class='material-icons'>home</i></div>
+  <div id="heading">Booking details</div>
   <div id ="booking_details">
-
-    <h2> Review your booking details </h2>
-    <table>
+    <table id="summary_table">
       <tr>
         <td><span id="span_type"></span></td>
         <td rowspan='2'><span id="span_picture"></span></td>
@@ -145,7 +171,8 @@
         <td> <span id="total_amount"></span></td>
       </tr>
        <tr style="border-bottom:0px">
-        <td colspan='2' align="right"> <button id="confirmBtn">Confirm Booking</button></td>
+        <td align='center'> <button id="changeBtn">Change Date</button></td>
+        <td align='center'> <button id="confirmBtn">Confirm Booking</button></td>
       </tr>
     </table>
  

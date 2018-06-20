@@ -5,7 +5,6 @@ function initMap() {
         });
         infoWindow = new google.maps.InfoWindow;
 
-
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
   
@@ -16,6 +15,8 @@ function initMap() {
             };
             localStorage.setItem("myLatitude",pos.lat);
             localStorage.setItem("myLongitude",pos.lng);
+
+
             
             getNearbySpaces(pos.lat,pos.lng);
 
@@ -43,11 +44,11 @@ function initMap() {
                 return;
             }
             else{
-
+              alert(place.geometry.location.lat())
               localStorage.setItem("latitude",place.geometry.location.lat());
               localStorage.setItem("longitude",place.geometry.location.lng());
 
-               window.location="viewResults.html";
+               window.location="viewResults.html?display=search";
               
 
             }
@@ -67,7 +68,6 @@ function initMap() {
       };
 
       function getNearbySpaces(latitude,longitude){
-        alert("1");
          fetchResults(latitude,longitude,null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,null,'thumb');
       };
 

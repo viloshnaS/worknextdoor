@@ -173,8 +173,9 @@
 
       <tr>
         <td>
-          <button id="submit_btn">Save</button>
+          <button id="submit_btn">Save</a>
         </td>
+
       </tr>
 
     </table>
@@ -250,30 +251,85 @@
             });
 
             $("#submit_btn").click(function(){
+                var flag = true;
                 var space_rate =$( "#space_rate" ).val();
 
                 var date_time_from="";
                 var date_time_to="";
+                var date_from =$( "#date_from" ).val();
+                if(space_rate!="" && date_from ==""){
+                    
+                    alert("Please select a date");
+                    return false;
+
+                }
                 if(space_rate==1){
-                  var date_from =$( "#date_from" ).val();
+                  
               
                   var time_from =$( "#time_from" ).val();
                   var time_to =$("#time_to" ).val();
+                  if(time_to =="" || time_from =="" ){
+                    
+                    alert("Please select the time");
+                    return false;
+
+
+                  }
+                  if(Number(time_to) <= Number(time_from)){
+                    
+                    alert("Please input a valid time");
+                    return false;
+
+                  }
                   date_time_from = date_from+ " "+time_from+":00:00";
                   date_time_to = date_from+ " "+time_to+":00:00";
+
+
                 }
                 else if(space_rate==2){
-                  var date_from =$( "#date_from" ).val();
+
                   var date_to =$( "#date_to" ).val();
+                  if(date_to ==""){
+                  
+                    alert("Please select the end date");
+                    return false;
+
+
+                  }
+
+                  if(new Date(date_to) < new Date(date_from)){
+                    
+                    alert("The end date must be greater than start date.");
+                    return false;
+
+
+                  }
+
                   date_time_from = date_from+ " "+"07:00:00";
                   date_time_to = date_to+ " "+"23:00:00";
                  
                 }
 
-                 else if(space_rate==3){
-                  var date_from =$( "#date_from" ).val();
-                  var month =$( "#month" ).val();
-                  var d = new Date(date_from,'yyyy-mm-dd');
+                else if(space_rate==3){
+
+                  var duration =$( "#month" ).val();
+                  if(duration ==""){
+                    
+                    alert("Please input a valid duration");
+                    return false;
+                  }
+                  var dateFrom = new Date(date_from);
+                  dateFrom.setMonth(dateFrom.getMonth()+ parseInt(duration));
+                  var day = dateFrom.getDate();
+                  var month= dateFrom.getMonth() + 1;
+                  var year= dateFrom.getFullYear();
+                  if(month < 10){
+                    month = "0"+month;
+                  }
+                  date_time_from = date_from+ " "+"07:00:00";
+                  date_time_to = year+"-"+month+"-"+day+ " "+"23:00:00";
+                  
+
                 }
                 
                 var space_type = $( "#space_type" ).val();
@@ -357,32 +413,32 @@
                   var printer_scanner = 0;
                 }
                 
+                if(flag){
+                  localStorage.setItem("date_from",date_time_from);
+                  localStorage.setItem("date_to",date_time_to);
+                  localStorage.setItem("space_rate",space_rate);
+                  
+
+                  window.parent.document.getElementById('space_rate').value=space_rate;
+                  window.parent.document.getElementById('date_from').value=date_time_from;
+                  window.parent.document.getElementById('date_to').value=date_time_to;
+
+                  window.parent.document.getElementById('space_type').value=space_type;
+                  window.parent.document.getElementById('capacity').value=capacity;
+                  window.parent.document.getElementById('price_min').value=price_min;
+                  window.parent.document.getElementById('price_max').value=price_max;
+                  window.parent.document.getElementById('screen').value=screen;
+                  window.parent.document.getElementById('projector').value=projector;
+                  window.parent.document.getElementById('whiteboard').value=whiteboard;
+                  window.parent.document.getElementById('parking').value=parking;
+                  window.parent.document.getElementById('kitchen').value=kitchen;
+                  window.parent.document.getElementById('heater').value=heater;
+                  window.parent.document.getElementById('air_con').value=air_con;
+                  window.parent.document.getElementById('printer_scanner').value=printer_scanner;
+
+                  window.parent.document.getElementById('printer_scanner').style.display="none";
                 
-                localStorage.setItem("date_from",date_time_from);
-                localStorage.setItem("date_to",date_time_to);
-                localStorage.setItem("space_rate",space_rate);
-                
-
-                window.parent.document.getElementById('space_rate').value=space_rate;
-                window.parent.document.getElementById('date_from').value=date_time_from;
-                window.parent.document.getElementById('date_to').value=date_time_to;
-
-                window.parent.document.getElementById('space_type').value=space_type;
-                window.parent.document.getElementById('capacity').value=capacity;
-                window.parent.document.getElementById('price_min').value=price_min;
-                window.parent.document.getElementById('price_max').value=price_max;
-                window.parent.document.getElementById('screen').value=screen;
-                window.parent.document.getElementById('projector').value=projector;
-                window.parent.document.getElementById('whiteboard').value=whiteboard;
-                window.parent.document.getElementById('parking').value=parking;
-                window.parent.document.getElementById('kitchen').value=kitchen;
-                window.parent.document.getElementById('heater').value=heater;
-                window.parent.document.getElementById('air_con').value=air_con;
-                window.parent.document.getElementById('printer_scanner').value=printer_scanner;
-
-
-                window.parent.document.getElementById('popupMap').style.display = "none";
-                
+                }
 
             });
         });
