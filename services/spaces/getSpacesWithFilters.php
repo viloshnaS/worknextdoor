@@ -2,7 +2,6 @@
 header("Access-Control-Allow-Origin: *");
 require('../../connection.php');
 require('../test.php');
-require('../pricing/getSpacePricing.php');
 $connection = $conn;
 
 
@@ -31,8 +30,8 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 
 	// number of guest is 1 by default
 
-	$sql = "SELECT s.space_id, s.space_type_description,s.hub_id,s.name,s.hub_description, s.latitude,
-	s.longitude, sp.price,sp.price_package_id, s.thumbnail,
+	$sql = "SELECT s.space_id, s.space_type_description,s.hub_id,s.name,
+	s.latitude,s.longitude, sp.price,sp.price_package_id, s.thumbnail,
 	pp.description AS price_rate,r.reviews_count,ROUND(r.average_rating) AS rating
 	FROM (v_space s LEFT JOIN v_space_review r ON r.hub_id =s.hub_id) 
 	INNER JOIN 
@@ -55,14 +54,17 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 
 	}
 	if($date_from!=""){
-		$sql = $sql. " AND s.number_of_spaces > 
+		$sql = $sql. " AND NOT EXISTS
 
 			(
-			select count(*) 
+			select *
 			FROM booking b
 			WHERE  b.space_id = s.space_id
-			AND STR_TO_DATE('$date_from', '%Y-%m-%d %T') BETWEEN b.booking_date_start AND b.booking_date_end
-			AND STR_TO_DATE('$date_to', '%Y-%m-%d %T') BETWEEN b.booking_date_start AND b.booking_date_end
+			AND (STR_TO_DATE('$date_from', '%Y-%m-%d %T') BETWEEN b.booking_date_start AND b.booking_date_end
+				OR STR_TO_DATE('$date_to', '%Y-%m-%d %T') BETWEEN b.booking_date_start AND b.booking_date_end
+				OR b.booking_date_start between STR_TO_DATE('$date_from', '%Y-%m-%d %T') and STR_TO_DATE('$date_to', '%Y-%m-%d %T')
+				OR b.booking_date_end between STR_TO_DATE('$date_from', '%Y-%m-%d %T') and STR_TO_DATE('$date_to', '%Y-%m-%d %T')
+				)
 			AND b.booking_status_type=3
 			)
 	";
@@ -125,29 +127,35 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 
 	$spaces_list=array();
 	$distance_array=array();
+	$space_distance=array();
+	$coordinates_array = array();
+	$sorted_array=array();
 
 	if ($result->num_rows > 0) {
 	    // output data of each 
-	   
+	
 	    while($row = $result->fetch_assoc()) {
-	    	$distance = getDistance($latitude,$longitude,$row['latitude'],$row['longitude']);
-	    	$json_string= json_encode($row);
-	    	$json_string = substr($json_string,0,strlen($json_string)-1);
-	 		$json_string= $json_string.",\"distance\":".$distance. "}";	 
-	 		$spaces_list[$row["space_id"]] = json_decode($json_string);
-	 		
-	 		$distance_array[$row["space_id"]]= $distance;
+	   
+	    	$coordinates_array[]=[$row['space_id'],$row['latitude'],$row['longitude']];
+	    	$spaces_list[$row["space_id"]] = $row;
+
 	    		
 	    }
 
-
-	    asort($distance_array);
-	    $sorted_array=array();
+	   	$distance_array = getDistance($latitude,$longitude,$coordinates_array);
+	   	
+	   	$count =0;
+	   	asort($distance_array);
+	    
 	    foreach ($distance_array as $key => $value) {
-	    	$sorted_array[]=$spaces_list[$key];
+	    	$row=$spaces_list[$key];
+	    	$json_string= json_encode($row);
+	    	$json_string = substr($json_string,0,strlen($json_string)-1);
+	 		$json_string= $json_string.",\"distance\":".$value. "}";	
+	 		$sorted_array[]=json_decode($json_string); 
+	 		
+	 		
 	    }
-
-
 	} 
 
 	return json_encode($sorted_array);

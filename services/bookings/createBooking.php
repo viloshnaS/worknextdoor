@@ -12,9 +12,8 @@ $space_rate=$_POST['space_rate'];
 $duration=$_POST['duration'];
 $unit_price=$_POST['unit_price'];
 $name=$_POST['hub_name'];
-//$name="Luminuous Studio";
 
-createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_rate,$unit_price,$name);
+ echo createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_rate,$unit_price,$name);
 
 function createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_rate,$unit_price,$hub_name){
 	global $connection;
@@ -24,14 +23,22 @@ function createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_
 	$total = $u_price*$length;
 
 
-	$sql = "INSERT INTO booking(user_id,space_id, booking_date_start,booking_date_end, duration, rate, unit_price,booking_status_type)
-	VALUES($space_id,$user_id,STR_TO_DATE('$date_from', '%Y-%m-%d %T'),STR_TO_DATE('$date_to', '%Y-%m-%d %T'),$duration,$space_rate,$unit_price,3)";
-	echo $sql;
+	$sql = "INSERT INTO booking(user_id,space_id, booking_date_start,booking_date_end, package_id, unit_price,booking_status_type)
+	VALUES($space_id,$user_id,STR_TO_DATE('$date_from', '%Y-%m-%d %T'),STR_TO_DATE('$date_to', '%Y-%m-%d %T'),$space_rate,$unit_price,3)";
+
+	 $booking_id = -1;
+	
 	$result = $connection->query($sql);
 
 
-	if ($connection->query($sql) === TRUE) {
+	if ($result == TRUE) {
 	    // output data of each row
+
+
+	    $sql1 ="SELECT LAST_INSERT_ID() as booking_id";
+	    $id = $connection->query($sql1);
+	    $row = $id->fetch_assoc();
+	    $booking_id="WND000".$row["booking_id"];
 
 	    $sql2 = "SELECT * FROM users u where user_id=$user_id";
 	    $users = $connection->query($sql2);
@@ -84,7 +91,7 @@ function createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_
 	    $message =$message."</tr>";
 	    $message =$message."<tr>";
 	    $message =$message."<td>Booking Number</td>";
-	    $message =$message."<td>WND00019</td>";
+	    $message =$message."<td>".$booking_id."</td>";
 	    $message =$message."</tr>";
 	    $message =$message."<tr>";
 	    $message =$message."<td>Host</td>";
@@ -112,12 +119,14 @@ function createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_
 
 
 	    
-	    sendConfirmationMail($user_address, $user_firstname." ".$user_lastname,$hub_name,$message);
+	   sendConfirmationMail($user_address, $user_firstname." ".$user_lastname,$hub_name,$message);
 
 	    
 	} else {
 	    echo "Error";
 	}
+
+	return $booking_id;
 
 }
 

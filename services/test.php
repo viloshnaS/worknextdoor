@@ -1,30 +1,36 @@
 <?php
 
-//echo getDistance(43.5647,1.59421,43.6447,1.54421);
-function getDistance($lat1,$lng1,$lat2,$lng2)
+function getDistance($lat1,$lng1,$destinations)
 {
+		$URL = 'http://maps.googleapis.com/maps/api/distancematrix/json';
+		$query_string='origins='.$lat1.','.$lng1.'&destinations=';		
 
-		$sURL = 'http://maps.googleapis.com/maps/api/distancematrix/json';
-		$sQueryString='origins='.$lat1.','.$lng1.'&destinations='.$lat2.'%2C'.$lng2.'&mode=driving&units=metric&sensor=false';
-	
+		foreach($destinations as $dest){ //specifying the destinations which are location of spaces
+			$query_string = $query_string.$dest[1].','.$dest[2].'|';
+		}
+
+		$query_string = substr($query_string,0,-1);
+		$query_string = $query_string.'&mode=driving&units=metric&sensor=false';
+
         $cURL=curl_init();
-        curl_setopt($cURL,CURLOPT_URL,$sURL.'?'.$sQueryString);
+        curl_setopt($cURL,CURLOPT_URL,$URL.'?'.$query_string);
         curl_setopt($cURL,CURLOPT_RETURNTRANSFER, TRUE);
         $Response=trim(curl_exec($cURL));
         curl_close($cURL);
+       
+        $results=json_decode($Response);//converting JSON response to array
+        $elements_arr =$results->rows[0]->elements;
+        $space_distance = array();
+        $count=0;
 
-        $JSON=json_decode($Response);
-
-        $distance="";
-
-        if ($JSON->status=='OK'){
-        	$distance=(float)preg_replace('/[^\d\.]/','',$JSON->rows[0]->elements[0]->distance->text);
+        if ($results->status=='OK'){ 
+        	foreach($elements_arr as $element){//looping through response recevied from distance matrix api
+        		$space_distance[$destinations[$count][0]]= (float)preg_replace('/[^\d\.]/','',$element->distance->text);
+        		$count++;        		
+        	}
         }
-		else{
-        	$distance=0;
-		}
-
-        return $distance;
+	
+        return $space_distance;
 }
  
 

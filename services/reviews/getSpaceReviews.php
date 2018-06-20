@@ -13,7 +13,7 @@ if(isset($_GET['space_id']) && !empty($_GET['space_id'])) {
 function getHubReviews($id){
 
 	global $connection;
-	$sql = "SELECT u.firstname,u.lastname,u.gender, 
+	$sql = "SELECT u.firstname,u.lastname,u.gender, u.picture,
 			ROUND(r.rating) AS rating, r.comment, r.date_posted
 			FROM users u,
 			hub_reviews r, spaces s
