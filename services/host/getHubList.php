@@ -3,13 +3,14 @@ header("Access-Control-Allow-Origin: *");
 require('../../connection.php');
 require('getSpaceList.php');
 $connection = $conn;
-/*
+
 if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
     getHub($user_id);
     
- }*/
- echo getHub(1);
+ }
+ 
+ //echo getHub(1);
  
  
 function getHub($id){
