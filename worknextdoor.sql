@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2018 at 11:11 AM
+-- Generation Time: Jul 04, 2018 at 04:02 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -358,25 +358,26 @@ CREATE TABLE `spaces` (
   `whiteboard` tinyint(1) NOT NULL,
   `screen` tinyint(1) NOT NULL,
   `projector` tinyint(1) NOT NULL,
-  `thumbnail_picture` varchar(50) NOT NULL
+  `thumbnail_picture` varchar(50) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `spaces`
 --
 
-INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`) VALUES
-(1, 1, 1, 1, 1, NULL, 0, 0, 0, 'hub_1/space1.jpeg'),
-(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpeg'),
-(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/space2.jpg'),
-(4, 2, 1, 1, 1, NULL, 0, 0, 0, 'hub_2/space3.jpg'),
-(5, 3, 1, 1, 1, NULL, 1, 0, 0, 'hub_3/atelier2.jpg'),
-(6, 4, 2, 12, 1, NULL, 0, 1, 1, 'hub_4/meeting_room.jpeg'),
-(7, 5, 1, 1, 1, NULL, 0, 0, 0, 'hub_5/hub1.jpg'),
-(8, 6, 2, 8, 1, NULL, 1, 0, 0, 'hub_6/bright_studio.jpg'),
-(9, 7, 2, 12, 1, 20, 1, 1, 1, 'hub_7/tau4.jpg'),
-(10, 7, 1, 1, 1, NULL, 0, 0, 0, 'hub_7/tau2.jpg'),
-(11, 8, 2, 100, 1, NULL, 1, 0, 0, 'hub_8/hall1.jpg');
+INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`, `active`) VALUES
+(1, 1, 1, 1, 1, NULL, 0, 0, 0, 'hub_1/space1.jpeg', 1),
+(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpeg', 1),
+(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/space2.jpg', 1),
+(4, 2, 1, 1, 1, NULL, 0, 0, 0, 'hub_2/space3.jpg', 1),
+(5, 3, 1, 1, 1, NULL, 1, 0, 0, 'hub_3/atelier2.jpg', 1),
+(6, 4, 2, 12, 1, NULL, 0, 1, 1, 'hub_4/meeting_room.jpeg', 1),
+(7, 5, 1, 1, 1, NULL, 0, 0, 0, 'hub_5/hub1.jpg', 1),
+(8, 6, 2, 8, 1, NULL, 1, 0, 0, 'hub_6/bright_studio.jpg', 1),
+(9, 7, 2, 12, 1, 20, 1, 1, 1, 'hub_7/tau4.jpg', 1),
+(10, 7, 1, 1, 1, NULL, 0, 0, 0, 'hub_7/tau2.jpg', 1),
+(11, 8, 2, 100, 1, NULL, 1, 0, 0, 'hub_8/hall1.jpg', 1);
 
 -- --------------------------------------------------------
 
