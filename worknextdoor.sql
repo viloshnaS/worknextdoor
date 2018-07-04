@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2018 at 04:45 PM
+-- Generation Time: Jul 04, 2018 at 11:11 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -134,8 +134,8 @@ CREATE TABLE `hubs` (
   `air_con` tinyint(1) NOT NULL,
   `wifi` tinyint(1) NOT NULL,
   `picture` text NOT NULL,
-  `date_posted` date NOT NULL,
-  `last_booked` date NOT NULL,
+  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_booked` timestamp NULL DEFAULT NULL,
   `weekends` tinyint(1) NOT NULL,
   `public_holidays` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
@@ -146,14 +146,14 @@ CREATE TABLE `hubs` (
 --
 
 INSERT INTO `hubs` (`hub_id`, `name`, `description`, `user_id`, `latitude`, `longitude`, `address`, `parking`, `kitchen`, `printer_scanner`, `heater`, `air_con`, `wifi`, `picture`, `date_posted`, `last_booked`, `weekends`, `public_holidays`, `active`) VALUES
-(1, 'Squadra CoWorking', 'Located in the heart of Toulouse, 2 minutes from Jean Jaures Metro(line A and B). There are several restaurants and shops nearby. The space was founded in 2013 and offers the best facilities.', 1, 43.6058, 1.4473, '2 Rue Victor Hugo, 31000 Toulouse', 0, 1, 1, 1, 1, 1, '[\"hub_1/space1.jpeg\",\"hub_1/space2.jpeg\",\"hub_1/space3.jpeg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(2, 'Harry Cow', 'Harry Cow offers short term furnished, low cost, office rentals at and affordable price. Free access to beautiful conference room, free printing, receptionist to meet & greet your clients, wifi access, an more much.', 2, 43.6023, 1.44169, 'Rue Sainte-Ursule, Toulouse', 1, 1, 1, 1, 1, 1, '[\"hub_2/space1.jpg\",\"hub_2/space2.jpg\",\"hub_2/space3.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(3, 'Atelier at Colomiers', 'Located in a calm and soothing suburb, The atelier targets engineers. Modern tools available for building and testing prototypes.', 3, 43.5885, 1.35367, '45 Boulevard Vincent Auriol, 31170 Tournefeuille', 0, 1, 1, 1, 1, 1, '[\"hub_3/atelier1.jpg\",\"hub_3/atelier2.jpg\",\"hub_3/atelier4.jpg\",\"hub_3/atelier3.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(4, 'Sopra Steria', 'Spacious Conference Room to rent at Sopra Steria Rue des ramassiers site. Modern and high security building with all facilities.', 4, 43.6004, 1.35331, 'Esplanade des Ramassiers, Colomiers', 1, 1, 1, 1, 1, 1, '[\"hub_4/conference.jpeg\",\"hub_4/meeting_room.jpeg\",\"hub_4/meeting2.jpeg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(5, 'Share Hub', 'Join Toulouse\'s most engaged community of designers, developers, social change agents, artists and entrepreneurs that have converged to share ideas, innovate and learn in a collaborative and nurturing environment. Located in the heart of the industrial zone of Labege.', 1, 43.5399, 1.5115, 'Avenue la Meridienne, 31670 Labege', 1, 1, 0, 1, 0, 1, '[\"hub_5/hub1.jpg\",\"hub_5/hub2.jpg\",\"hub_5/hub3.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(6, 'Bright Studio', 'The studio is located near the centre of Toulouse (next to the metro station Saint Michel)in a very nice building built in the 19th century. Cozy studio of 20m2 with desks, chair, a sofa bed and good internet connection', 2, 43.5859, 1.44715, '29 Grande Rue Saint-Michel, 31400 Toulouse, France', 0, 0, 1, 1, 0, 1, '[\"hub_6/bright_studio.jpg\",\"hub_6/bright_studio2.jpg\",\"hub_6/bright_studio3.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(7, 'Tau Co-working', 'Tau Co working spaces provides private, furnished, equipped and staffed temporary office space. All configurations from executive layouts to team rooms to conference rooms by the hour. It is close to Airbus', 3, 43.6108, 1.37384, '15 Chemin de la Crabe, 31300 Toulouse', 1, 1, 1, 1, 0, 1, '[\"hub_7/tau1.jpg\",\"hub_7/tau2.jpg\",\"hub_7/tau3.jpg\",\"hub_7/tau4.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1),
-(8, 'Open Hall', 'Big Hall in Ramonville near Public transport. Ideal for meetings with large number of people(100). Can be rented for dance and yoga classes', 4, 43.5428, 1.47801, '76 Avenue Tolosane, 31520 Ramonville-Saint-Agne', 1, 1, 0, 1, 1, 0, '[\"hub_8/hall1.jpg\",\"hub_8/hall2.jpg\"]', '0000-00-00', '0000-00-00', 0, 0, 1);
+(1, 'Squadra CoWorking', 'Located in the heart of Toulouse, 2 minutes from Jean Jaures Metro(line A and B). There are several restaurants and shops nearby. The space was founded in 2013 and offers the best facilities.', 1, 43.6058, 1.4473, '2 Rue Victor Hugo, 31000 Toulouse', 0, 1, 1, 1, 1, 1, '[\"hub_1/space1.jpeg\",\"hub_1/space2.jpeg\",\"hub_1/space3.jpeg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(2, 'Harry Cow', 'Harry Cow offers short term furnished, low cost, office rentals at and affordable price. Free access to beautiful conference room, free printing, receptionist to meet & greet your clients, wifi access, an more much.', 2, 43.6023, 1.44169, 'Rue Sainte-Ursule, Toulouse', 1, 1, 1, 1, 1, 1, '[\"hub_2/space1.jpg\",\"hub_2/space2.jpg\",\"hub_2/space3.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(3, 'Atelier at Colomiers', 'Located in a calm and soothing suburb, The atelier targets engineers. Modern tools available for building and testing prototypes.', 3, 43.5885, 1.35367, '45 Boulevard Vincent Auriol, 31170 Tournefeuille', 0, 1, 1, 1, 1, 1, '[\"hub_3/atelier1.jpg\",\"hub_3/atelier2.jpg\",\"hub_3/atelier4.jpg\",\"hub_3/atelier3.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(4, 'Sopra Steria', 'Spacious Conference Room to rent at Sopra Steria Rue des ramassiers site. Modern and high security building with all facilities.', 4, 43.6004, 1.35331, 'Esplanade des Ramassiers, Colomiers', 1, 1, 1, 1, 1, 1, '[\"hub_4/conference.jpeg\",\"hub_4/meeting_room.jpeg\",\"hub_4/meeting2.jpeg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(5, 'Share Hub', 'Join Toulouse\'s most engaged community of designers, developers, social change agents, artists and entrepreneurs that have converged to share ideas, innovate and learn in a collaborative and nurturing environment. Located in the heart of the industrial zone of Labege.', 1, 43.5399, 1.5115, 'Avenue la Meridienne, 31670 Labege', 1, 1, 0, 1, 0, 1, '[\"hub_5/hub1.jpg\",\"hub_5/hub2.jpg\",\"hub_5/hub3.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(6, 'Bright Studio', 'The studio is located near the centre of Toulouse (next to the metro station Saint Michel)in a very nice building built in the 19th century. Cozy studio of 20m2 with desks, chair, a sofa bed and good internet connection', 2, 43.5859, 1.44715, '29 Grande Rue Saint-Michel, 31400 Toulouse, France', 0, 0, 1, 1, 0, 1, '[\"hub_6/bright_studio.jpg\",\"hub_6/bright_studio2.jpg\",\"hub_6/bright_studio3.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(7, 'Tau Co-working', 'Tau Co working spaces provides private, furnished, equipped and staffed temporary office space. All configurations from executive layouts to team rooms to conference rooms by the hour. It is close to Airbus', 3, 43.6108, 1.37384, '15 Chemin de la Crabe, 31300 Toulouse', 1, 1, 1, 1, 0, 1, '[\"hub_7/tau1.jpg\",\"hub_7/tau2.jpg\",\"hub_7/tau3.jpg\",\"hub_7/tau4.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1),
+(8, 'Open Hall', 'Big Hall in Ramonville near Public transport. Ideal for meetings with large number of people(100). Can be rented for dance and yoga classes', 4, 43.5428, 1.47801, '76 Avenue Tolosane, 31520 Ramonville-Saint-Agne', 1, 1, 0, 1, 1, 0, '[\"hub_8/hall1.jpg\",\"hub_8/hall2.jpg\"]', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
 
