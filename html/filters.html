@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/filter.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="js/script.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
 
     
 </head>
@@ -34,11 +37,11 @@
     <table>
       <tr >
               <td class="div_date_from"  style="display: none;">Date</td>
-              <td class="div_date_from"  style="display: none;"><input class="datepicker" id="date_from" type ="date" data-role="date"></td>
+              <td class="div_date_from"  style="display: none;"><input class="datepicker" id="date_from" type ="date" ></td>
       </tr>
       <tr>
               <td class="div_date_to"  style="display: none;">To</td>
-              <td class="div_date_to"  style="display: none;"><input class="datepicker" id="date_to" type ="date" data-role="date"></td>
+              <td class="div_date_to"  style="display: none;"><input class="datepicker" id="date_to" type ="date" ></td>
       <tr>
               <td class="div_month" style="display: none;">Number of Months</td>
               <td class="div_month" style="display: none;"><input id="month" type ="text" size="3"></td>
@@ -173,8 +176,9 @@
 
       <tr>
         <td>
-          <button id="submit_btn">Save</a>
+          <a id="submit_btn" data-rel="back">Search</a>
         </td>
+        
 
       </tr>
 
@@ -182,11 +186,16 @@
 
 
   </div>
+  <div id="div_results"></div>
 </body>
 
 <script>
         $(document).ready(function(){
-            document.getElementById("capacity").disabled = true;
+
+            initializefilters();
+
+
+            
           
             $(".rate").click(function(){
                 
@@ -251,7 +260,7 @@
             });
 
             $("#submit_btn").click(function(){
-                var flag = true;
+          
                 var space_rate =$( "#space_rate" ).val();
 
                 var date_time_from="";
@@ -371,7 +380,6 @@
 
                 if($("#kitchen").is(':checked')){
 
-                  alert("cdsfvsdf");
                   var kitchen = 1;
 
                 }
@@ -413,35 +421,155 @@
                   var printer_scanner = 0;
                 }
                 
-                if(flag){
+      
                   localStorage.setItem("date_from",date_time_from);
                   localStorage.setItem("date_to",date_time_to);
+                  localStorage.setItem("duration",$( "#month" ).val());
                   localStorage.setItem("space_rate",space_rate);
+
+                  localStorage.setItem("space_type",space_type);
+                  localStorage.setItem("capacity",capacity);
+                  localStorage.setItem("price_min",price_min);
+                  localStorage.setItem("price_max",price_max);
+
+                  localStorage.setItem("screen",screen);
+                  localStorage.setItem("projector",projector);
+
+                  localStorage.setItem("whiteboard",whiteboard);
+                  localStorage.setItem("parking",parking);
+
+                  localStorage.setItem("kitchen",kitchen);
+                  localStorage.setItem("heater",heater);
+                  localStorage.setItem("wifi",wifi);
+
+
+
+                  localStorage.setItem("air_con",air_con);
+                  localStorage.setItem("printer_scanner",printer_scanner);
+
+                  $.when(initResultList()).done(function(){
+
+                    window.parent.document.getElementById('div_results').innerHTML=$("#div_results").html();
+                    $("#div_results").html("");
+
+                    
+
+                  });
+
+
                   
-
-                  window.parent.document.getElementById('space_rate').value=space_rate;
-                  window.parent.document.getElementById('date_from').value=date_time_from;
-                  window.parent.document.getElementById('date_to').value=date_time_to;
-
-                  window.parent.document.getElementById('space_type').value=space_type;
-                  window.parent.document.getElementById('capacity').value=capacity;
-                  window.parent.document.getElementById('price_min').value=price_min;
-                  window.parent.document.getElementById('price_max').value=price_max;
-                  window.parent.document.getElementById('screen').value=screen;
-                  window.parent.document.getElementById('projector').value=projector;
-                  window.parent.document.getElementById('whiteboard').value=whiteboard;
-                  window.parent.document.getElementById('parking').value=parking;
-                  window.parent.document.getElementById('kitchen').value=kitchen;
-                  window.parent.document.getElementById('heater').value=heater;
-                  window.parent.document.getElementById('air_con').value=air_con;
-                  window.parent.document.getElementById('printer_scanner').value=printer_scanner;
-
-                  window.parent.document.getElementById('printer_scanner').style.display="none";
-                
-                }
-
             });
         });
+    </script>
+
+    <script>
+      function initializefilters(){
+
+  
+
+        if(localStorage.getItem("screen") == 1){
+          
+            $("#screen").prop('checked', true);
+
+        }
+
+        if(localStorage.getItem("projector") == 1){
+          
+            $("#projector").prop('checked', true);
+
+        }
+
+        if(localStorage.getItem("whiteboard") == 1){
+          
+            $("#whiteboard").prop('checked', true);
+
+        }
+
+        if(localStorage.getItem("kitchen") == 1){
+          
+            $("#kitchen").prop('checked', true);
+
+        }
+
+        if(localStorage.getItem("parking") == 1){
+          
+            $("#parking").prop('checked', true);
+
+        }
+        if(localStorage.getItem("heater") == 1){
+          
+            $("#heater").prop('checked', true);
+
+        }
+        if(localStorage.getItem("wifi") == 1){
+          
+            $("#wifi").prop('checked', true);
+
+        }
+        if(localStorage.getItem("air_con") == 1){
+          
+            $("#air_con").prop('checked', true);
+
+        }
+        if(localStorage.getItem("printer_scanner") == 1){
+          
+            $("#printer_scanner").prop('checked', true);
+
+        }
+
+        $("#price-min").val(localStorage.getItem("price_min"));
+        $("#price-max").val(localStorage.getItem("price_max"));
+
+         $("#space_type").val(localStorage.getItem("space_type")).change();
+       
+        if(localStorage.getItem("space_type")==2){
+            $("#capacity").val(localStorage.getItem("capacity"));
+         
+        }
+        else{
+           $("#capacity").val("");
+           document.getElementById("capacity").disabled = true;
+
+        }
+
+        var rate = localStorage.getItem("space_rate");
+        var date_from = localStorage.getItem("date_from");
+        var date_to = localStorage.getItem("date_to");
+        if(rate ==1){ //hourly
+          $(".div_date_from").show();
+          $(".div_time").show();
+          $("#date_from").val(date_from.substring(0,10));
+          $("#time_from").val(date_from.substring(10,13)).change();
+          $("#time_to").val(date_to.substring(10,13)).change();
+          $("#space_rate" ).val("1");
+
+        }
+        else if(rate ==2){
+         
+          $(".div_date_from").show();
+          $(".div_date_to").show();
+          $("#date_from").val(date_from.substring(0,10));
+          $("#date_to").val(date_to.substring(0,10));
+           $( "#space_rate" ).val("2");
+        }
+        else if(rate==3){
+
+          $(".div_date_from").show();
+          $(".div_month").show();
+          $("#date_from").val(date_from.substring(0,10));
+          $( "#space_rate" ).val("3");
+          $( "#duration" ).val(localStorage.getItem("duration"));
+
+          
+
+        }
+
+       
+       
+
+
+    }
+               
     </script>
 
 </html>

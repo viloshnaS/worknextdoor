@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=changeLocation&libraries=places"></script>
     <script>
         $(document).ready(function(){
 
@@ -25,10 +25,6 @@
             }
 
           var display = $.urlParam('display');
-
-   
-          $("#latitude").val(localStorage.getItem("latitude"));
-          $("#longitude").val(localStorage.getItem("longitude"));
 
           if(display=="search"){
             initResultList();
@@ -62,6 +58,8 @@
 
             });
 
+           
+
            $("#back").click(function(){
 
                 history.back();
@@ -87,45 +85,27 @@
           </tr>
           </table>
         </div>
-        <input type="hidden" id="latitude">
-        <input type="hidden" id="longitude">
         <div id="map"  style="display: none;"></div> <br>
     
 
   <table width='100%'>
     <tr>
-      <td align="center" width="50%"><a href="#popupMap" id="btn_filter" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline button_class" data-rel="popup">Filters</a></td>
-      <td align="center" width=50%><button id="btn_submit" class="ui-btn ui-corner-all ui-shadow ui-btn-inline button_class">Search</button><td>
+      <td align="center" width="30%"><a href="#popupMap" id="btn_filter" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline button_class" data-rel="popup">Filters</a>
+       
+      </td>
+    
+      
     </tr>
   </table>
-
+<div id="div_results"></div>
 
 <div data-role="popup" id="popupMap" data-overlay-theme="a" data-theme="a" data-corners="false" data-tolerance="15,15">
     <a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-<a href="#" data-rel="back" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Save</a>
     <iframe src="filters.html" id="filter_frame" seamless=""></iframe>
 
-  <input type="hidden" value ="" id="latitude">
-    <input type="hidden" value ="" id="longitude">
-    <input type="hidden" value ="" id="space_rate">
-    <input type="hidden" value ="" id="date_from">
-    <input type="hidden" value ="" id="date_to">
-    <input type="hidden" value ="" id="space_type">
-    <input type="hidden" value ="1" id="capacity">
-    <input type="hidden" value ="0" id="price_min">
-    <input type="hidden" value ="1000000" id="price_max">
-    <input type="hidden" value ="0" id="screen">
-    <input type="hidden" value ="0" id="projector">
-    <input type="hidden" value ="0" id="whiteboard">
-    <input type="hidden" value ="0" id="parking">
-    <input type="hidden" value ="0" id="kitchen">
-    <input type="hidden" value ="0" id="wifi">
-    <input type="hidden" value ="0" id="heater">
-    <input type="hidden" value ="0" id="air_con">
-    <input type="hidden" value ="0" id="printer_scanner">
 </div>
 
-  <div id="div_results"></div>
+  
 
 
     <img id="mapview_btn" src='img/map_icon.png'></img>
