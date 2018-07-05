@@ -6,7 +6,7 @@ $connection = $conn;
 
 $hub_id=$_POST['hub_id'];
 $space_type=$_POST['space_type'];
-$space_name=$_POST['space_namee'];
+$space_name=$_POST['space_name'];
 $number_of_guests=$_POST['number_of_guests'];
 $number_of_spaces=$_POST['number_of_spaces'];
 $size=$_POST['size'];
