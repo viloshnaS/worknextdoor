@@ -151,24 +151,26 @@ function displayResultsThumbnail(response){
 
 function initResultList(){
 
-              var _latitude = $("#latitude").val();
-                var _longitude = $("#longitude").val();
-                var _space_rate = $("#space_rate").val();
-                var _date_from = $("#date_from").val();
-                var _date_to = $("#date_to").val();
-                var _space_type = $("#space_type").val();
-                var _capacity = $("#capacity").val();
-                var _price_min = $("#price_min").val();
-                var _price_max = $("#price_max").val();
-                var _screen = $("#screen").val();
-                var _projector = $("#projector").val();
-                var _whiteboard = $("#whiteboard").val();
-                var _wifi = $("#wifi").val();
-                var _kitchen = $("#kitchen").val();
-                var _parking = $("#parking").val();
-                var _heater = $("#heater").val();
-                var _air_con = $("#air_con").val();
-                var _printer_scanner = $("#printer_scanner").val();
+
+
+                var _latitude = localStorage.getItem("latitude");
+                var _longitude = localStorage.getItem("longitude");
+                var _space_rate = localStorage.getItem("space_rate");
+                var _date_from = localStorage.getItem("date_from");
+                var _date_to = localStorage.getItem("date_to");
+                var _space_type = localStorage.getItem("space_type");
+                var _capacity = localStorage.getItem("capacity");
+                var _price_min = localStorage.getItem("price_min");
+                var _price_max = localStorage.getItem("price_max");
+                var _screen = localStorage.getItem("screen");
+                var _projector = localStorage.getItem("projector");
+                var _whiteboard = localStorage.getItem("whiteboard");
+                var _wifi = localStorage.getItem("wifi");
+                var _kitchen = localStorage.getItem("kitchen");
+                var _parking = localStorage.getItem("parking");
+                var _heater = localStorage.getItem("heater");
+                var _air_con = localStorage.getItem("aircon");
+                var _printer_scanner = localStorage.getItem("printer_scanner");
 
                
                 fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
@@ -188,6 +190,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 	$.ajax({
                    url : URL+'/spaces/getSpacesWithFilters.php',
                    type : 'GET',
+                   async: false,
                    crossDomain: true,
                    data: { latitude:_latitude,
                           longitude:_longitude,
@@ -210,6 +213,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
+
                       localStorage.setItem("resultList",response);
                       if(_display=='list'){
           				      
@@ -559,7 +563,7 @@ function getSpaceReviews(id){
                    crossDomain: true,
                    data: { space_id:id } ,
                    success : function(response){ // success est toujours en place, bien sûr !
-                  
+                          
                          displaySpaceReviews(response);
                         }
             ,
@@ -614,7 +618,7 @@ function getNumberOfDays(date1,date2){
     var difference_ms = Math.abs(date1_ms - date2_ms);
 
     // Convert back to days and return
-    return Math.round(difference_ms/one_day);
+    return (Math.round(difference_ms/one_day))+1;
 
 
 };
@@ -675,5 +679,79 @@ function getAvailableDates(_space_id){
                 });
 
 }
+function clearfilters(){
+                  localStorage.setItem("latitude",localStorage.getItem("myLatitude"));
+                  localStorage.setItem("longitude",localStorage.getItem("myLongitude"));
+                  localStorage.setItem("space_rate","");
+                  localStorage.setItem("date_from","");
+                  localStorage.setItem("duration","");
+                  localStorage.setItem("date_to","");
+                  localStorage.setItem("space_rate","");
+                  localStorage.setItem("space_type","");
+                  localStorage.setItem("capacity","1");
+                  localStorage.setItem("price_min","0");
+                  localStorage.setItem("price_max","1000");
+
+                  localStorage.setItem("screen","");
+                  localStorage.setItem("projector","");
+
+                  localStorage.setItem("whiteboard","");
+                  localStorage.setItem("parking","");
+
+                  localStorage.setItem("kitchen","");
+                  localStorage.setItem("heater","");
+                  localStorage.setItem("wifi","");
+
+
+                  localStorage.setItem("air_con","");
+                  localStorage.setItem("printer_scanner","");  
+}
+
+
+function getSpaceList(id){
+  $.ajax({
+                   url : URL+'/host/getHubList.php',
+                   type : 'GET',
+                   crossDomain: true,
+                   data: { user_id:id } ,
+                   success : function(response){ // success est toujours en place, bien sûr !
+                         
+						
+						  $("#host_spaces").html(response); 
+						  
+						  
+                         displayhostHubList(response);
+                        }
+            ,
+
+                   error : function(resultat, statut, erreur){
+
+                   }
+
+                });
+
+};
+
+function displayhostHubList(results){
+
+      var result_arr = JSON.parse(results); // converting results to JSON object
+      display_string ="";
+      result_arr.forEach(function(hub) { 
+          display_string = display_string+"<ul><li>";
+          display_string = display_string+hub.name; 
+          hub.spaces.forEach(function(space) {
+            display_string = display_string+"<ul><li>";
+            display_string = display_string+"<a href='#'>";
+            display_string = display_string+space.space_type;
+            display_string = display_string+"</a>"; 
+            display_string = display_string+"</li></ul>";
+          });
+          display_string = display_string+"</li></ul>";
+
+       });
+
+       $("#host_spaces").html(display_string);
+
+};
 
 
