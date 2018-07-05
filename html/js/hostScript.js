@@ -1,7 +1,7 @@
 
 
 
-
+var URL ="http://localhost:80/services";
 
 
 var arrHubPicture = [];
@@ -21,7 +21,7 @@ $("#hubPicture").change(function(e) {
     $("#showImage").html(html);
 });
 
-function submitNewHub(){
+function submitNewHub(lat, lng){
 	var hubName = $("#hubName").val();
 	var hubAddress = $("#hubAddress").val();
 	var hubDescription = $("#hubDescription").val();
@@ -29,26 +29,45 @@ function submitNewHub(){
 	var printer = $("#printer").is(':checked') ? 1:0;
 	var kitchen = $("#kitchen").is(':checked') ? 1:0;
 	var heater = $("#heater").is(':checked') ? 1:0;
-	var projector = $("#projector").is(':checked') ? 1:0;
-	var coffeeMachine = $("#coffeeMachine").is(':checked') ? 1:0;
+	var wifi = $("#wifi").is(':checked') ? 1:0;
 	var parking = $("#parking").is(':checked') ? 1:0;
 
+	var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
+	var weekend = $("#weekend").is(':checked') ? 1:0;
+
+	var latitude = 0;
+	var longitude = 0;
+
+	var geocoder = new google.maps.Geocoder();
+    var textAddress = document.getElementById('hubAddress').value;
+
+    geocoder.geocode({ 'address': textAddress }, function (results, status) {
+        if (status === 'OK') {
+            latitude = results[0].geometry.location.lat();
+            longitude = results[0].geometry.location.lng();
+        }
+    });
+
 	var uploadData = {
-		hubName : hubName,
-		hubAddress : hubAddress,
-		hubDescription : hubDescription,
-		airCondition : airCondition,
-		printer : printer,
+		user_id : 7,
+		name : hubName,
+		address : hubAddress,
+		latitude : parseFloat(lat),
+		longitude : parseFloat(lng),
+		description : hubDescription,
+		aircon : airCondition,
+		printer_scanner : printer,
 		kitchen : kitchen,
 		heater : heater,
-		projector : projector,
-		coffeeMachine : coffeeMachine,
+		wifi : wifi,
 		parking : parking,
-		arrHubPicture : arrHubPicture
+		public_holidays : publicHoliday,
+		weekends : weekend,
+		picture : arrHubPicture.toString()
 	}
 
 	$.ajax({
-       	url : URL+'/spaces/createHub.php',
+       	url : URL+'/host/createHub.php',
        	type : 'POST',
        	async: false,
        	crossDomain: true,
