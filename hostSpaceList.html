@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>
+
+    <script src="js/index.js"></script>
+    <script src="js/script.js"></script>
+     <link rel="stylesheet" href="css/index.css">
+     <link rel="stylesheet" href="css/common.css">
+     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
+	<script>
+        $(document).ready(function(){
+			
+			var user_id = localStorage.getItem("user_id");
+			
+			getSpaceList(user_id);
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+        });
+    </script>
+
+   
+</head>
+
+<body>
+        <div id="div_location">
+          <table>
+            <tr>
+                <td width="10%"><span id="back"><i class='material-icons'>arrow_back</i></span></td>
+                <td width ="10%"><span id="home"><i class='material-icons'>home</i></span></td>
+          </tr>
+          </table>
+        </div>
+		
+		<h3>My Spaces</h3>
+		
+		<div id="host_spaces">
+			
+			
+	    </div>   
+      	
+				  
+</body>
+</html>
