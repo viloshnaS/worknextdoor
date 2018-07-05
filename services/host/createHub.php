@@ -21,22 +21,22 @@ $wifi=$_POST['wifi'];
 //$last_booked =$_POST['last_booked'];
 $weekends=$_POST['weekends']; 
 $public_holidays=$_POST['public_holidays'];
-$active=$_POST['active']; 
+
  
 
 
 
-createHub($name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays,$active);
+createHub($name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays);
 
 /*
-createHub('La Kooloc','La KOOLOC n’est pas un simple lieu de travail, c’est un lieu de coworking d’échanges et de partage pour travailler autrement',12,43.606861,1.396750,'7 Rue Georges Vedel, 31300 Toulouse',1,1,1,1,1,1,1,1,1);
+createHub('La Kooloc','La KOOLOC n’est pas un simple lieu de travail, c’est un lieu de coworking d’échanges et de partage pour travailler autrement',12,43.606861,1.396750,'7 Rue Georges Vedel, 31300 Toulouse',1,1,1,1,1,1,1,1);
 */
 
-function createHub($name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays,$active){
+function createHub($name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays){
 	global $connection;
 
-	$sql = "INSERT INTO hubs(name, description,user_id,latitude,longitude,address,parking,kitchen,printer_scanner,heater,air_con,wifi,weekends,public_holidays,active)
-	VALUES('$name','$description',$user_id,$latitude,$longitude,'$address',$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays,$active)";
+	$sql = "INSERT INTO hubs(name, description,user_id,latitude,longitude,address,parking,kitchen,printer_scanner,heater,air_con,wifi,weekends,public_holidays)
+	VALUES('$name','$description',$user_id,$latitude,$longitude,'$address',$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays)";
 	
 	echo $sql;
 	$result = $connection->query($sql);
