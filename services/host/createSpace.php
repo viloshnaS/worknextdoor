@@ -19,7 +19,7 @@ $projector=$_POST['projector'];
 createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector);
 
 /*
-createSpace(10,1,1,1,27,1,1,1);
+createSpace(5,1,1,1,27,1,1,1);
 */
 
 function createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector){
