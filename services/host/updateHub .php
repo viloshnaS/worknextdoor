@@ -16,19 +16,20 @@ $printer_scanner=$_POST['printer_scanner'];
 $heater=$_POST['heater']; 
 $aircon=$_POST['aircon']; 
 $wifi=$_POST['wifi']; 
+$picture=$_POST['picture']; 
 $weekends=$_POST['weekends']; 
 $public_holidays=$_POST['public_holidays'];
 $active=$_POST['active']; 
 
 
 
-updateHub($id,$name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays,$active);
+updateHub($id,$name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$picture,$weekends,$public_holidays,$active);
 
 /*
 updateHub(10,'Regus','Solution de espace de travail coworking domiciliation entreprise, Businessworld',8,43.571514,1.425154,'8 esplanade Compans Caffarelli Immeuble Atria 31000 Toulouse',1,1,1,1,1,1,1,1,1);
 */
 
-function updateHub($id,$name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$weekends,$public_holidays,$active){
+function updateHub($id,$name,$description,$user_id,$latitude,$longitude,$address,$parking,$kitchen,$printer,$heater,$aircon,$wifi,$picture,$weekends,$public_holidays,$active){
 	global $connection;
 
 	$sql = "UPDATE hubs 
@@ -44,6 +45,7 @@ function updateHub($id,$name,$description,$user_id,$latitude,$longitude,$address
 			heater='$heater',
 			air_con='$aircon',
 			wifi='$wifi',
+			picture='$picture',
 			weekends='$weekends',
 			public_holidays='$public_holidays',
 			active='$active'
