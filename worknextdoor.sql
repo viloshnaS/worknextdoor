@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2018 at 09:41 AM
+-- Generation Time: Jul 05, 2018 at 11:14 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -352,6 +352,7 @@ CREATE TABLE `spaces` (
   `space_id` int(11) NOT NULL,
   `hub_id` int(11) NOT NULL,
   `space_type` int(11) NOT NULL,
+  `space_name` varchar(50) NOT NULL,
   `number_of_guests` int(11) NOT NULL,
   `number_of_spaces` int(11) NOT NULL,
   `size` int(11) DEFAULT NULL,
@@ -366,18 +367,18 @@ CREATE TABLE `spaces` (
 -- Dumping data for table `spaces`
 --
 
-INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`, `active`) VALUES
-(1, 1, 1, 1, 1, NULL, 0, 0, 0, 'hub_1/space1.jpeg', 1),
-(2, 1, 2, 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpeg', 1),
-(3, 2, 2, 10, 1, NULL, 1, 1, 1, 'hub_2/space2.jpg', 1),
-(4, 2, 1, 1, 1, NULL, 0, 0, 0, 'hub_2/space3.jpg', 1),
-(5, 3, 1, 1, 1, NULL, 1, 0, 0, 'hub_3/atelier2.jpg', 1),
-(6, 4, 2, 12, 1, NULL, 0, 1, 1, 'hub_4/meeting_room.jpeg', 1),
-(7, 5, 1, 1, 1, NULL, 0, 0, 0, 'hub_5/hub1.jpg', 1),
-(8, 6, 2, 8, 1, NULL, 1, 0, 0, 'hub_6/bright_studio.jpg', 1),
-(9, 7, 2, 12, 1, 20, 1, 1, 1, 'hub_7/tau4.jpg', 1),
-(10, 7, 1, 1, 1, NULL, 0, 0, 0, 'hub_7/tau2.jpg', 1),
-(11, 8, 2, 100, 1, NULL, 1, 0, 0, 'hub_8/hall1.jpg', 1);
+INSERT INTO `spaces` (`space_id`, `hub_id`, `space_type`, `space_name`, `number_of_guests`, `number_of_spaces`, `size`, `whiteboard`, `screen`, `projector`, `thumbnail_picture`, `active`) VALUES
+(1, 1, 1, 'spacious workdesk', 1, 1, NULL, 0, 0, 0, 'hub_1/space1.jpeg', 1),
+(2, 1, 2, 'nice conference room', 6, 1, NULL, 1, 1, 1, 'hub_1/space3.jpeg', 1),
+(3, 2, 2, 'large conference room', 10, 1, NULL, 1, 1, 1, 'hub_2/space2.jpg', 1),
+(4, 2, 1, 'modern workdesk', 1, 1, NULL, 0, 0, 0, 'hub_2/space3.jpg', 1),
+(5, 3, 1, 'nice workdesk', 1, 1, NULL, 1, 0, 0, 'hub_3/atelier2.jpg', 1),
+(6, 4, 2, 'big conference room', 12, 1, NULL, 0, 1, 1, 'hub_4/meeting_room.jpeg', 1),
+(7, 5, 1, 'simple desk', 1, 1, NULL, 0, 0, 0, 'hub_5/hub1.jpg', 1),
+(8, 6, 2, 'bright conference room', 8, 1, NULL, 1, 0, 0, 'hub_6/bright_studio.jpg', 1),
+(9, 7, 2, 'huge conference room', 12, 1, 20, 1, 1, 1, 'hub_7/tau4.jpg', 1),
+(10, 7, 1, 'cool workdesk', 1, 1, NULL, 0, 0, 0, 'hub_7/tau2.jpg', 1),
+(11, 8, 2, 'grand conference room', 100, 1, NULL, 1, 0, 0, 'hub_8/hall1.jpg', 1);
 
 -- --------------------------------------------------------
 
