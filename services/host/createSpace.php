@@ -6,6 +6,7 @@ $connection = $conn;
 
 $hub_id=$_POST['hub_id'];
 $space_type=$_POST['space_type'];
+$space_name=$_POST['space_name'];
 $number_of_guests=$_POST['number_of_guests'];
 $number_of_spaces=$_POST['number_of_spaces'];
 $size=$_POST['size'];
@@ -16,17 +17,17 @@ $thumbnail_picture=$_POST['thumbnail_picture'];
 
 
 
-createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture);
+createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture);
 
 /*
-createSpace(4,1,1,1,27,1,1,1);
+createSpace(4,1,'work desk',1,1,27,1,1,1);
 */
 
-function createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture){
+function createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture){
 	global $connection;
 
-	$sql = "INSERT INTO spaces(hub_id, space_type,number_of_guests,number_of_spaces,size,whiteboard,screen,projector,thumbnail_picture)
-	VALUES($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture)";
+	$sql = "INSERT INTO spaces(hub_id, space_type,space_name,number_of_guests,number_of_spaces,size,whiteboard,screen,projector,thumbnail_picture)
+	VALUES($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture)";
 	
 	echo $sql;
 	$result = $connection->query($sql);
