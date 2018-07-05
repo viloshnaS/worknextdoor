@@ -13,20 +13,20 @@ $whiteboard=$_POST['whiteboard'];
 $screen=$_POST['screen'];
 $projector=$_POST['projector']; 
 //$thumbnail_picture=$_POST['thumbnail_picture']; 
-$active=$_POST['active'];
 
 
-createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$active);
+
+createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector);
 
 /*
-createSpace(10,1,1,1,27,1,1,1,1);
+createSpace(10,1,1,1,27,1,1,1);
 */
 
-function createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$active){
+function createSpace($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector){
 	global $connection;
 
-	$sql = "INSERT INTO spaces(hub_id, space_type,number_of_guests,number_of_spaces,size,whiteboard,screen,projector,active)
-	VALUES($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$active)";
+	$sql = "INSERT INTO spaces(hub_id, space_type,number_of_guests,number_of_spaces,size,whiteboard,screen,projector)
+	VALUES($hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector)";
 	
 	echo $sql;
 	$result = $connection->query($sql);
