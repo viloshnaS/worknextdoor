@@ -12,17 +12,19 @@ $size=$_POST['size'];
 $whiteboard=$_POST['whiteboard'];
 $screen=$_POST['screen'];
 $projector=$_POST['projector']; 
+$thumbnail_picture=$_POST['thumbnail_picture'];
 $active=$_POST['active'];
+ 
 
 
 
-updateSpace($id,$hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$active);
+updateSpace($id,$hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture,$active);
 
 /*
 updateSpace(12,10,2,4,1,30,1,1,1,1);
 */
 
-function updateSpace($id,$hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$active){
+function updateSpace($id,$hub_id,$space_type,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture,$active){
 	global $connection;
 
 	$sql = "UPDATE spaces 
@@ -34,6 +36,7 @@ function updateSpace($id,$hub_id,$space_type,$number_of_guests,$number_of_spaces
 			whiteboard='$whiteboard',
 			screen='$screen',
 			projector='$projector',
+			thumbnail_picture='$thumbnail_picture',
 			active='$active'
 			where space_id=$id";
 	
