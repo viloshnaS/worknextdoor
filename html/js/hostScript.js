@@ -35,19 +35,6 @@ function submitNewHub(lat, lng){
 	var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
 	var weekend = $("#weekend").is(':checked') ? 1:0;
 
-	var latitude = 0;
-	var longitude = 0;
-
-	var geocoder = new google.maps.Geocoder();
-    var textAddress = document.getElementById('hubAddress').value;
-
-    geocoder.geocode({ 'address': textAddress }, function (results, status) {
-        if (status === 'OK') {
-            latitude = results[0].geometry.location.lat();
-            longitude = results[0].geometry.location.lng();
-        }
-    });
-
 	var uploadData = {
 		user_id : 7,
 		name : hubName,
@@ -74,7 +61,12 @@ function submitNewHub(lat, lng){
 	   	// dataType: 'jsonp',
        	data: uploadData,
        	success : function(responseData){ 
-
+       		if(responseData > 0){
+       			window.location="hubavailability.html";
+       		} // Create successfully and return Hub ID
+       		else{
+       			console.log('Create hub failed');
+       		}
         }, error : function(err){
         	console.log(err);
        }
@@ -84,15 +76,17 @@ function submitNewHub(lat, lng){
 
 function getListHubByUserId(userId){
 	$.ajax({
-       	url : URL+'/spaces/getListHubByUserId.php',
+       	url : URL+'/host/getHubList.php',
        	type : 'POST',
        	async: false,
        	crossDomain: true,
 	   	// dataType: 'jsonp',
-       	data: {userId: userId},
+       	data: {userId: 7},
        	success : function(responseData){ 
+       		var html = "";
        		for(var i = 0; i < responseData.length; i++){
        			// add list hub to select tag 
+       			html = "<option value='" + responseData[i].hub_id + "'>" + responseData[i].name + "</option>"
        		}
         }, error : function(err){
         	console.log(err);
