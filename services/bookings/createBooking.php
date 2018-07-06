@@ -24,7 +24,7 @@ function createBooking($space_id,$user_id,$date_from,$date_to, $duration,$space_
 
 
 	$sql = "INSERT INTO booking(user_id,space_id, booking_date_start,booking_date_end, package_id, unit_price,booking_status_type)
-	VALUES($space_id,$user_id,STR_TO_DATE('$date_from', '%Y-%m-%d %T'),STR_TO_DATE('$date_to', '%Y-%m-%d %T'),$space_rate,$unit_price,3)";
+	VALUES($user_id,$space_id,STR_TO_DATE('$date_from', '%Y-%m-%d %T'),STR_TO_DATE('$date_to', '%Y-%m-%d %T'),$space_rate,$unit_price,3)";
 
 	 $booking_id = -1;
 	

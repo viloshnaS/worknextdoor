@@ -41,9 +41,8 @@
 
             $("#span_type").html(spaceObj.space_type_description + " at " + spaceObj.name);
             $("#span_host").html("Hosted by " + spaceObj.firstname);
-            alert(spaceObj.user_picture);
             if(spaceObj.user_picture!=''){
-              $("#span_picture").html("<img src='img/users/"+spaceObj.user_picture+"' class='user_image'/>");
+              $("#span_picture").html("<img src='img/user/"+spaceObj.user_picture+"' class='user_image'/>");
              
             }
             else{
@@ -80,12 +79,23 @@
               $("#span_duration").html(duration + " Days");
               $("#unit_price").html("<i class='material-icons euro_icon'>euro_symbol</i> "+unit_price + " per day");
             }
+
+            else if(space_rate ==3){
+              $("#span_date_from").html(_date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear()+ " to "+_date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_from.getFullYear() );
+              $("#span_rate").html("Monthly");
+              $("#span_time").html("07:00 to 23:00");
+              duration = localStorage.getItem("duration");
+              
+              $("#span_duration").html(duration + " Months");
+              $("#unit_price").html("<i class='material-icons euro_icon'>euro_symbol</i> "+unit_price + " per month");
+
+            }
             var total =parseInt(duration) * parseFloat(unit_price);
             $("#total_amount").html("<i class='material-icons euro_icon'>euro_symbol</i> "+total);
 
             $("#confirmBtn").click(function(){
 
-              createBooking(spaceObj.space_id,2,date_from,date_to,space_rate,unit_price,duration,spaceObj.name);
+              createBooking(spaceObj.space_id,7,date_from,date_to,space_rate,unit_price,duration,spaceObj.name);
 
 
             });
@@ -101,7 +111,7 @@
                 history.back();
 
             });
-           $("#homeBtn").click(function(){
+           $("#home").click(function(){
 
                 window.location="index.html";
 

@@ -33,7 +33,7 @@
 		$(".datepicker").datepicker({
             showOtherMonths: true,
             dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            numberOfMonths: [1,2],
+            numberOfMonths: [1,1],
             minDate:new Date(),
 			beforeShowDay: function(date) {
 				var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_from").val());
@@ -68,9 +68,14 @@
           $("#add_btn").click(function(){
           		var jsonObj = { "date_start": $( "#date_from" ).val(), "date_end":$( "#date_to" ).val()};
 
+              var _date_from = new Date($( "#date_from" ).val());
+              var _date_to = new Date($( "#date_to" ).val());
+
               var res = $("#date_display").html();
               res = res + "<br/>";
-              res = res + $( "#date_from" ).val()+" to " + $( "#date_to" ).val() ;
+              res = res + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear();
+              res = res + " to ";
+              res = res + _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear();
               $("#date_display").html(res);
           
             	selected_dates.push(jsonObj);
@@ -94,7 +99,9 @@
     <div id="home"><i class='material-icons'>home</i></div>
 <table>
 
-
+  <tr>
+    <td><h2>Select Available Dates</h2></td>
+  </tr>
 	<tr>
 		<td><input type="hidden" id="date_from" size="10"></td>
 	</tr>
@@ -107,8 +114,12 @@
 	</tr>
 	<tr>
 		<td><div id="add_btn"><i class='material-icons'>add_box</i></div></td>
-		<td><button id="save_btn">Save</button></td>
 	</tr>
+    <tr>
+    <td><td><button id="save_btn">Save</button></td></td>
+  </tr>
+
+  
 </table>
 	 
    <div id="date_display"></div>

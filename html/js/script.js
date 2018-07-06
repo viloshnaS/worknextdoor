@@ -745,9 +745,6 @@ function getSpaceList(id){
                    crossDomain: true,
                    data: { user_id:id } ,
                    success : function(response){ // success est toujours en place, bien sûr !
-                         
-						
-						  $("#host_spaces").html(response); 
 						  
 						  
                          displayhostHubList(response);
@@ -763,6 +760,8 @@ function getSpaceList(id){
 };
 
 function displayhostHubList(results){
+
+  alert(results);
 
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
