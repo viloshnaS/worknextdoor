@@ -96,6 +96,7 @@ function submitNewHub(lat, lng){
 		description : hubDescription,
 		aircon : airCondition,
 		printer_scanner : printer,
+		kitchen : kitchen,
 		heater : heater,
 		wifi : wifi,
 		parking : parking,
