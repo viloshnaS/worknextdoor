@@ -73,13 +73,13 @@ function submitNewHub(lat, lng){
         crossDomain: true,
       // dataType: 'jsonp',
         data: uploadData,
-       	success : function(responseData){ 
-       		if(responseData > 0){
-       			window.location="hubavailability.html?hub_id="+responseData;
-       		} // Create successfully and return Hub ID
-       		else{
-       			console.log('Create hub failed');
-       		}
+        success : function(responseData){ 
+          if(responseData > 0){
+            window.location="hubavailability.html?hub_id="+responseData;
+          } // Create successfully and return Hub ID
+          else{
+            console.log('Create hub failed');
+          }
         }, error : function(err){
           console.log(err);
        }
@@ -155,6 +155,49 @@ function displayHubInfo(result){
 
 
 function updateHub(lat, lng){
+  var hubName = $("#hubName").val();
+  var hubAddress = $("#hubAddress").val();
+  var hubDescription = $("#hubDescription").val();
+  var airCondition = $("#airCondition").is(':checked') ? 1:0;
+  var printer = $("#printer").is(':checked') ? 1:0;
+  var kitchen = $("#kitchen").is(':checked') ? 1:0;
+  var heater = $("#heater").is(':checked') ? 1:0;
+  var wifi = $("#wifi").is(':checked') ? 1:0;
+  var parking = $("#parking").is(':checked') ? 1:0;
+
+  var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
+  var weekend = $("#weekend").is(':checked') ? 1:0;
+
+  var latitude = 0;
+  var longitude = 0;
+
+  var geocoder = new google.maps.Geocoder();
+    var textAddress = document.getElementById('hubAddress').value;
+
+    geocoder.geocode({ 'address': textAddress }, function (results, status) {
+        if (status === 'OK') {
+            latitude = results[0].geometry.location.lat();
+            longitude = results[0].geometry.location.lng();
+        }
+    });
+
+  var uploadData = {
+    user_id : 7,
+    name : hubName,
+    address : hubAddress,
+    latitude : parseFloat(lat),
+    longitude : parseFloat(lng),
+    description : hubDescription,
+    aircon : airCondition,
+    printer_scanner : printer,
+    kitchen : kitchen,
+    heater : heater,
+    wifi : wifi,
+    parking : parking,
+    public_holidays : publicHoliday,
+    weekends : weekend,
+    picture : arrHubPicture.toString()
+  }
   
 
   $.ajax({
@@ -167,7 +210,7 @@ function updateHub(lat, lng){
       // dataType: 'jsonp',
         data: uploadData,
         success : function(responseData){ 
-
+          
         }, error : function(err){
           console.log(err);
        }

@@ -29,7 +29,7 @@
         <main class="hoc container clear"> 
             <div class="content three_quarter">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New hub</h2>
+                    <h2 style="font-weight: bold;">Modify hub</h2>
                     <!-- <form action="#" method="post"> -->
                         <div class="block clear first">
                             <!-- <label for="name">Name <span>*</span></label> -->
@@ -38,7 +38,7 @@
 
                         <div class="block clear">
                             <!-- <label for="url">Address</label> -->
-                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)">
+                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)" disabled>
                             <div id="map" style="display: none"></div>
                             <div id="lat" style="display: none"></div>
                             <div id="lng" style="display: none"></div>
@@ -78,9 +78,12 @@
                         <div class="block clear" id="showImage">
                             
                         </div>
+                        <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Disable this hub?</label></div><div class="one_quarter"><input type="checkbox" id="active" value="active"  /></div>
+                        </div>
 
                         <div>
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Save Changes</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateHub(4)">Save Changes</a>
                         </div>
 
                     <!-- </form> -->
