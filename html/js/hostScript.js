@@ -73,45 +73,6 @@ function submitNewHub(lat, lng){
         crossDomain: true,
       // dataType: 'jsonp',
         data: uploadData,
-        success : function(responseData){ 
-	var hubName = $("#hubName").val();
-	var hubAddress = $("#hubAddress").val();
-	var hubDescription = $("#hubDescription").val();
-	var airCondition = $("#airCondition").is(':checked') ? 1:0;
-	var printer = $("#printer").is(':checked') ? 1:0;
-	var kitchen = $("#kitchen").is(':checked') ? 1:0;
-	var heater = $("#heater").is(':checked') ? 1:0;
-	var wifi = $("#wifi").is(':checked') ? 1:0;
-	var parking = $("#parking").is(':checked') ? 1:0;
-
-	var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
-	var weekend = $("#weekend").is(':checked') ? 1:0;
-
-	var uploadData = {
-		user_id : 7,
-		name : hubName,
-		address : hubAddress,
-		latitude : parseFloat(lat),
-		longitude : parseFloat(lng),
-		description : hubDescription,
-		aircon : airCondition,
-		printer_scanner : printer,
-		kitchen : kitchen,
-		heater : heater,
-		wifi : wifi,
-		parking : parking,
-		public_holidays : publicHoliday,
-		weekends : weekend,
-		picture : arrHubPicture.toString()
-	}
-
-	$.ajax({
-       	url : URL+'/host/createHub.php',
-       	type : 'POST',
-       	async: false,
-       	crossDomain: true,
-	   	// dataType: 'jsonp',
-       	data: uploadData,
        	success : function(responseData){ 
        		if(responseData > 0){
        			window.location="hubavailability.html?hub_id="+responseData;
@@ -125,6 +86,7 @@ function submitNewHub(lat, lng){
 
     });
 }
+
 
 
 function getHubInfo(id){
@@ -142,19 +104,74 @@ function getHubInfo(id){
 
 function displayHubInfo(result){
   var hub = JSON.parse(result); // converting results to JSON object
-      
-     
 
        $("#hubName").val(hub.name);
+       $("#hubAddress").val(hub.address);
+       $("#hubDescription").val(hub.description);
+    
+       if(hub.air_con == 1){
+          
+            $("#airCondition").prop('checked', true);
+        }
 
-};
+        if(hub.printer_scanner == 1){
+          
+            $("#printer").prop('checked', true);
+        }
+
+        if(hub.kitchen == 1){
+          
+            $("#kitchen").prop('checked', true);
+        }
+
+        if(hub.wifi == 1){
+          
+            $("#wifi").prop('checked', true);
+        }
+
+        if(hub.heater == 1){
+          
+            $("#heater").prop('checked', true);
+        }
+
+        if(hub.parking == 1){
+          
+            $("#parking").prop('checked', true);
+        }
+
+        if(hub.weekends == 1){
+          
+            $("#weekend").prop('checked', true);
+        }
+
+        if(hub.public_holidays == 1){
+          
+            $("#publicHoliday").prop('checked', true);
+        }
 }
 
-function updateHub(hubId){
+
+
+function updateHub(lat, lng){
+  
+
   $.ajax({
     url : URL+'/host/updateHub.php',
-    type : ''
-  })
+    type : 'POST',
+    async: false,
+    crossDomain: true,
+    async: false,
+        crossDomain: true,
+      // dataType: 'jsonp',
+        data: uploadData,
+        success : function(responseData){ 
+
+        }, error : function(err){
+          console.log(err);
+       }
+
+  });
+
 }
 
 function getListHubByUserId(userId){
@@ -169,19 +186,7 @@ function getListHubByUserId(userId){
           for(var i = 0; i < responseData.length; i++){
             // add list hub to select tag 
           }
-	$.ajax({
-       	url : URL+'/host/getHubList.php',
-       	type : 'POST',
-       	async: false,
-       	crossDomain: true,
-	   	// dataType: 'jsonp',
-       	data: {userId: 7},
-       	success : function(responseData){ 
-       		var html = "";
-       		for(var i = 0; i < responseData.length; i++){
-       			// add list hub to select tag 
-       			html = "<option value='" + responseData[i].hub_id + "'>" + responseData[i].name + "</option>"
-       		}
+
         }, error : function(err){
           console.log(err);
        }
