@@ -160,22 +160,3 @@ h1{
   top:1px;
 }
 
-
-div#back{
-
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #631762;
-
-
-}
-
-div#home{
-
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: #631762;
-}
-

@@ -64,6 +64,16 @@
           $('#div_map').css('height', height * 0.65);
           $('#div_spaces').css('height', height * 0.35);
 
+          var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: "your Location",
+                icon: {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  scale: 10
+                },
+              });
+
 
           results_arr.forEach(function(space){
                 var latlng= {lat: parseFloat(space.latitude), lng: parseFloat(space.longitude)};

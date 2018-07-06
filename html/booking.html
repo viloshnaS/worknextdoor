@@ -214,7 +214,7 @@
                 history.back();
 
             });
-           $("#homeBtn").click(function(){
+           $("#home").click(function(){
 
                 window.location="index.html";
 
@@ -226,6 +226,7 @@
 
                 var date_time_from="";
                 var date_time_to="";
+                var duration="";
                 var date_from =$( "#date_from" ).val();
                 if(space_rate ==""){
                     
@@ -285,7 +286,7 @@
 
                  else if(space_rate==3){
 
-                  var duration =$( "#month" ).val();
+                  duration =$( "#month" ).val();
                   if(duration ==""){
                     
                     alert("Please input a valid duration");
@@ -311,6 +312,7 @@
                 localStorage.setItem("date_from",date_time_from);
                 localStorage.setItem("date_to",date_time_to);
                 localStorage.setItem("space_rate",space_rate);
+                localStorage.setItem("duration",duration);
 
                 window.location="bookingSummary.html"
 

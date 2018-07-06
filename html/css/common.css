@@ -68,3 +68,20 @@ hr {
     width: 40px;
     border:1px solid black;
 }
+
+
+#home{
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #631762;
+}
+
+#back{
+
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #631762;
+}

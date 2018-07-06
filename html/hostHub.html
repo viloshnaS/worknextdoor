@@ -40,6 +40,8 @@
                             <!-- <label for="url">Address</label> -->
                             <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)">
                             <div id="map" style="display: none"></div>
+                            <div id="lat" style="display: none"></div>
+                            <div id="lng" style="display: none"></div>
                         </div>
                         <div class="block clear">
                             <!-- <label for="comment">Description</label> -->
@@ -48,22 +50,29 @@
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Features</label>
                             <div class="one_half first">
-                                <div class="one_quarter  clear"><input type="checkbox" id="airCondition" name="feature" value="airCondition"  /></div><div class="one_half"><label for="scales">Air condition</label></div>
+                                <div class="one_quarter  clear"><input type="checkbox" id="airCondition" name="feature" value="airCondition"  /></div><div class="one_half"><label for="scales">Air conditioner</label></div>
                                 <div class="one_quarter clear" ><input type="checkbox" id="printer" name="feature" value="printer"  /></div><div class="one_half"><label for="scales">Printer</label></div>
                                 <div class="one_quarter clear" ><input type="checkbox" id="kitchen" name="feature" value="kitchen"  /></div><div class="one_half"><label for="scales">Kitchen</label></div>
-                                <div class="one_quarter clear" ><input type="checkbox" id="heater" name="feature" value="heater"  /></div><div class="one_half"><label for="scales">Heater</label></div>
+                                
                             </div>
                             <div class="one_half">
-                                <div class="one_quarter  clear" ><input type="checkbox" id="projector" name="feature" value="projector"  /></div><div class="one_half"><label for="scales">Projector</label></div>
-                                <div class="one_quarter  clear" ><input type="checkbox" id="coffeeMachine" name="feature" value="coffeeMachine"  /></div><div class="one_half"><label for="scales">Coffee machine</label></div>
+                                <div class="one_quarter  clear" ><input type="checkbox" id="wifi" name="feature" value="wifi"  /></div><div class="one_half"><label for="scales">Wifi</label></div>
+                                <div class="one_quarter clear" ><input type="checkbox" id="heater" name="feature" value="heater"  /></div><div class="one_half"><label for="scales">Heater</label></div>
                                 <div class="one_quarter  clear" ><input type="checkbox" id="parking" name="feature" value="parking"  /></div><div class="one_half"><label for="scales">Parking</label></div>
                             </div>
                         </div>
 
                         <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on weekend?</label></div><div class="one_quarter"><input type="checkbox" id="weekend" value="weekend"  /></div>
+                        </div>
+
+                        <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on public holiday?</label></div><div class="one_quarter"><input type="checkbox" id="publicHoliday" value="publicHoliday"  /></div>
+                        </div>
+
+                        <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Upload hub pictures</label>
                             <input type="file" id="hubPicture" accept="image/*" value="Choose your hub pictures" multiple>
-                            <!-- <input type="submit" value="Upload"> -->
                         </div>
 
                         <div class="block clear" id="showImage">
@@ -71,7 +80,7 @@
                         </div>
 
                         <div>
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub()">Submit</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Submit</a>
                         </div>
 
                     <!-- </form> -->
@@ -86,18 +95,42 @@
         //     var searchBox = new google.maps.places.SearchBox(input);
         // })
         function initAutocomplete() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.8688, lng: 151.2195},
-          zoom: 13,
-          mapTypeId: 'roadmap'
-        });
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
 
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('hubAddress');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('hubAddress');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            var latitude = 0;
+            var longitude = 0;
+
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                if (places.length == 0) {
+                  return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        return;
+                    }
+                    else{
+                      latitude = place.geometry.location.lat();
+                      longitude = place.geometry.location.lng();
+                      $("#lat").html(latitude);
+                        $("#lng").html(longitude);
+                    }
+                });
+            });
 
         }
+
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&libraries=places&callback=initAutocomplete"
          async defer></script>

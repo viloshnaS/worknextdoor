@@ -248,9 +248,32 @@ input:focus, select:focus, textarea:focus, *:required:focus{border-color:#6677BC
 .overlay{color:#FFFFFF; background-color:inherit;}
 .overlay::after{color:inherit; background-color:rgba(0,0,0,.55);}
 
-.btn, .btn.inverse:hover, a .icon, a.inverse:hover .icon{color:#FFFFFF; background-color:#6677BC; border-color:#6677BC;}
-.btn:hover, .btn.inverse, a:hover .icon, a.inverse .icon{color:inherit; background-color:transparent; border-color:inherit;}
 
+.btn.inverse{
+  -moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  -webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
+  box-shadow: 0px 10px 14px -7px #aa8cc5;
+  background-color:#ffffff;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+  border-radius:8px;
+  border:1px solid #aa8cc5;
+  display:inline-block;
+  cursor:pointer;
+  color:#000000;
+  font-family:Verdana;
+  font-size:15px;
+  padding:10px 14px;
+  text-decoration:none;
+}
+.inverse:hover{
+  background-color:#aa8cc5;
+}
+.inverse:active {
+  position:relative;
+  top:1px;
+  color: #631762;
+}
 
 /* Rows */
 .row0, .row0 a{color:#CBCBCB; background-color:#000000; border-color:rgba(255,255,255,.2);}
