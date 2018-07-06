@@ -6,12 +6,11 @@ $connection = $conn;
 
 if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
-    getHub($user_id);
+    echo getHub($user_id);
     
  }
- 
- //echo getHub(1);
- 
+
+
  
 function getHub($id){
 	global $connection;
