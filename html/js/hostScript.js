@@ -35,19 +35,6 @@ function submitNewHub(lat, lng){
   var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
   var weekend = $("#weekend").is(':checked') ? 1:0;
 
-  var latitude = 0;
-  var longitude = 0;
-
-  var geocoder = new google.maps.Geocoder();
-    var textAddress = document.getElementById('hubAddress').value;
-
-    geocoder.geocode({ 'address': textAddress }, function (results, status) {
-        if (status === 'OK') {
-            latitude = results[0].geometry.location.lat();
-            longitude = results[0].geometry.location.lng();
-        }
-    });
-
   var uploadData = {
     user_id : 7,
     name : hubName,
@@ -154,9 +141,10 @@ function displayHubInfo(result){
 
 
 
-function updateHub(lat, lng){
+function updateHub(id){
+
+  alert(id);
   var hubName = $("#hubName").val();
-  var hubAddress = $("#hubAddress").val();
   var hubDescription = $("#hubDescription").val();
   var airCondition = $("#airCondition").is(':checked') ? 1:0;
   var printer = $("#printer").is(':checked') ? 1:0;
@@ -167,26 +155,11 @@ function updateHub(lat, lng){
 
   var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
   var weekend = $("#weekend").is(':checked') ? 1:0;
-
-  var latitude = 0;
-  var longitude = 0;
-
-  var geocoder = new google.maps.Geocoder();
-    var textAddress = document.getElementById('hubAddress').value;
-
-    geocoder.geocode({ 'address': textAddress }, function (results, status) {
-        if (status === 'OK') {
-            latitude = results[0].geometry.location.lat();
-            longitude = results[0].geometry.location.lng();
-        }
-    });
+  var active = $("#active").is(':checked') ? 0:1;
 
   var uploadData = {
-    user_id : 7,
+    hub_id : id,
     name : hubName,
-    address : hubAddress,
-    latitude : parseFloat(lat),
-    longitude : parseFloat(lng),
     description : hubDescription,
     aircon : airCondition,
     printer_scanner : printer,
@@ -196,7 +169,8 @@ function updateHub(lat, lng){
     parking : parking,
     public_holidays : publicHoliday,
     weekends : weekend,
-    picture : arrHubPicture.toString()
+    active :active
+    //picture : arrHubPicture.toString()
   }
   
 
@@ -210,7 +184,13 @@ function updateHub(lat, lng){
       // dataType: 'jsonp',
         data: uploadData,
         success : function(responseData){ 
-          
+         /* if (responseData =="1"){
+            alert("successful");
+          }
+          else{
+            alert("error");
+          }*/
+          alert(responseData);
         }, error : function(err){
           console.log(err);
        }
