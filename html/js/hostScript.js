@@ -102,6 +102,8 @@ function getHubInfo(id){
       }
   });
 
+}
+
 function displayHubInfo(result){
   var hub = JSON.parse(result); // converting results to JSON object
 
