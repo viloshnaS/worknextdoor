@@ -141,7 +141,7 @@ function displayHubInfo(result){
 
 
 
-function updateHub(id){
+function updateHub(hub_id){
 
   alert(id);
   var hubName = $("#hubName").val();

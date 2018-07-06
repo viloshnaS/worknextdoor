@@ -23,14 +23,46 @@
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
   
+  <script>
+        $(document).ready(function(){
+            
+            var user_id = localStorage.getItem("user_id");
+
+            
+            getSpaceList(user_id);
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+        });
+    </script>
+
 </head>
 <body>
+    <div id="div_location">
+          <table>
+            <tr>
+                <td width="10%"><span id="back"><i class='material-icons'>arrow_back</i></span></td>
+                <td width ="10%"><span id="home"><i class='material-icons'>home</i></span></td>
+          </tr>
+          </table>
+        </div>
+        
     <div class="wrapper row3">
         <main class="hoc container clear"> 
             <div class="content three_quarter">
                 <div id="comments">
                     <h2 style="font-weight: bold;">Modify hub</h2>
                     <!-- <form action="#" method="post"> -->
+                        <input type="hidden" id="hub_id">
                         <div class="block clear first">
                             <!-- <label for="name">Name <span>*</span></label> -->
                             <input type="text" name="name" id="hubName" value="" size="22" required placeholder="Hub name (required)">
@@ -83,7 +115,7 @@
                         </div>
 
                         <div>
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateHub(4)">Save Changes</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateHub($('#hub_id').text())">Save Changes</a>
                         </div>
 
                     <!-- </form> -->
@@ -94,7 +126,14 @@
     <script src="js/hostScript.js"></script>
     <script>
          $(document).ready(function(){
-            getHubInfo(4);
+
+            $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+            }
+
+            var hub_id = $.urlParam('hub_id');
+            getHubInfo(hub_id);
          });
          
         function initAutocomplete() {
