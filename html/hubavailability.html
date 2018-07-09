@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/booking.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
+    <link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
     <script src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
@@ -15,6 +17,46 @@
    	<link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
    	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <body>
+
+<div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
+<table>
+
+  <tr>
+    <td><h2>Select Available Dates</h2></td>
+  </tr>
+  <tr>
+    <td><input type="hidden" id="date_from" size="10"></td>
+  </tr>
+  <tr>
+
+    <td><input type="hidden" id="date_to" size="10"></td>
+  </tr>
+  <tr>
+    <td><div class="datepicker"></div></td>
+  </tr>
+   <tr>
+    <td><div id="date_display"></div></td>
+  </tr>
+
+  <tr>
+    <td><button id="save_btn">Save</button></td>
+  </tr>
+
+  
+</table>
+   
+
+
+</body>
+  <script>
+    var selected_dates = [];
+    var selected_dates_json = [];
+ 
+  </script>
 	<script>
 
 		$(document).ready(function(){
@@ -27,35 +69,48 @@
 
             var hub_id = $.urlParam('hub_id');
 
-
-			var selected_dates = [];
-
 		$(".datepicker").datepicker({
             showOtherMonths: true,
             dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
             numberOfMonths: [1,1],
             minDate:new Date(),
+            rangeSelect: true,
 			beforeShowDay: function(date) {
+
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+       
 				var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_from").val());
 				var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_to").val());
-				return [true, date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2)) ? "dp-highlight" : ""];
+        var flag = "";
+        selected_dates.forEach(element => {
+
+          date1 = element[0]; 
+          date2 = element[1]; 
+          if(date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2))){
+                flag =  "dp-highlight";
+          }
+        
+
+        })
+				return [true, flag];
 			},
 			onSelect: function(dateText, inst) {
 				var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_from").val());
 				var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_to").val());
+ 
 				if (!date1 || date2) {
 					$("#date_from").val(dateText);
 					$("#date_to").val("");
-                    $(this).datepicker();
-				} else {
+				} 
+        else {
 					$("#date_to").val(dateText);
-                    $(this).datepicker();
+              addDate();
 				}
 			}
 		});
 
 
- 		$("#back").click(function(){
+ 		     $("#back").click(function(){
             history.back();
           
           });
@@ -64,67 +119,92 @@
             window.location="index.html";
           
           });
+          
 
-          $("#add_btn").click(function(){
+          
+          function addDate(){
           		var jsonObj = { "date_start": $( "#date_from" ).val(), "date_end":$( "#date_to" ).val()};
 
               var _date_from = new Date($( "#date_from" ).val());
               var _date_to = new Date($( "#date_to" ).val());
 
-              var res = $("#date_display").html();
-              res = res + "<br/>";
-              res = res + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear();
-              res = res + " to ";
-              res = res + _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear();
-              $("#date_display").html(res);
+              var _date =[_date_from,_date_to];
+              selected_dates.push(_date);
+              displaySelectedDates();
+            	selected_dates_json.push(jsonObj);
           
-            	selected_dates.push(jsonObj);
+          };
+
+         
+
+
+          $("#save_btn").click(function(){
+            	addHubAvailability(hub_id,JSON.stringify(selected_dates_json));
           
           });
 
-          $("#save_btn").click(function(){
-            	addHubAvailability(hub_id,JSON.stringify(selected_dates));
+        
           
-          });
 
 });
 
 </script>
+<script>
+
+  function deleteDate(index)
+          {
+            var index = $(this).attr('id');
+            selected_dates.splice(index,1);
+            displaySelectedDates(); 
+          };
+
+
+  function displaySelectedDates(){
+
+            var res = "";
+
+            for (i = 0; i < selected_dates.length; i++)  {
+
+              var selectedDate = selected_dates[i];
+              var _date_from = selectedDate[0];
+              var _date_to = selectedDate[1];
+
+              res = res + "<div id ='div_"+i+"''>";
+              res = res + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear();
+              res = res + " to ";
+              res = res + _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear();
+              res = res + "<span'><i class='material-icons' onclick='deleteDate("+i+")'   >clear</i></span>";
+              res = res + "</div>";
+
+            }
+              $("#date_display").html(res);
+              $('.datepicker').datepicker({
+                beforeShowDay: function(date){
+                  var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                     
+                  var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_from").val());
+                  var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_to").val());
+                  var flag = "";
+                  selected_dates.forEach(element => {
+
+                      date1 = element[0]; 
+                      date2 = element[1]; 
+                      if(date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2))){
+                            flag =  "dp-highlight";
+                      }
+                })
+                return [true, flag];
+            }
+          });
+
+          }
+          
+</script>
+
 <link rel="stylesheet" href="css/availability.css">
 </head>
 
-<body>
 
-<div id="back"><i class='material-icons'>arrow_back</i></div>
-    <div id="home"><i class='material-icons'>home</i></div>
-<table>
-
-  <tr>
-    <td><h2>Select Available Dates</h2></td>
-  </tr>
-	<tr>
-		<td><input type="hidden" id="date_from" size="10"></td>
-	</tr>
-	<tr>
-
-		<td><input type="hidden" id="date_to" size="10"></td>
-	</tr>
-	<tr>
-		<td><div class="datepicker"></div></td>
-	</tr>
-	<tr>
-		<td><div id="add_btn"><i class='material-icons'>add_box</i></div></td>
-	</tr>
-    <tr>
-    <td><td><button id="save_btn">Save</button></td></td>
-  </tr>
-
-  
-</table>
-	 
-   <div id="date_display"></div>
-
-</body>
 
 
 
