@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
     <link rel="stylesheet" href="css/custom.flexslider.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&sensor=false&v=3&libraries=geometry"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="js/script.js"></script>
@@ -24,15 +25,24 @@
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
 
     <script>
-        $(document).ready(function(){
-               
-            $.urlParam = function(name){
-            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-            return results[1] || 0;
-            }
 
-            var space_id = $.urlParam(space_id');
-            getSpaceDestails(space_id);
+        $(document).ready(function(){
+            var currURL = window.location.href;
+            var arrURLDetail = currURL.split("=");
+            var spaceId = arrURLDetail[1];
+                
+            getSpaceInfo(parseInt(spaceId));
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
 
         });
     </script>
