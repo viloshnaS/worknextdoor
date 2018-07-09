@@ -709,6 +709,7 @@ function clearfilters(){
 
 function addHubAvailability(_hub_id,_selectedDates){
   localStorage.setItem("booked_dates","");
+  alert(_selectedDates);
 
   return $.ajax({
                    url : URL+'/host/addHubAvailability.php',
@@ -719,7 +720,7 @@ function addHubAvailability(_hub_id,_selectedDates){
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
                       if(response =="1"){
-                        window.location="hostSpace.html?hub_id="+responseData;
+                        window.location="hostSpace.html?hub_id="+_hub_id;
                         //alert("Dates successfully added");
                       }
                       else{
