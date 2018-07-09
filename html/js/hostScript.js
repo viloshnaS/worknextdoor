@@ -174,7 +174,7 @@ function displayHubInfo(result){
  
 }
  
- 
+
  
 function updateHub(hub_id){
  
@@ -320,6 +320,48 @@ function submitNewSpace(){
     });
 }
 
+ function getSpaceInfo(id){
+  $.ajax({
+      url : URL+'/spaces/getSpaceById.php',
+      type : 'GET',
+ 
+      crossDomain: true,
+      data: { hub_id:id } ,
+      success : function(response){ // success est toujours en place, bien sûr !
+          displaySpaceInfo(response);
+      },
+      error : function(resultat, statut, erreur){
+      }
+  });
+ 
+}
+ 
+function displaySpaceInfo(result){
+  var space = JSON.parse(result); // converting results to JSON object
+ 
+       $("#spaceTypeList").val(space.space_type);
+       $("#spaceName").val(space.space_name);
+       $("#nbOfGuest").val(space.number_of_guests);
+       $("#nbOfSpace").val(space.number_of_spaces);
+       $("#spaceSize").val(space.size);
+
+       if(space.whiteBoard == 1){
+          
+            $("#whiteboard").prop('checked', true);
+        }
+ 
+        if(space.screen == 1){
+          
+            $("#screen").prop('checked', true);
+        }
+ 
+        if(space.projector == 1){
+          
+            $("#projector").prop('checked', true);
+        }
+ }
+
+
 function updateSpace(){
   //var hubId = $("#hubList option:selected").val();
   var spaceType = parseInt($("#spaceTypeList option:selected").val());
@@ -331,7 +373,7 @@ function updateSpace(){
   var whiteBoard = $("#whiteBoard").is(':checked') ? 1:0;
   var screen = $("#screen").is(':checked') ? 1:0;
   var projector = $("#projector").is(':checked') ? 1:0;
-
+  var active = $("#active").is(':checked') ? 0:1;
   if(spaceName == "" || spaceName == null){
     $("#txtErr").html("Please enter space name");
     return;
@@ -361,7 +403,8 @@ function updateSpace(){
     whiteboard : whiteBoard,
     screen : screen,
     projector : projector,
-    thumbnail_picture : arrSpacePicture.toString()
+    thumbnail_picture : arrSpacePicture.toString(),
+    active : active;
   }
 
 
