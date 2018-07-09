@@ -25,22 +25,14 @@
 
     <script>
         $(document).ready(function(){
-            
-            var user_id = localStorage.getItem("user_id");
+               
+            $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+            }
 
-            
-            getSpaceList(user_id);
-
-           $("#back").click(function(){
-
-                history.back();
-
-            });
-           $("#home").click(function(){
-
-                window.location="index.html";
-
-            });
+            var space_id = $.urlParam(space_id');
+            getSpaceDestails(space_id);
 
         });
     </script>
@@ -62,13 +54,8 @@
         <main class="hoc container clear"> 
             <div class="content three_quarter">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New space</h2>
-                        <div class="block clear">
-                            <label for="comment" style="font-weight: bold;">Select hub</label>
-                            <select id="hubList">
-                                <!-- <option value="saab">Saab 95</option> -->
-                            </select>
-                        </div>
+                    <h2 style="font-weight: bold;">Modify space</h2>
+                        
 
                         <div class="">
                             <label for="comment" style="font-weight: bold;">Space type</label>
@@ -131,8 +118,12 @@
                             
                         </div>
 
+                        <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Disable this space?</label></div><div class="one_quarter"><input type="checkbox" id="active" value="active"  /></div>
+                        </div>
+
                         <div class="center">
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewSpace()">Submit</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateSpace()">Submit</a>
                         </div>
 
                         <div class="center">
