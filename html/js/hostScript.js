@@ -422,7 +422,7 @@ function updateSpace(){
             displaySpaceDetails(response);
           } 
           else{
-            $("#txtErr").html("Create space unsuccessfully, please try again")
+            $("#txtErr").html("Modify space unsuccessfully, please try again")
           }
         }, error : function(err){
           console.log(err);
