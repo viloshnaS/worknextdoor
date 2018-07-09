@@ -24,5 +24,5 @@ function hostGetSpaceById($id){
 		
 }
 
-echo hostGetSpaceById(2);
+//echo hostGetSpaceById(2);
 ?>
