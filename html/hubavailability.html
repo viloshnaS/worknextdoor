@@ -23,7 +23,7 @@
 
 <div id="back"><i class='material-icons'>arrow_back</i></div>
     <div id="home"><i class='material-icons'>home</i></div>
-<table>
+<table align="center">
 
   <tr>
     <td><h2>Select Available Dates</h2></td>
@@ -43,7 +43,7 @@
   </tr>
 
   <tr>
-    <td><button id="save_btn">Save</button></td>
+    <td><div id="save_div"><button id="save_btn">Save</button></div></td>
   </tr>
 
   
@@ -54,8 +54,6 @@
 </body>
   <script>
     var selected_dates = [];
-    var selected_dates_json = [];
- 
   </script>
 	<script>
 
@@ -109,7 +107,6 @@
 			}
 		});
 
-
  		     $("#back").click(function(){
             history.back();
           
@@ -123,7 +120,7 @@
 
           
           function addDate(){
-          		var jsonObj = { "date_start": $( "#date_from" ).val(), "date_end":$( "#date_to" ).val()};
+          		
 
               var _date_from = new Date($( "#date_from" ).val());
               var _date_to = new Date($( "#date_to" ).val());
@@ -131,35 +128,39 @@
               var _date =[_date_from,_date_to];
               selected_dates.push(_date);
               displaySelectedDates();
-            	selected_dates_json.push(jsonObj);
           
           };
 
          
 
 
-          $("#save_btn").click(function(){
+          $("#save_btn").click(function(evt){
+              evt.stopImmediatePropagation();
+
+              var selected_dates_json = [];
+ 
+              selected_dates.forEach(element => {
+                date1 = element[0]; 
+                date2 = element[1]; 
+                var jsonObj = { "date_start":  date1.getMonth()+"/"+date1.getDate() + "/"+ date1.getFullYear(), "date_end":date2.getMonth()+"/"+date2.getDate() + "/"+ date2.getFullYear()};
+                selected_dates_json.push(jsonObj);
+                
+              })
+
+              alert(JSON.stringify(selected_dates_json));
             	addHubAvailability(hub_id,JSON.stringify(selected_dates_json));
           
           });
 
-        
-          
-
-});
-
-</script>
-<script>
-
-  function deleteDate(index)
+          $(document).on('click', '.clear_image', function(evt)
           {
+            evt.stopImmediatePropagation();
             var index = $(this).attr('id');
             selected_dates.splice(index,1);
             displaySelectedDates(); 
-          };
+          });
 
-
-  function displaySelectedDates(){
+          function displaySelectedDates(){
 
             var res = "";
 
@@ -173,31 +174,19 @@
               res = res + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear();
               res = res + " to ";
               res = res + _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear();
-              res = res + "<span'><i class='material-icons' onclick='deleteDate("+i+")'   >clear</i></span>";
+              res = res + "<i class='material-icons clear_image' id='"+i+"'>clear</i>";
               res = res + "</div>";
 
             }
               $("#date_display").html(res);
-              $('.datepicker').datepicker({
-                beforeShowDay: function(date){
-                  var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                     
-                  var date1 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_from").val());
-                  var date2 = $.datepicker.parseDate($.datepicker._defaults.dateFormat, $("#date_to").val());
-                  var flag = "";
-                  selected_dates.forEach(element => {
-
-                      date1 = element[0]; 
-                      date2 = element[1]; 
-                      if(date1 && ((date.getTime() == date1.getTime()) || (date2 && date >= date1 && date <= date2))){
-                            flag =  "dp-highlight";
-                      }
-                })
-                return [true, flag];
-            }
-          });
+              $( ".datepicker" ).datepicker("refresh");
 
           }
+
+});
+
+</script>
+<script>
           
 </script>
 
