@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>
+    <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
+    <link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
+    <link rel="stylesheet" href="css/filter.css">    
+    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
+    <link rel="stylesheet" href="css/custom.flexslider.css">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/hostScript.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+  
+</head>
+<body>
+    <div class="wrapper row3">
+        <main class="hoc container clear"> 
+            <div class="content three_quarter">
+                <div id="comments">
+                    <h2 style="font-weight: bold;">New space</h2>
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Select hub</label>
+                            <select id="hubList">
+                                <!-- <option value="saab">Saab 95</option> -->
+                            </select>
+                        </div>
+
+                        <div class="">
+                            <label for="comment" style="font-weight: bold;">Space type</label>
+                            <select id="spaceTypeList" onchange="changeTypeOfGuest()">
+                                <option value="1">Work desk</option>
+                                <option value="2">Conference room</option>
+                            </select>
+                        </div>
+
+                        <div class="block clear first">
+                            <label for="comment" style="font-weight: bold;">Hub name (required)</label>
+                            <input type="text" name="name" id="spaceName" value="" size="22" required>
+                        </div>
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Number of guest (required)</label>
+                            <input type="number" id="nbOfGuest" value="" size="22" required>
+                        </div>
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Number of space (required)</label>
+                            <div class="one_half first">
+                                <input type="number" id="nbOfSpace" value="" size="22" required>
+                            </div>
+                            <div class="one_quarter">
+                                <span id="txtGuestType">work desk(s)</span>
+                            </div>
+                        </div>
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Space size</label>
+                            <div class="one_half first">
+                                <input type="number" id="spaceSize" value="" size="22" required>
+                            </div>
+                            <div class="one_quarter">
+                                <span>&nbsp m2</span>
+                            </div>
+                        </div>
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Features</label>
+                            <div class="one_half first">
+                                <div class="one_quarter  clear"><input type="checkbox" id="whiteBoard" name="feature" value="whiteBoard"  /></div><div class="one_half"><label for="scales">White board</label></div>
+
+                                <div class="one_quarter clear" ><input type="checkbox" id="screen" name="feature" value="screen"  /></div><div class="one_half"><label for="scales">Screen</label></div>
+                                
+                            </div>
+                            <div class="one_half">
+                                <div class="one_quarter  clear" ><input type="checkbox" id="projector" name="feature" value="projector"  /></div><div class="one_half"><label for="scales">Projector</label></div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Upload space pictures</label>
+                            <input type="file" id="spacePicture" accept="image/*" multiple>
+                        </div>
+
+                        <div class="block clear" id="showSpaceImage">
+                            
+                        </div>
+
+                        <div class="center">
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewSpace()">Submit</a>
+                        </div>
+
+                        <div class="center">
+                            <span id="txtErr"></span>
+                        </div>
+
+                    <!-- </form> -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        $(document).ready(function(){
+            setInterval(function(){ 
+                $("#select-13-button span").hide();
+                $("#select-12-button span").hide();
+                $("#select-11-button span").hide(); 
+                $("#spaceTypeList-button span").hide();
+                $("#hubList-button span").hide();
+            }, 500);
+
+            getListHubByUserId(1);
+        })
+    </script>
+</body>
