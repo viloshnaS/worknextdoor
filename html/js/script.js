@@ -7,25 +7,25 @@ var months = [ "January", "February", "March", "April", "May", "June",
 
 function initHomePage() {
 
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-	 if(dd<10){
-			dd='0'+dd
-		} 
-		if(mm<10){
-			mm='0'+mm
-		} 
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+   if(dd<10){
+      dd='0'+dd
+    } 
+    if(mm<10){
+      mm='0'+mm
+    } 
 
-	today = yyyy+'-'+mm+'-'+dd;
-	document.getElementById("date").setAttribute("min", today);
+  today = yyyy+'-'+mm+'-'+dd;
+  document.getElementById("date").setAttribute("min", today);
 };
 
 function displayResultList( results){
          
           $('#div_results').html(results);
-		      var result_arr = JSON.parse(results);
+          var result_arr = JSON.parse(results);
 
           display_string ="";
 
@@ -76,7 +76,7 @@ function displayResultList( results){
             display_string = display_string+"</tr>";
           });
           display_string =display_string +"</table>";
-	
+  
 
          $('#div_results').html(display_string);
 
@@ -187,7 +187,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
                   _wifi,_kitchen,_parking,_heater,_air_con,_printer_scanner,_display){
 
 
-	$.ajax({
+  $.ajax({
                    url : URL+'/spaces/getSpacesWithFilters.php',
                    type : 'GET',
                    async: false,
@@ -216,7 +216,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
 
                       localStorage.setItem("resultList",response);
                       if(_display=='list'){
-          				      
+                        
                          displayResultList(response);
                       }
                       else if(_display=='thumb'){
@@ -224,7 +224,7 @@ function fetchResults(_latitude,_longitude,_space_rate,_date_from,_date_to,
                         displayResultsThumbnail(response);
                       }
                   }
-   					,
+            ,
 
                    error : function(resultat, statut, erreur){
 
@@ -746,8 +746,8 @@ function getSpaceList(id){
                    crossDomain: true,
                    data: { user_id:id } ,
                    success : function(response){ // success est toujours en place, bien sûr !
-						  
-						  
+              
+              
                          displayhostHubList(response);
                         }
             ,
@@ -762,13 +762,17 @@ function getSpaceList(id){
 
 function displayhostHubList(results){
 
-  alert(results);
-
+ 
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
       result_arr.forEach(function(hub) { 
           display_string = display_string+"<ul><li>";
-          display_string = display_string+hub.name; 
+          display_string = display_string+hub.name;
+          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'>" ;
+          display_string = display_string+"<i class='material-icons'>";
+          display_string = display_string+"settings";
+          display_string = display_string+"</i>";
+          display_string = display_string+"</a>"; 
           hub.spaces.forEach(function(space) {
             display_string = display_string+"<ul><li>";
             display_string = display_string+"<a href='#'>";
