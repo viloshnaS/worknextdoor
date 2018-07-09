@@ -322,7 +322,7 @@ function submitNewSpace(){
 
  function getSpaceInfo(id){
   $.ajax({
-      url : URL+'/spaces/getSpaceById.php',
+      url : URL+'/host/hostGetSpaceById.php',
       type : 'GET',
  
       crossDomain: true,
@@ -404,7 +404,7 @@ function updateSpace(){
     screen : screen,
     projector : projector,
     thumbnail_picture : arrSpacePicture.toString(),
-    active : active;
+    active : active
   }
 
 
