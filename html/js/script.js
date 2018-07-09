@@ -719,7 +719,8 @@ function addHubAvailability(_hub_id,_selectedDates){
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
                       if(response =="1"){
-                        alert("Dates successfully added");
+                        window.location="hostSpace.html?hub_id="+responseData;
+                        //alert("Dates successfully added");
                       }
                       else{
                         alert("Dates not added. Please try later");
