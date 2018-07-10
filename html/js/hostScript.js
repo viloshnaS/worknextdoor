@@ -173,9 +173,11 @@ function displayHubInfo(result){
  
  
  
-function updateHub(hub_id){
- 
-  alert(id);
+function updateHub(){
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var hubId = parseInt(arrURLDetail[1]);
+
   var hubName = $("#hubName").val();
   var hubDescription = $("#hubDescription").val();
   var airCondition = $("#airCondition").is(':checked') ? 1:0;
@@ -190,7 +192,7 @@ function updateHub(hub_id){
   var active = $("#active").is(':checked') ? 0:1;
  
   var uploadData = {
-    hub_id : id,
+    hub_id : hubId,
     name : hubName,
     description : hubDescription,
     aircon : airCondition,
@@ -214,8 +216,13 @@ function updateHub(hub_id){
     async: false,
         data: uploadData,
         success : function(responseData){ 
- 
-          alert(responseData);
+ 			if(responseData > 0){
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
+          } 
+          else{
+            $("#txtErr").html("Modify hub unsuccessfully, please try again")
+          }
         }, error : function(err){
           console.log(err);
        }
@@ -317,6 +324,121 @@ function submitNewSpace(){
     });
 }
 
+ function getSpaceInfo(id){
+  $.ajax({
+      url : URL+'/host/hostGetSpaceById.php',
+      type : 'GET',
+ 
+      crossDomain: true,
+      data: { space_id:id } ,
+      success : function(response){ // success est toujours en place, bien sûr !
+          displaySpaceInfo(response);
+      },
+      error : function(resultat, statut, erreur){
+      }
+  });
+ 
+}
+ 
+function displaySpaceInfo(result){
+  var space = JSON.parse(result); // converting results to JSON object
+ 
+       $("#spaceTypeList").val(space.space_type);
+       $("#spaceName").val(space.space_name);
+       $("#nbOfGuest").val(space.number_of_guests);
+       $("#nbOfSpace").val(space.number_of_spaces);
+       $("#spaceSize").val(space.size);
+ 
+       if(space.whiteboard == 1){
+          
+            $("#whiteBoard").prop('checked', true);
+        }
+ 
+        if(space.screen == 1){
+          
+            $("#screen").prop('checked', true);
+        }
+ 
+        if(space.projector == 1){
+          
+            $("#projector").prop('checked', true);
+        }
+ }
+ 
+ 
+function updateSpace(){
+  //var hubId = $("#hubList option:selected").val();
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var spaceId = parseInt(arrURLDetail[1]);
+  var spaceType = parseInt($("#spaceTypeList option:selected").val());
+  var spaceName = $("#spaceName").val();
+  
+  var nbOfGuest = parseInt($("#nbOfGuest").val());
+  var nbOfSpace = parseInt($("#nbOfSpace").val());
+  var spaceSize = parseInt($("#spaceSize").val());
+  var whiteBoard = $("#whiteBoard").is(':checked') ? 1:0;
+  var screen = $("#screen").is(':checked') ? 1:0;
+  var projector = $("#projector").is(':checked') ? 1:0;
+  var active = $("#active").is(':checked') ? 0:1;
+  if(spaceName == "" || spaceName == null){
+    $("#txtErr").html("Please enter space name");
+    return;
+  }
+ 
+  if(nbOfGuest <= 0 || nbOfGuest == null){
+    $("#txtErr").html("Please enter number of guest");
+    return;
+  }
+ 
+  if(nbOfSpace <= 0 || nbOfSpace == null){
+    $("#txtErr").html("Please enter number of workdesk/people");
+    return;
+  }
+ 
+  if(spaceSize <= 0 || spaceSize == null){
+    $("#txtErr").html("Please enter space size");
+    return;
+  }
+ 
+  var uploadData = {
+    space_id : spaceId,
+    space_type : spaceType,
+    space_name : spaceName,
+    number_of_guests : nbOfGuest,
+    number_of_spaces : nbOfSpace,
+    size : spaceSize,
+    whiteboard : whiteBoard,
+    screen : screen,
+    projector : projector,
+    thumbnail_picture : arrSpacePicture.toString(),
+    active : active
+  }
+ 
+ 
+ 
+  $.ajax({
+        url : URL+'/host/updateSpace.php',
+        type : 'POST',
+        async: false,
+        crossDomain: true,
+        data: uploadData,
+        success : function(responseData){ 
+          
+          if(responseData > 0){
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
+          } 
+          else{
+            $("#txtErr").html("Modify space unsuccessfully, please try again")
+          }
+        }, error : function(err){
+          console.log(err);
+        }
+ 
+    });
+}
+
 function changeTypeOfGuest(){
 	if($("#spaceTypeList option:selected").val() == "1"){
 		$("#txtGuestType").html("work desk(s)");
@@ -332,5 +454,9 @@ function createMoreSpace(){
 
 function returnHomepage(){
 	window.location.href = "index.html";
+}
+
+function modifyMore(){
+  window.location.href = "hostSpaceList.html";
 }
 	
