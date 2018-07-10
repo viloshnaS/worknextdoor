@@ -77,7 +77,7 @@ File: Layout CSS
 #introblocks > ul > li > article > div .heading{margin-bottom:10px; font-size:1.2rem;}
 #introblocks > ul > li > article footer{border-top:1px solid;}
 #introblocks > ul > li > article footer a{display:block; position:relative; width:100%; height:39px; line-height:39px; padding:0 20px; text-transform:uppercase;}
-#introblocks > ul > li > article footer a::after{position:absolute; top:0; right:0; height:100%; padding:0 15px; font-family:"FontAwesome"; content:"\f105"; border-left:1px solid;}
+#introblocks > ul > li > article footer a::after{position:absolute; top:0; right:0; height:100%; padding:0 15px; font-family:"Veranda"; content:"\f105"; border-left:1px solid;}
 
 #newsletter input, #newsletter button{border:1px solid; border-radius:22px;}
 #newsletter input{display:block; width:100%; padding:8px;}
@@ -93,7 +93,7 @@ File: Layout CSS
 #comments .comcont p{margin:10px 5px 10px 0; padding:0;}
 
 #comments form{display:block; width:100%;}
-#comments input,#comments select, #comments textarea{width:100%; padding:10px; border:1px solid;}
+#comments input,#comments select, #comments textarea{width:100%; padding:10px; border:1px solid;border-radius: 5px; border-color: #9fa9ad; box-shadow: 3px 2px #889296;}
 #comments textarea{overflow:auto;}
 #comments div{margin-bottom:15px;}
 #comments input[type="submit"], #comments input[type="reset"]{display:inline-block; width:auto; min-width:150px; margin:0; padding:8px 5px; cursor:pointer;}
@@ -138,7 +138,7 @@ File: Layout CSS
 nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 #mainav, #breadcrumb, .sidebar nav{line-height:normal;}
-#mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"FontAwesome"; font-size:10px; line-height:10px;}
+#mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"Veranda"; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
 #mainav{}
