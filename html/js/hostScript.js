@@ -158,18 +158,6 @@ function displayHubInfo(result){
           
             $("#parking").prop('checked', true);
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
         }
  
         if(hub.weekends == 1){
@@ -181,10 +169,6 @@ function displayHubInfo(result){
           
             $("#publicHoliday").prop('checked', true);
         }
- 
- 
- 
- 
 }
  
  
@@ -281,17 +265,17 @@ function submitNewSpace(){
 		return;
 	}
 
-	if(nbOfGuest <= 0 || nbOfGuest == null){
+	if(nbOfGuest <= 0 || nbOfGuest == null || isNaN(nbOfGuest)){
 		$("#txtErr").html("Please enter number of guest");
 		return;
 	}
 
-	if(nbOfSpace <= 0 || nbOfSpace == null){
+	if(nbOfSpace <= 0 || nbOfSpace == null || isNaN(nbOfSpace)){
 		$("#txtErr").html("Please enter number of workdesk/people");
 		return;
 	}
 
-	if(spaceSize <= 0 || spaceSize == null){
+	if(spaceSize <= 0 || spaceSize == null || isNaN(spaceSize)){
 		$("#txtErr").html("Please enter space size");
 		return;
 	}
