@@ -778,7 +778,7 @@ function displayhostHubList(results){
           hub.spaces.forEach(function(space) {
             display_string = display_string+"<ul><li>";
             display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'>";
-            display_string = display_string+space.space_type;
+            display_string = display_string+space.space_name;
             display_string = display_string+"</a>"; 
             display_string = display_string+"</li></ul>";
           });
