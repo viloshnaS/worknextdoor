@@ -176,9 +176,11 @@ function displayHubInfo(result){
  
 
  
-function updateHub(hub_id){
- 
-  alert(id);
+function updateHub(){
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var hubId = parseInt(arrURLDetail[1]);
+
   var hubName = $("#hubName").val();
   var hubDescription = $("#hubDescription").val();
   var airCondition = $("#airCondition").is(':checked') ? 1:0;
@@ -193,7 +195,7 @@ function updateHub(hub_id){
   var active = $("#active").is(':checked') ? 0:1;
  
   var uploadData = {
-    hub_id : id,
+    hub_id : hubId,
     name : hubName,
     description : hubDescription,
     aircon : airCondition,
@@ -217,8 +219,13 @@ function updateHub(hub_id){
     async: false,
         data: uploadData,
         success : function(responseData){ 
- 
-          alert(responseData);
+          if(responseData > 0){
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
+          } 
+          else{
+            $("#txtErr").html("Modify hub unsuccessfully, please try again")
+          }
         }, error : function(err){
           console.log(err);
        }
@@ -326,7 +333,7 @@ function submitNewSpace(){
       type : 'GET',
  
       crossDomain: true,
-      data: { hub_id:id } ,
+      data: { space_id:id } ,
       success : function(response){ // success est toujours en place, bien sûr !
           displaySpaceInfo(response);
       },
@@ -345,9 +352,9 @@ function displaySpaceInfo(result){
        $("#nbOfSpace").val(space.number_of_spaces);
        $("#spaceSize").val(space.size);
 
-       if(space.whiteBoard == 1){
+       if(space.whiteboard == 1){
           
-            $("#whiteboard").prop('checked', true);
+            $("#whiteBoard").prop('checked', true);
         }
  
         if(space.screen == 1){
@@ -364,6 +371,9 @@ function displaySpaceInfo(result){
 
 function updateSpace(){
   //var hubId = $("#hubList option:selected").val();
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var spaceId = parseInt(arrURLDetail[1]);
   var spaceType = parseInt($("#spaceTypeList option:selected").val());
   var spaceName = $("#spaceName").val();
   
@@ -395,6 +405,7 @@ function updateSpace(){
   }
 
   var uploadData = {
+    space_id : spaceId,
     space_type : spaceType,
     space_name : spaceName,
     number_of_guests : nbOfGuest,
@@ -417,16 +428,16 @@ function updateSpace(){
         data: uploadData,
         success : function(responseData){ 
           
-          var html = "";
           if(responseData > 0){
-            displaySpaceDetails(response);
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
           } 
           else{
             $("#txtErr").html("Modify space unsuccessfully, please try again")
           }
         }, error : function(err){
           console.log(err);
-       }
+        }
 
     });
 }
@@ -448,3 +459,6 @@ function returnHomepage(){
   window.location.href = "index.html";
 }
   
+function modifyMore(){
+  window.location.href = "hostSpaceList.html";
+}
