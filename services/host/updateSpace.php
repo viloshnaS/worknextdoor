@@ -41,10 +41,16 @@ function updateSpace($space_id,$space_type,$space_name,$number_of_guests,$number
 			active=$active
 			where space_id=$space_id";
 	
-	echo $sql;
+	//echo $sql;
 	$result = $connection->query($sql);
 
-	
+	if ($result == TRUE) {
+	    return 1;
+
+	 }
+	 else{
+	 	return -1;
+	}
 
 }
 
