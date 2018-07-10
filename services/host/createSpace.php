@@ -17,11 +17,9 @@ $thumbnail_picture=$_POST['thumbnail_picture'];
 
 
 
-createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture);
+ echo createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture);
 
-/*
-createSpace(4,1,'work desk',1,1,27,1,1,1);
-*/
+
 
 function createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture){
 	global $connection;
@@ -29,8 +27,23 @@ function createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_o
 	$sql = "INSERT INTO spaces(hub_id, space_type,space_name,number_of_guests,number_of_spaces,size,whiteboard,screen,projector,thumbnail_picture)
 	VALUES($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture)";
 	
-	echo $sql;
 	$result = $connection->query($sql);
+
+	$space_id = -1;
+
+	if ($result == TRUE) {
+	    // output data of each row
+
+
+	    $sql1 ="SELECT LAST_INSERT_ID() as space_id";
+	    $id = $connection->query($sql1);
+	    $row = $id->fetch_assoc();
+	    $space_id=$row["space_id"];
+
+	  }
+
+
+	  return $space_id;
 
 	
 

@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
-    <link rel="stylesheet" href="css/custom.flexslider.css">
+    <link rel="stylesheet" href="css/custom.flexslider.css">    
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -26,10 +27,7 @@
     <script>
         $(document).ready(function(){
             
-            var user_id = localStorage.getItem("user_id");
-
-            
-            getSpaceList(user_id);
+    
 
            $("#back").click(function(){
 
@@ -62,7 +60,7 @@
         <main class="hoc container clear"> 
             <div class="content three_quarter">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New space</h2>
+                    <h2>New space</h2>
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Select hub</label>
                             <select id="hubList">
@@ -155,7 +153,7 @@
                 $("#hubList-button span").hide();
             }, 500);
 
-            getListHubByUserId(1);
+            getListHubByUserId(localStorage.getItem("user_id"));
         })
     </script>
 </body>
