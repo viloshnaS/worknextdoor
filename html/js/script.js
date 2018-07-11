@@ -764,21 +764,15 @@ function getSpaceList(id){
 
 function displayhostHubList(results){
 
- 
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
       result_arr.forEach(function(hub) { 
-          display_string = display_string+"<ul><li>";
-          display_string = display_string+hub.name;
-          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'>";
-          display_string = display_string+"<i class='material-icons'>";
-          display_string = display_string+"settings";
-          display_string = display_string+"</i>";
-          display_string = display_string+"</a>"; 
+          display_string = display_string+"<ul class='accordion-menu' onclick='toggleHubList(this)'>"+hub.name +"<i class='fa fa-chevron-down' ></i><li>";
+          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'></a>";
           hub.spaces.forEach(function(space) {
-            display_string = display_string+"<ul><li>";
-            display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'>";
-            display_string = display_string+space.space_name;
+            display_string = display_string+"<ul class='submenuItems' style='display:none'><li>";
+            display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'><span>";
+            display_string = display_string+space.space_name+ "</span>";
             display_string = display_string+"</a>"; 
             display_string = display_string+"</li></ul>";
           });
@@ -789,5 +783,9 @@ function displayhostHubList(results){
        $("#host_spaces").html(display_string);
 
 };
+
+function toggleHubList(tagg){
+  jQuery(tagg).find("ul").slideToggle();
+}
 
 
