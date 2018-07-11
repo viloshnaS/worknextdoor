@@ -325,8 +325,8 @@ function checkPrice(price){
   else{
     return true;
   }
-
 }
+
 
 
 function submitNewSpace(){
@@ -363,8 +363,51 @@ function submitNewSpace(){
     return;
   }
 
-  var jsonObj;
-  var price_list = [];
+	  var jsonObj;
+	  var price_list = [];
+	 
+	  if($("#hourly").is(':checked')){
+      var hourly = $("#hourly_price").val();
+      
+      if(checkPrice(hourly)){
+          jsonObj = { "rate": "1","price": hourly };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#daily").is(':checked')){
+      var daily = $("#daily_price").val();
+      if(checkPrice(daily)){
+          jsonObj = { "rate": "2","price": daily };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#monthly").is(':checked')){
+      var monthly = $("#monthly_price").val();
+      if(checkPrice(monthly)){
+          jsonObj = { "rate": "3","price": monthly };
+          price_list.push(jsonObj);
+      }
+   }
+               
+  var priceJsonStr = "";
+  priceJsonStr = JSON.stringify(price_list);
+              
+ 
+  var uploadData = {
+    hub_id : hubId,
+    space_type : spaceType,
+    space_name : spaceName,
+    number_of_guests : nbOfGuest,
+    number_of_spaces : nbOfSpace,
+    size : spaceSize,
+    whiteboard : whiteBoard,
+    screen : screen,
+    projector : projector,
+    price_list : priceJsonStr,
+    thumbnail_picture : arrSpacePicture.toString()
+  }
 
   if($("#hourly").is(':checked')){
       var hourly = $("#hourly_price").val();
@@ -592,8 +635,6 @@ function getSpaceList(id){
 
 function displayhostHubList(results){
 
-  alert(results);
-
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
       result_arr.forEach(function(hub) { 
@@ -611,5 +652,38 @@ function displayhostHubList(results){
        });
 
        $("#host_spaces").html(display_string);
+	}
+
+function deleteDate(index){
+	var index = $(this).attr('id');
+	selected_dates.splice(index,1);
+	displaySelectedDates(); 
+};
+
+
+function displaySelectedDates(){
+
+            var res = "";
+
+            for (i = 0; i < selected_dates.length; i++)  {
+
+              var selectedDate = selected_dates[i];
+              var _date_from = selectedDate[0];
+              var _date_to = selectedDate[1];
+
+			res += "<div class='block clear' >";
+              res += "<div class='one_quarter'>";
+              res += "        <label style='font-weight: bold; display: none;'>Padding div tag</label></div>";
+              res += "      <div class='one_half' >";
+              res += "        <label style='font-weight: bold; font-size: 12px;'>" + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear() + " to " +  _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear() + "</label></div>";
+              res += "      <div class='one_quarter' >";
+              res += "       <i class='material-icons' onclick='deleteDate(" + i + ")' style='float: left; color: red'>clear</i></div>";
+              res += "<div>";
+
+            }
+              $("#date_display").html(res);
+              $('.datepicker').datepicker("refresh");
+                
+
 
 };
