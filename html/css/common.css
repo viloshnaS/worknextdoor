@@ -32,6 +32,11 @@ hr {
     color:red;
 }
 
+.clear_icon{
+
+    font-size:25px;
+    color:#631762;
+}
 .stars-container {
   position: relative;
   display: inline-block;

@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
-    <link rel="stylesheet" href="css/custom.flexslider.css">    
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/custom.flexslider.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&sensor=false&v=3&libraries=geometry"></script> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="js/script.js"></script>
@@ -25,9 +25,13 @@
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
 
     <script>
+
         $(document).ready(function(){
-            
-    
+            var currURL = window.location.href;
+            var arrURLDetail = currURL.split("=");
+            var spaceId = arrURLDetail[1];
+                
+            getSpaceInfo(parseInt(spaceId));
 
            $("#back").click(function(){
 
@@ -57,16 +61,11 @@
         </div>
 
     <div class="wrapper row3">
-        <main class="hoc container clear"  style="margin: 20px;"> 
-            <div class="content">
+        <main class="hoc container clear"> 
+            <div class="content three_quarter">
                 <div id="comments">
-                    <h2>New space</h2>
-                        <div class="block clear">
-                            <label for="comment" style="font-weight: bold;">Select hub</label>
-                            <select id="hubList">
-                                <!-- <option value="saab">Saab 95</option> -->
-                            </select>
-                        </div>
+                    <h2 style="font-weight: bold;">Modify space</h2>
+                        
 
                         <div class="">
                             <label for="comment" style="font-weight: bold;">Space type</label>
@@ -76,15 +75,14 @@
                             </select>
                         </div>
 
-
-                        <div class="block clear first ui-corner-all">
+                        <div class="block clear first">
                             <label for="comment" style="font-weight: bold;">Space name (required)</label>
-                            <input type="text" name="name" id="spaceName" value="" size="22" required class="ui-corner-all">
+                            <input type="text" name="name" id="spaceName" value="" size="22" required>
                         </div>
 
-                        <div class="block clear ui-corner-all">
-                            <label for="comment" style="font-weight: bold;">Number of guest (required)</label>
-                            <input type="number" id="nbOfGuest" value="" size="22" required class="ui-corner-all">
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Number of guests (required)</label>
+                            <input type="number" id="nbOfGuest" value="" size="22" required>
                         </div>
 
                         <div class="block clear">
@@ -110,43 +108,16 @@
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Features</label>
                             <div class="one_half first">
-                                <div class="one_quarter  clear"><input type="checkbox" id="whiteBoard" name="feature" value="whiteBoard" style="box-shadow: none" /></div><div class="three_quarter"><label for="scales">White board</label></div>
+                                <div class="one_quarter  clear"><input type="checkbox" id="whiteBoard" name="feature" value="whiteBoard"  /></div><div class="one_half"><label for="scales">White board</label></div>
 
-                                <div class="one_quarter clear" ><input type="checkbox" id="screen" name="feature" value="screen"  style="box-shadow: none" /></div><div class="three_quarter"><label for="scales">Screen</label></div>
+                                <div class="one_quarter clear" ><input type="checkbox" id="screen" name="feature" value="screen"  /></div><div class="one_half"><label for="scales">Screen</label></div>
                                 
                             </div>
                             <div class="one_half">
-                                <div class="one_quarter  clear" ><input type="checkbox" id="projector" name="feature" value="projector"  style="box-shadow: none" /></div><div class="three_quarter"><label for="scales">Projector</label></div>
+                                <div class="one_quarter  clear" ><input type="checkbox" id="projector" name="feature" value="projector"  /></div><div class="one_half"><label for="scales">Projector</label></div>
                                 
                             </div>
                         </div>
-
-                        <table>
-                          <tr>
-                            <td><label for="comment" style="font-weight: bold;">Price</label></td>
-                          </tr>
-                          <tr>
-                            <td>Hourly Rate</label></td>
-                            <td><input class='rate' type="checkbox" id="hourly" value="0"></td>
-                          </tr>
-                           <tr>
-                            <td><input type="text" style="display: none;" size='7' id="hourly_price" value="0"></td>
-                          </tr>
-                          <tr>
-                            <td>Daily Rate</label></td>
-                            <td><input class='rate' type="checkbox" id="daily" value="0"></td>
-                          </tr>
-                          <tr>
-                            <td><input type="text" style="display: none;" size='7' id="daily_price" value="0"></td>
-                          </tr>
-                          <tr>
-                            <td>Monthly Rate</label></td>
-                            <td><input class='rate' type="checkbox" id="monthly" value="0"></td>
-                          </tr>
-                          <tr>
-                            <td><input type="text" style="display: none;" size='7' id="monthly_price" value="0"></td>
-                          </tr>
-                        </table>
 
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Upload space pictures</label>
@@ -157,12 +128,16 @@
                             
                         </div>
 
-                        <div class="center">
-                            <a id="submit_hub_btn" class="btn inverse" href="javascript:;" onclick="submitNewSpace()">Submit</a>
+                        <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Disable this space?</label></div><div class="one_quarter"><input type="checkbox" id="active" value="active"  /></div>
                         </div>
 
                         <div class="center">
-                            <span id="txtErr" style="color: red"></span>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateSpace()">Submit</a>
+                        </div>
+
+                        <div class="center">
+                            <span id="txtErr"></span>
                         </div>
 
                     <!-- </form> -->
@@ -181,47 +156,7 @@
                 $("#hubList-button span").hide();
             }, 500);
 
-        
-
-          getListHubByUserId(localStorage.getItem("user_id"));
-        
-
-        $("#back").click(function(){
-            history.back();
-          
-          });
-
-          $("#home").click(function(){
-            window.location="index.html";
-          
-          });
-
-          $("#hourly").change(function() {
-              if($(this).is(':checked')){
-                $("#hourly_price").show();
-              }
-              else{
-                $("#hourly_price").hide();
-              }
-          })
-
-          $("#daily").change(function() {
-              if($(this).is(':checked')){
-                $("#daily_price").show();
-              }
-              else{
-                $("#daily_price").hide();
-              }
-          })
-
-          $("#monthly").change(function() {
-              if($(this).is(':checked')){
-                $("#monthly_price").show();
-              }
-              else{
-                $("#monthly_price").hide();
-              }
-          })
+            getListHubByUserId(1);
         })
     </script>
 </body>

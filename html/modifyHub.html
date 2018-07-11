@@ -23,14 +23,46 @@
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
   
+  <script>
+        $(document).ready(function(){
+            
+            var user_id = localStorage.getItem("user_id");
+
+            
+            getSpaceList(user_id);
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+        });
+    </script>
+
 </head>
 <body>
+    <div id="div_location">
+          <table>
+            <tr>
+                <td width="10%"><span id="back"><i class='material-icons'>arrow_back</i></span></td>
+                <td width ="10%"><span id="home"><i class='material-icons'>home</i></span></td>
+          </tr>
+          </table>
+        </div>
+        
     <div class="wrapper row3">
         <main class="hoc container clear"> 
             <div class="content three_quarter">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New hub</h2>
+                    <h2 style="font-weight: bold;">Modify hub</h2>
                     <!-- <form action="#" method="post"> -->
+                        <input type="hidden" id="hub_id">
                         <div class="block clear first">
                             <!-- <label for="name">Name <span>*</span></label> -->
                             <input type="text" name="name" id="hubName" value="" size="22" required placeholder="Hub name (required)">
@@ -38,7 +70,7 @@
 
                         <div class="block clear">
                             <!-- <label for="url">Address</label> -->
-                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)">
+                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)" disabled>
                             <div id="map" style="display: none"></div>
                             <div id="lat" style="display: none"></div>
                             <div id="lng" style="display: none"></div>
@@ -78,9 +110,12 @@
                         <div class="block clear" id="showImage">
                             
                         </div>
+                        <div class="block clear">
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Disable this hub?</label></div><div class="one_quarter"><input type="checkbox" id="active" value="active"  /></div>
+                        </div>
 
                         <div>
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Save Changes</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="updateHub($('#hub_id').text())">Save Changes</a>
                         </div>
 
                     <!-- </form> -->
@@ -91,7 +126,14 @@
     <script src="js/hostScript.js"></script>
     <script>
          $(document).ready(function(){
-            getHubInfo(4);
+
+            $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+            }
+
+            var hub_id = $.urlParam('hub_id');
+            getHubInfo(hub_id);
          });
          
         function initAutocomplete() {

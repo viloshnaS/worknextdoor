@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/booking.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
     <link rel="stylesheet" href="css/custom.flexslider.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
@@ -22,9 +23,33 @@
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+	<script src="js/hostScript.js"></script>
   
+  <script>
+        $(document).ready(function(){
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+        });
+    </script>
+
 </head>
 <body>
+    <div id="div_location">
+          <span id="back"><i class='material-icons'>arrow_back</i></span>
+         <span id="home"><i class='material-icons'>home</i></span>
+         
+        </div>
+        
     <div class="wrapper row3">
         <main class="hoc container clear" style="margin: 20px;">
             <div class="content clear">
@@ -32,7 +57,7 @@
             </div> 
             <div class="content ">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New hub</h2>
+                    <h2>New hub</h2>
                     <!-- <form action="#" method="post"> -->
                         <div class="block clear first">
                             <label for="comment" style="font-weight: bold;">Hub name (required)</label>
@@ -82,8 +107,10 @@
                             
                         </div>
 
-                        <div class="center block clear">
-                            <a id="submit_hub_btn" class="btn inverse" href="javascript:;" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Submit</a>
+
+                        <div>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Continue</a>
+
                         </div>
                         
                         <div class="center">
@@ -94,7 +121,6 @@
             </div>
         </main>
     </div>
-    <script src="js/hostScript.js"></script>
     <script>
         // $(document).ready(function(){
         //     var input = document.getElementById('hubAddress');
