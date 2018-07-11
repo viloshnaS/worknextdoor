@@ -120,6 +120,33 @@
                             </div>
                         </div>
 
+                        <table>
+                          <tr>
+                            <td><label for="comment" style="font-weight: bold;">Price</label></td>
+                          </tr>
+                          <tr>
+                            <td>Hourly Rate</label></td>
+                            <td><input class='rate' type="checkbox" id="hourly" value="0"></td>
+                          </tr>
+                           <tr>
+                            <td><input type="text" style="display: none;" size='7' id="hourly_price" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td>Daily Rate</label></td>
+                            <td><input class='rate' type="checkbox" id="daily" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="text" style="display: none;" size='7' id="daily_price" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td>Monthly Rate</label></td>
+                            <td><input class='rate' type="checkbox" id="monthly" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td><input type="text" style="display: none;" size='7' id="monthly_price" value="0"></td>
+                          </tr>
+                        </table>
+
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Upload space pictures</label>
                             <input type="file" id="spacePicture" accept="image/*" multiple>
@@ -153,7 +180,47 @@
                 $("#hubList-button span").hide();
             }, 500);
 
-            getListHubByUserId(localStorage.getItem("user_id"));
+        
+
+          getListHubByUserId(localStorage.getItem("user_id"));
+        
+
+        $("#back").click(function(){
+            history.back();
+          
+          });
+
+          $("#home").click(function(){
+            window.location="index.html";
+          
+          });
+
+          $("#hourly").change(function() {
+              if($(this).is(':checked')){
+                $("#hourly_price").show();
+              }
+              else{
+                $("#hourly_price").hide();
+              }
+          })
+
+          $("#daily").change(function() {
+              if($(this).is(':checked')){
+                $("#daily_price").show();
+              }
+              else{
+                $("#daily_price").hide();
+              }
+          })
+
+          $("#monthly").change(function() {
+              if($(this).is(':checked')){
+                $("#monthly_price").show();
+              }
+              else{
+                $("#monthly_price").hide();
+              }
+          })
         })
     </script>
 </body>
