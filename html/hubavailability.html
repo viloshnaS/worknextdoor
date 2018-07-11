@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
     <link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
     <script src="js/script.js"></script>
+    <script src="js/hostScript.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
   	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
    	<link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
    	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
    	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
     <body>
 
@@ -66,6 +66,10 @@
             }
 
             var hub_id = $.urlParam('hub_id');
+
+            selected_dates = getHubAvailability(hub_id);
+            alert(selected_dates);
+            displaySelectedDates();
 
 		$(".datepicker").datepicker({
             showOtherMonths: true,

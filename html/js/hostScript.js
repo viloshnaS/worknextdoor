@@ -506,3 +506,38 @@ function returnHomepage(){
 function modifyMore(){
   window.location.href = "hostSpaceList.html";
 }
+
+function getHubAvailability(_hub_id){
+    var selected_dates = [];
+    $.ajax({
+        url : URL+'/host/getHubAvailability.php',
+        type : 'GET',
+        async: false,
+        crossDomain: true,
+        data: {hub_id: _hub_id},
+        success : function(responseData){ 
+          
+
+          if(responseData != ""){
+              var count =0;
+              var results_list = JSON.parse(responseData);
+              results_list.forEach(function(hub_date) { 
+
+              
+                var _date_from = new Date(hub_date.startDate);
+                var _date_to = new Date(hub_date.endDate);
+                var _date =[_date_from,_date_to];
+                selected_dates.push(_date);
+          });
+              
+          }          
+          
+        }, error : function(err){
+          console.log(err);
+       }
+
+    });
+
+    return selected_dates;
+
+}
