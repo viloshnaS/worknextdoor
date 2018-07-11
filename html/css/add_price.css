@@ -1,41 +1,8 @@
-
-        .dp-highlight .ui-state-default {
-          background: #9370DB;
-          color: #FFF;
-        }
-        .ui-datepicker.ui-datepicker-multi  {
-          width: 100% !important;
-        }
-        .ui-datepicker-multi .ui-datepicker-group {
-        float:none;
-        }
-        #datepicker {
-          height: 300px;
-          overflow-x: scroll;
-        }
-.ui-widget { font-size: 100% }
-
-table{
-
-  margin-top: 3em;
-
-}
-
-#date_display{
-  padding-left: 20px;
-}
-
-#save_div{
-  padding-left: 10px;
-
-  padding-top: 20px;
-}
-
-.clear_image{
-
-  font-size:25px;
-  color:green;
-  color: #631762;
+td{
+	padding: 10px;
+	text-transform: capitalize;
+	font-size:20px;
+	font-family:Vernanda;
 }
 
 h2   {

@@ -4,7 +4,7 @@ require('../../connection.php');
 $connection = $conn;
 
 if(isset($_GET['space_id']) && !empty($_GET['space_id'])) {
-    $hub_id = $_GET['space_id'];
+    $space_id = $_GET['space_id'];
     echo hostGetSpaceById($space_id);
     
  }
@@ -24,5 +24,4 @@ function hostGetSpaceById($id){
 		
 }
 
-echo hostGetSpaceById(2);
 ?>

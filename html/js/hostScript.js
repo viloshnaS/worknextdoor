@@ -38,6 +38,67 @@ $("#spacePicture").change(function(e) {
 });
 
 function submitNewHub(lat, lng){
+<<<<<<< HEAD
+	var hubName = $("#hubName").val();
+	var hubAddress = $("#hubAddress").val();
+	var hubDescription = $("#hubDescription").val();
+	var airCondition = $("#airCondition").is(':checked') ? 1:0;
+	var printer = $("#printer").is(':checked') ? 1:0;
+	var kitchen = $("#kitchen").is(':checked') ? 1:0;
+	var heater = $("#heater").is(':checked') ? 1:0;
+	var wifi = $("#wifi").is(':checked') ? 1:0;
+	var parking = $("#parking").is(':checked') ? 1:0;
+
+	var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
+	var weekend = $("#weekend").is(':checked') ? 1:0;
+
+	if(hubName == "" || hubName == null){
+		$("#txtErr").html("Please enter hub name");
+		return;
+	}
+
+	if(hubAddress == "" || hubAddress == null){
+		$("#txtErr").html("Please enter hub address");
+		return;
+	}
+
+	if(hubDescription == "" || hubDescription == null){
+		$("#txtErr").html("Please enter hub description");
+		return;
+	}
+
+	var uploadData = {
+		user_id : 7,
+		name : hubName,
+		address : hubAddress,
+		latitude : parseFloat(lat),
+		longitude : parseFloat(lng),
+		description : hubDescription,
+		aircon : airCondition,
+		printer_scanner : printer,
+		kitchen : kitchen,
+		heater : heater,
+		wifi : wifi,
+		parking : parking,
+		public_holidays : publicHoliday,
+		weekends : weekend,
+		picture : arrHubPicture.toString()
+	}
+
+	$.ajax({
+       	url : URL+'/host/createHub.php',
+       	type : 'POST',
+       	async: false,
+       	crossDomain: true,
+	   	// dataType: 'jsonp',
+       	data: uploadData,
+       	success : function(responseData){ 
+       		if(responseData > 0){
+       			window.location="hubavailability.html?hub_id="+responseData;
+       		} // Create successfully and return Hub ID
+       		else{
+       			console.log('Create hub failed');
+       		}
   var hubName = $("#hubName").val();
   var hubAddress = $("#hubAddress").val();
   var hubDescription = $("#hubDescription").val();
@@ -159,7 +220,7 @@ function displayHubInfo(result){
             $("#parking").prop('checked', true); 
  
          }
- 
+
         if(hub.weekends == 1){
           
             $("#weekend").prop('checked', true);
@@ -169,16 +230,16 @@ function displayHubInfo(result){
           
             $("#publicHoliday").prop('checked', true);
         }
- 
-  
- 
+
 }
  
 
  
-function updateHub(hub_id){
- 
-  alert(id);
+function updateHub(){
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var hubId = parseInt(arrURLDetail[1]);
+
   var hubName = $("#hubName").val();
   var hubDescription = $("#hubDescription").val();
   var airCondition = $("#airCondition").is(':checked') ? 1:0;
@@ -193,7 +254,7 @@ function updateHub(hub_id){
   var active = $("#active").is(':checked') ? 0:1;
  
   var uploadData = {
-    hub_id : id,
+    hub_id : hubId,
     name : hubName,
     description : hubDescription,
     aircon : airCondition,
@@ -217,8 +278,15 @@ function updateHub(hub_id){
     async: false,
         data: uploadData,
         success : function(responseData){ 
- 
-          alert(responseData);
+
+ 			if(responseData > 0){
+
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
+          } 
+          else{
+            $("#txtErr").html("Modify hub unsuccessfully, please try again")
+          }
         }, error : function(err){
           console.log(err);
        }
@@ -249,8 +317,20 @@ function getListHubByUserId(userId){
     });
 }
 
+function checkPrice(price){
+
+  if(price=="" || isNaN(parseFloat(price)) || parseFloat(price)<=0){
+      return false;
+  }
+  else{
+    return true;
+  }
+}
+
+
 
 function submitNewSpace(){
+
   //var hubId = $("#hubList option:selected").val();
   var hubId = 1;
   var spaceType = parseInt($("#spaceTypeList option:selected").val());
@@ -283,6 +363,38 @@ function submitNewSpace(){
     return;
   }
 
+	  var jsonObj;
+	  var price_list = [];
+	 
+	  if($("#hourly").is(':checked')){
+      var hourly = $("#hourly_price").val();
+      
+      if(checkPrice(hourly)){
+          jsonObj = { "rate": "1","price": hourly };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#daily").is(':checked')){
+      var daily = $("#daily_price").val();
+      if(checkPrice(daily)){
+          jsonObj = { "rate": "2","price": daily };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#monthly").is(':checked')){
+      var monthly = $("#monthly_price").val();
+      if(checkPrice(monthly)){
+          jsonObj = { "rate": "3","price": monthly };
+          price_list.push(jsonObj);
+      }
+   }
+               
+  var priceJsonStr = "";
+  priceJsonStr = JSON.stringify(price_list);
+              
+ 
   var uploadData = {
     hub_id : hubId,
     space_type : spaceType,
@@ -293,6 +405,50 @@ function submitNewSpace(){
     whiteboard : whiteBoard,
     screen : screen,
     projector : projector,
+    price_list : priceJsonStr,
+    thumbnail_picture : arrSpacePicture.toString()
+  }
+
+  if($("#hourly").is(':checked')){
+      var hourly = $("#hourly_price").val();
+      
+      if(checkPrice(hourly)){
+          jsonObj = { "rate": "1","price": hourly };
+          price_list.push(jsonObj);
+      }
+   }
+
+   if($("#daily").is(':checked')){
+      var daily = $("#daily_price").val();
+      if(checkPrice(daily)){
+          jsonObj = { "rate": "2","price": daily };
+          price_list.push(jsonObj);
+      }
+   }
+
+   if($("#monthly").is(':checked')){
+      var monthly = $("#monthly_price").val();
+      if(checkPrice(monthly)){
+          jsonObj = { "rate": "3","price": monthly };
+          price_list.push(jsonObj);
+      }
+   }
+               
+  var priceJsonStr = "";
+  priceJsonStr = JSON.stringify(price_list);
+              
+
+  var uploadData = {
+    hub_id : hubId,
+    space_type : spaceType,
+    space_name : spaceName,
+    number_of_guests : nbOfGuest,
+    number_of_spaces : nbOfSpace,
+    size : spaceSize,
+    whiteboard : whiteBoard,
+    screen : screen,
+    projector : projector,
+    price_list : priceJsonStr,
     thumbnail_picture : arrSpacePicture.toString()
   }
 
@@ -326,7 +482,7 @@ function submitNewSpace(){
       type : 'GET',
  
       crossDomain: true,
-      data: { hub_id:id } ,
+      data: { space_id:id } ,
       success : function(response){ // success est toujours en place, bien sûr !
           displaySpaceInfo(response);
       },
@@ -345,9 +501,9 @@ function displaySpaceInfo(result){
        $("#nbOfSpace").val(space.number_of_spaces);
        $("#spaceSize").val(space.size);
 
-       if(space.whiteBoard == 1){
+       if(space.whiteboard == 1){
           
-            $("#whiteboard").prop('checked', true);
+            $("#whiteBoard").prop('checked', true);
         }
  
         if(space.screen == 1){
@@ -361,9 +517,11 @@ function displaySpaceInfo(result){
         }
  }
 
-
 function updateSpace(){
   //var hubId = $("#hubList option:selected").val();
+  var currURL = window.location.href;
+  var arrURLDetail = currURL.split("=");
+  var spaceId = parseInt(arrURLDetail[1]);
   var spaceType = parseInt($("#spaceTypeList option:selected").val());
   var spaceName = $("#spaceName").val();
   
@@ -395,6 +553,7 @@ function updateSpace(){
   }
 
   var uploadData = {
+    space_id : spaceId,
     space_type : spaceType,
     space_name : spaceName,
     number_of_guests : nbOfGuest,
@@ -407,8 +566,6 @@ function updateSpace(){
     active : active
   }
 
-
-
   $.ajax({
         url : URL+'/host/updateSpace.php',
         type : 'POST',
@@ -417,16 +574,16 @@ function updateSpace(){
         data: uploadData,
         success : function(responseData){ 
           
-          var html = "";
           if(responseData > 0){
-            displaySpaceDetails(response);
+            //displaySpaceDetails(response);
+            window.location.href = "modifyResult.html";
           } 
           else{
-            $("#txtErr").html("Create space unsuccessfully, please try again")
+            $("#txtErr").html("Modify space unsuccessfully, please try again")
           }
         }, error : function(err){
           console.log(err);
-       }
+        }
 
     });
 }
@@ -447,7 +604,10 @@ function createMoreSpace(){
 function returnHomepage(){
   window.location.href = "index.html";
 }
+
+
   
+<<<<<<< HEAD
 
 function dropdownlist() {
   var Accordion = function(el, multiple) {
@@ -478,3 +638,85 @@ function dropdownlist() {
   
   var accordion = new Accordion($('.accordion-menu'), false);
 }
+=======
+function modifyMore(){
+  window.location.href = "hostSpaceList.html";
+}
+
+
+function getSpaceList(id){
+  $.ajax({
+                   url : URL+'/host/getHubList.php',
+                   type : 'GET',
+                   crossDomain: true,
+                   data: { user_id:id } ,
+                   success : function(response){ // success est toujours en place, bien sûr !
+              
+              
+                         displayhostHubList(response);
+                        }
+            ,
+
+                   error : function(resultat, statut, erreur){
+
+                   }
+
+                });
+
+};
+
+function displayhostHubList(results){
+
+      var result_arr = JSON.parse(results); // converting results to JSON object
+      display_string ="";
+      result_arr.forEach(function(hub) { 
+          display_string = display_string+"<ul><li>";
+          display_string = display_string+hub.name; 
+          hub.spaces.forEach(function(space) {
+            display_string = display_string+"<ul><li>";
+            display_string = display_string+"<a href='#'>";
+            display_string = display_string+space.space_type;
+            display_string = display_string+"</a>"; 
+            display_string = display_string+"</li></ul>";
+          });
+          display_string = display_string+"</li></ul>";
+
+       });
+
+       $("#host_spaces").html(display_string);
+	}
+
+function deleteDate(index){
+	var index = $(this).attr('id');
+	selected_dates.splice(index,1);
+	displaySelectedDates(); 
+};
+
+
+function displaySelectedDates(){
+
+            var res = "";
+
+            for (i = 0; i < selected_dates.length; i++)  {
+
+              var selectedDate = selected_dates[i];
+              var _date_from = selectedDate[0];
+              var _date_to = selectedDate[1];
+
+			res += "<div class='block clear' >";
+              res += "<div class='one_quarter'>";
+              res += "        <label style='font-weight: bold; display: none;'>Padding div tag</label></div>";
+              res += "      <div class='one_half' >";
+              res += "        <label style='font-weight: bold; font-size: 12px;'>" + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear() + " to " +  _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear() + "</label></div>";
+              res += "      <div class='one_quarter' >";
+              res += "       <i class='material-icons' onclick='deleteDate(" + i + ")' style='float: left; color: red'>clear</i></div>";
+              res += "<div>";
+
+            }
+              $("#date_display").html(res);
+              $('.datepicker').datepicker("refresh");
+                
+
+
+};
+>>>>>>> master

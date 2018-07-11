@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/booking.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
     <link rel="stylesheet" href="css/custom.flexslider.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
@@ -26,11 +27,6 @@
   
   <script>
         $(document).ready(function(){
-            
-            var user_id = localStorage.getItem("user_id");
-
-            
-            getSpaceList(user_id);
 
            $("#back").click(function(){
 
@@ -49,57 +45,57 @@
 </head>
 <body>
     <div id="div_location">
-          <table>
-            <tr>
-                <td width="10%"><span id="back"><i class='material-icons'>arrow_back</i></span></td>
-                <td width ="10%"><span id="home"><i class='material-icons'>home</i></span></td>
-          </tr>
-          </table>
+          <span id="back"><i class='material-icons'>arrow_back</i></span>
+         <span id="home"><i class='material-icons'>home</i></span>
+         
         </div>
         
     <div class="wrapper row3">
-        <main class="hoc container clear"> 
-            <div class="content three_quarter">
+        <main class="hoc container clear" style="margin: 20px;">
+            <div class="content clear">
+                <span id="back"><i class='material-icons' style="cursor: pointer;" onclick="returnHomepage()">arrow_back</i></span>
+            </div> 
+            <div class="content ">
                 <div id="comments">
-                    <h2 style="font-weight: bold;">New hub</h2>
+                    <h2>New hub</h2>
                     <!-- <form action="#" method="post"> -->
                         <div class="block clear first">
-                            <!-- <label for="name">Name <span>*</span></label> -->
-                            <input type="text" name="name" id="hubName" value="" size="22" required placeholder="Hub name (required)">
+                            <label for="comment" style="font-weight: bold;">Hub name (required)</label>
+                            <input type="text" name="name" id="hubName" value="" size="22" required>
                         </div>
 
                         <div class="block clear">
-                            <!-- <label for="url">Address</label> -->
-                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required placeholder="Hub address (required)">
+                            <label for="comment" style="font-weight: bold;">Hub address (required)</label>
+                            <input type="text" class="controls" name="url" id="hubAddress" value="" size="22" required>
                             <div id="map" style="display: none"></div>
                             <div id="lat" style="display: none"></div>
                             <div id="lng" style="display: none"></div>
                         </div>
                         <div class="block clear">
-                            <!-- <label for="comment">Description</label> -->
-                            <textarea id="hubDescription" cols="25" rows="10" placeholder="Describe your hub"></textarea>
+                            <label for="comment" style="font-weight: bold;">Describe your hub (required)</label>
+                            <textarea id="hubDescription" cols="25" rows="10"></textarea>
                         </div>
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Features</label>
                             <div class="one_half first">
-                                <div class="one_quarter  clear"><input type="checkbox" id="airCondition" name="feature" value="airCondition"  /></div><div class="one_half"><label for="scales">Air conditioner</label></div>
-                                <div class="one_quarter clear" ><input type="checkbox" id="printer" name="feature" value="printer"  /></div><div class="one_half"><label for="scales">Printer</label></div>
-                                <div class="one_quarter clear" ><input type="checkbox" id="kitchen" name="feature" value="kitchen"  /></div><div class="one_half"><label for="scales">Kitchen</label></div>
+                                <div class="one_quarter  clear"><input type="checkbox" id="airCondition" name="feature" value="airCondition" style="box-shadow: none"  /></div><div class="three_quarter"><label for="scales">Air conditioner</label></div>
+                                <div class="one_quarter clear" ><input type="checkbox" id="printer" name="feature" value="printer"  style="box-shadow: none" /></div><div class="three_quarter"><label for="scales">Printer</label></div>
+                                <div class="one_quarter clear" ><input type="checkbox" id="kitchen" name="feature" value="kitchen"  style="box-shadow: none" /></div><div class="three_quarter"><label for="scales">Kitchen</label></div>
                                 
                             </div>
                             <div class="one_half">
-                                <div class="one_quarter  clear" ><input type="checkbox" id="wifi" name="feature" value="wifi"  /></div><div class="one_half"><label for="scales">Wifi</label></div>
-                                <div class="one_quarter clear" ><input type="checkbox" id="heater" name="feature" value="heater"  /></div><div class="one_half"><label for="scales">Heater</label></div>
-                                <div class="one_quarter  clear" ><input type="checkbox" id="parking" name="feature" value="parking"  /></div><div class="one_half"><label for="scales">Parking</label></div>
+                                <div class="one_quarter  clear" ><input type="checkbox" id="wifi" name="feature" value="wifi" style="box-shadow: none"  /></div><div class="three_quarter"><label for="scales">Wifi</label></div>
+                                <div class="one_quarter clear" ><input type="checkbox" id="heater" name="feature" value="heater" style="box-shadow: none"  /></div><div class="three_quarter"><label for="scales">Heater</label></div>
+                                <div class="one_quarter  clear" ><input type="checkbox" id="parking" name="feature" value="parking" style="box-shadow: none"  /></div><div class="three_quarter"><label for="scales">Parking</label></div>
                             </div>
                         </div>
 
                         <div class="block clear">
-                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on weekend?</label></div><div class="one_quarter"><input type="checkbox" id="weekend" value="weekend"  /></div>
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on weekend?</label></div><div class="one_quarter"><input type="checkbox" id="weekend" value="weekend" style="box-shadow: none" /></div>
                         </div>
 
                         <div class="block clear">
-                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on public holiday?</label></div><div class="one_quarter"><input type="checkbox" id="publicHoliday" value="publicHoliday"  /></div>
+                            <div class="three_quarter"><label for="comment" style="font-weight: bold;">Is your hub available on public holiday?</label></div><div class="one_quarter"><input type="checkbox" id="publicHoliday" value="publicHoliday" style="box-shadow: none" /></div>
                         </div>
 
                         <div class="block clear">
@@ -111,11 +107,14 @@
                             
                         </div>
 
+
                         <div>
-                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Submit</a>
+                            <a id="submit_hub_btn" class="btn inverse" href="#" onclick="submitNewHub($('#lat').text(), $('#lng').text())">Continue</a>
+
                         </div>
+                        
                         <div class="center">
-                            <span id="txtErr"></span>
+                            <span id="txtErr" style="color: red"></span>
                         </div>
                     <!-- </form> -->
                 </div>
