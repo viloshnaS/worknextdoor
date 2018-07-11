@@ -256,6 +256,17 @@ function getListHubByUserId(userId){
     });
 }
 
+function checkPrice(price){
+
+  if(price=="" || isNaN(parseFloat(price)) || parseFloat(price)<=0){
+      return false;
+  }
+  else{
+    return true;
+  }
+
+}
+
 
 function submitNewSpace(){
   //var hubId = $("#hubList option:selected").val();
@@ -290,6 +301,38 @@ function submitNewSpace(){
     return;
   }
 
+  var jsonObj;
+  var price_list = [];
+
+  if($("#hourly").is(':checked')){
+      var hourly = $("#hourly_price").val();
+      
+      if(checkPrice(hourly)){
+          jsonObj = { "rate": "1","price": hourly };
+          price_list.push(jsonObj);
+      }
+   }
+
+   if($("#daily").is(':checked')){
+      var daily = $("#daily_price").val();
+      if(checkPrice(daily)){
+          jsonObj = { "rate": "2","price": daily };
+          price_list.push(jsonObj);
+      }
+   }
+
+   if($("#monthly").is(':checked')){
+      var monthly = $("#monthly_price").val();
+      if(checkPrice(monthly)){
+          jsonObj = { "rate": "3","price": monthly };
+          price_list.push(jsonObj);
+      }
+   }
+               
+  var priceJsonStr = "";
+  priceJsonStr = JSON.stringify(price_list);
+              
+
   var uploadData = {
     hub_id : hubId,
     space_type : spaceType,
@@ -300,6 +343,7 @@ function submitNewSpace(){
     whiteboard : whiteBoard,
     screen : screen,
     projector : projector,
+    price_list : priceJsonStr,
     thumbnail_picture : arrSpacePicture.toString()
   }
 
