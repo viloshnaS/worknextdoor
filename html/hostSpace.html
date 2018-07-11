@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
     <link rel="stylesheet" href="css/custom.flexslider.css">
-    <link rel="stylesheet" href="css/.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -23,9 +23,31 @@
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-  
+    <script>
+        $(document).ready(function(){
+           $("#back").click(function(){
+                history.back();
+            });
+           $("#home").click(function(){
+                window.location="index.html";
+            });
+ 
+        });
+    </script>
 </head>
 <body>
+
+    <div class="wrapper row3" id="div_location">
+        <main class="hoc container clear"  style="margin: 20px;"> 
+            <div class="one_half">
+                <span id="back"><i class='material-icons'>arrow_back</i></span>
+            </div>
+            <div class="one_half">
+                <span id="home"><i class='material-icons' style="float: right">home</i></span>
+            </div>
+        </main>
+    </div>
+
     <div class="wrapper row3">
         <main class="hoc container clear"  style="margin: 20px;"> 
             <div class="content">
@@ -90,6 +112,43 @@
                             </div>
                         </div>
 
+
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Price</label>
+                            <div class="block clear first">
+                                <div class="one_quarter "><label for="scales">Hourly Rate</label></div>
+                                <div class="one_quarter">
+                                    <input class='rate' type="checkbox" id="hourly" value="0" style="box-shadow: none" >
+                                </div>
+                                <div class="one_quarter" >
+                                    <input type="text" style="display: none; box-shadow: none" size='7' id="hourly_price" value="0">
+                                </div>
+                                
+                            </div>
+
+                            <div class="block clear first">
+                                <div class="one_quarter "><label for="scales">Daily Rate</label></div>
+                                <div class="one_quarter">
+                                    <input class='rate' type="checkbox" id="daily" value="0" style="box-shadow: none" >
+                                </div>
+                                <div class="one_quarter" >
+                                    <input type="text" style="display: none; box-shadow: none" size='7' id="daily_price" value="0">
+                                </div>
+                                
+                            </div>
+
+                            <div class="block clear first">
+                                <div class="one_quarter "><label for="scales">Monthly Rate</label></div>
+                                <div class="one_quarter">
+                                    <input class='rate' type="checkbox" id="monthly" value="0" style="box-shadow: none" >
+                                </div>
+                                <div class="one_quarter" >
+                                    <input type="text" style="display: none; box-shadow: none" size='7' id="monthly_price" value="0">
+                                </div>
+                                
+                            </div>
+                        </div>
+
                         <div class="block clear">
                             <label for="comment" style="font-weight: bold;">Upload space pictures</label>
                             <input type="file" id="spacePicture" accept="image/*" multiple>
@@ -124,6 +183,43 @@
             }, 500);
 
             getListHubByUserId(1);
+
+            $("#back").click(function(){
+            history.back();
+          
+          });
+ 
+          $("#home").click(function(){
+            window.location="index.html";
+          
+          });
+ 
+          $("#hourly").change(function() {
+              if($(this).is(':checked')){
+                $("#hourly_price").show();
+              }
+              else{
+                $("#hourly_price").hide();
+              }
+          })
+ 
+          $("#daily").change(function() {
+              if($(this).is(':checked')){
+                $("#daily_price").show();
+              }
+              else{
+                $("#daily_price").hide();
+              }
+          })
+ 
+          $("#monthly").change(function() {
+              if($(this).is(':checked')){
+                $("#monthly_price").show();
+              }
+              else{
+                $("#monthly_price").hide();
+              }
+          })
         })
     </script>
 </body>
