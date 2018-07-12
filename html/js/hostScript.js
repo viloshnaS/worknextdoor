@@ -582,7 +582,7 @@ function modifyMore(){
 
 
 function getSpaceList(id){
-  alert("vsdfvsdf");
+  //alert("vsdfvsdf");
   $.ajax({
                    url : URL+'/host/getHubList.php',
                    type : 'GET',
@@ -608,17 +608,25 @@ function displayhostHubList(results){
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
       result_arr.forEach(function(hub) { 
-          display_string = display_string+"<ul class='accordion-menu' onclick='toggleHubList(this)'>"+hub.name +"<i class='fa fa-chevron-down' ></i><li>";
-          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'></a>";
+          display_string = display_string+"<ul class='accordion-menu' onclick='toggleHubList(this)'>"+hub.name;
+          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'>  ";
+          display_string = display_string+"<i class='fas fa-cog' ></i>     "; 
+          display_string = display_string+"</a>";
+          display_string = display_string+"<i class='fa fa-chevron-down' ></i><li>";
+          display_string = display_string+"<ul class='submenuItems' style='display:none'>";
           hub.spaces.forEach(function(space) {
-            display_string = display_string+"<ul class='submenuItems' style='display:none'><li>";
+            display_string = display_string+"<li>";
             display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'><span>";
             display_string = display_string+space.space_name+ "</span>";
             display_string = display_string+"</a>"; 
-            display_string = display_string+"</li></ul>";
+            display_string = display_string+"</li>";
           });
+          display_string = display_string+"<li>";
+          display_string = display_string+"<a href='hostSpace.html'>Add a new Space  ";
+          display_string = display_string+"<i class='fas fa-plus' ></i>"; 
+          display_string = display_string+"</a>";
           display_string = display_string+"</li></ul>";
-
+          display_string = display_string+"</li></ul>";
        });
 
        $("#host_spaces").html(display_string);
