@@ -28,6 +28,13 @@ function addHubAvailability(_hub_id,_selectedDates){
 
 }
 
+function deleteDate(index){
+  var index = $(this).attr('id');
+  selected_dates.splice(index,1);
+  displaySelectedDates(); 
+};
+
+
 
 function getHubAvailability(_hub_id){
     var selected_dates = [];
@@ -59,7 +66,6 @@ function getHubAvailability(_hub_id){
        }
 
     });
-
     return selected_dates;
 
 }
@@ -74,13 +80,14 @@ function getHubAvailability(_hub_id){
               var _date_from = selectedDate[0];
               var _date_to = selectedDate[1];
 
-              res = res + "<div id ='div_"+i+"''>";
-              res = res + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear();
-              res = res + " to ";
-              res = res + _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear();
-              res = res + "<i class='material-icons clear_image' id='"+i+"'>clear</i>";
-              res = res + "</div>";
-
+                res += "<div class='block clear' >";
+                res += "<div class='one_quarter'>";
+                res += "        <label style='font-weight: bold; display: none;'>Padding div tag</label></div>";
+                res += "      <div class='one_half' >";
+                res += "        <label style='font-weight: bold; font-size: 12px;'>" + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear() + " to " +  _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear() + "</label></div>";
+                res += "      <div class='one_quarter' >";
+                res += "       <i class='material-icons' onclick='deleteDate(" + i + ")' style='float: left; color: red'>clear</i></div>";
+                res += "<div>";
             }
               $("#date_display").html(res);
               $( ".datepicker" ).datepicker("refresh");

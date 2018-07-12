@@ -5,49 +5,54 @@
 <head>
 
    
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="css/booking.css">
+<link rel="stylesheet" href="css/booking.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
     <link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
-    <script src="js/script.js"></script>
-    <script src="js/HubAvailability.js"></script>
+
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
+    
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-  	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-   	<link rel="stylesheet" href="css/datepicker.css" type="text/css"/>
-   	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
-   	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="js/script.js"></script>
+    <script src="js/hostScript.js"></script>
+    <script src="js/HubAvailability.js"></script>
 
     <body>
 
 <div id="back"><i class='material-icons'>arrow_back</i></div>
     <div id="home"><i class='material-icons'>home</i></div>
-<table align="center">
 
-  <tr>
-    <td><h2>Select Available Dates</h2></td>
-  </tr>
-  <tr>
-    <td><input type="hidden" id="date_from" size="10"></td>
-  </tr>
-  <tr>
+<div class="wrapper row3" id="div_location">
+    <main class="hoc container clear"  style="margin: 20px;"> 
+        <div class="content">
+            <div id="comments">
+                <h2 style="font-weight: bold;" class="center">SELECT AVAILABLE DATES</h2>
+                <input type="hidden" id="date_from" size="10">
+                <input type="hidden" id="date_to" size="10">
 
-    <td><input type="hidden" id="date_to" size="10"></td>
-  </tr>
-  <tr>
-    <td><div class="datepicker"></div></td>
-  </tr>
-   <tr>
-    <td><div id="date_display"></div></td>
-  </tr>
-
-  <tr>
-    <td><div id="save_div"><button id="save_btn">Continue</button></div></td>
-  </tr>
-
-  
-</table>
+                <div class="block clear ui-corner-all">
+                    <div class="datepicker"></div>
+                </div>
+                
+                <div class="block clear ui-corner-all" style="margin-bottom: -30px;">
+                    <div id="date_display" class="center block clear ui-corner-all">
+                    </div>
+                </div>
+                <div class="center">
+                    <a id="save_btn" class="btn inverse" href="javascript:;">Save</a>
+                </div>
+            </div>
+        </div>
+     </main>
+</div>
    
 
 
@@ -68,7 +73,7 @@
             var hub_id = $.urlParam('hub_id');
 
             selected_dates = getHubAvailability(hub_id);
-            displaySelectedDates();
+            displaySelectedDates(selected_dates);
 
 		$(".datepicker").datepicker({
             showOtherMonths: true,
