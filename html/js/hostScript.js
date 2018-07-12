@@ -38,7 +38,6 @@ $("#spacePicture").change(function(e) {
 });
 
 function submitNewHub(lat, lng){
-<<<<<<< HEAD
 	var hubName = $("#hubName").val();
 	var hubAddress = $("#hubAddress").val();
 	var hubDescription = $("#hubDescription").val();
@@ -84,66 +83,6 @@ function submitNewHub(lat, lng){
 		weekends : weekend,
 		picture : arrHubPicture.toString()
 	}
-
-	$.ajax({
-       	url : URL+'/host/createHub.php',
-       	type : 'POST',
-       	async: false,
-       	crossDomain: true,
-	   	// dataType: 'jsonp',
-       	data: uploadData,
-       	success : function(responseData){ 
-       		if(responseData > 0){
-       			window.location="hubavailability.html?hub_id="+responseData;
-       		} // Create successfully and return Hub ID
-       		else{
-       			console.log('Create hub failed');
-       		}
-  var hubName = $("#hubName").val();
-  var hubAddress = $("#hubAddress").val();
-  var hubDescription = $("#hubDescription").val();
-  var airCondition = $("#airCondition").is(':checked') ? 1:0;
-  var printer = $("#printer").is(':checked') ? 1:0;
-  var kitchen = $("#kitchen").is(':checked') ? 1:0;
-  var heater = $("#heater").is(':checked') ? 1:0;
-  var wifi = $("#wifi").is(':checked') ? 1:0;
-  var parking = $("#parking").is(':checked') ? 1:0;
-
-  var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
-  var weekend = $("#weekend").is(':checked') ? 1:0;
-
-  if(hubName == "" || hubName == null){
-    $("#txtErr").html("Please enter hub name");
-    return;
-  }
-
-  if(hubAddress == "" || hubAddress == null){
-    $("#txtErr").html("Please enter hub address");
-    return;
-  }
-
-  if(hubDescription == "" || hubDescription == null){
-    $("#txtErr").html("Please enter hub description");
-    return;
-  }
-
-  var uploadData = {
-    user_id : 7,
-    name : hubName,
-    address : hubAddress,
-    latitude : parseFloat(lat),
-    longitude : parseFloat(lng),
-    description : hubDescription,
-    aircon : airCondition,
-    printer_scanner : printer,
-    kitchen : kitchen,
-    heater : heater,
-    wifi : wifi,
-    parking : parking,
-    public_holidays : publicHoliday,
-    weekends : weekend,
-    picture : arrHubPicture.toString()
-  }
 
   $.ajax({
         url : URL+'/host/createHub.php',
@@ -606,8 +545,6 @@ function returnHomepage(){
 }
 
 
-  
-<<<<<<< HEAD
 
 function dropdownlist() {
   var Accordion = function(el, multiple) {
@@ -638,13 +575,14 @@ function dropdownlist() {
   
   var accordion = new Accordion($('.accordion-menu'), false);
 }
-=======
+
 function modifyMore(){
   window.location.href = "hostSpaceList.html";
 }
 
 
 function getSpaceList(id){
+  alert("vsdfvsdf");
   $.ajax({
                    url : URL+'/host/getHubList.php',
                    type : 'GET',
@@ -652,7 +590,7 @@ function getSpaceList(id){
                    data: { user_id:id } ,
                    success : function(response){ // success est toujours en place, bien sûr !
               
-              
+                          
                          displayhostHubList(response);
                         }
             ,
@@ -670,12 +608,12 @@ function displayhostHubList(results){
       var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
       result_arr.forEach(function(hub) { 
-          display_string = display_string+"<ul><li>";
-          display_string = display_string+hub.name; 
+          display_string = display_string+"<ul class='accordion-menu' onclick='toggleHubList(this)'>"+hub.name +"<i class='fa fa-chevron-down' ></i><li>";
+          display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'></a>";
           hub.spaces.forEach(function(space) {
-            display_string = display_string+"<ul><li>";
-            display_string = display_string+"<a href='#'>";
-            display_string = display_string+space.space_type;
+            display_string = display_string+"<ul class='submenuItems' style='display:none'><li>";
+            display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'><span>";
+            display_string = display_string+space.space_name+ "</span>";
             display_string = display_string+"</a>"; 
             display_string = display_string+"</li></ul>";
           });
@@ -684,7 +622,12 @@ function displayhostHubList(results){
        });
 
        $("#host_spaces").html(display_string);
-	}
+
+};
+
+function toggleHubList(tagg){
+  jQuery(tagg).find("ul").slideToggle();
+}
 
 function deleteDate(index){
 	var index = $(this).attr('id');
@@ -719,4 +662,3 @@ function displaySelectedDates(){
 
 
 };
->>>>>>> master
