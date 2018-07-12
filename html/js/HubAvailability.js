@@ -28,10 +28,9 @@ function addHubAvailability(_hub_id,_selectedDates){
 
 }
 
-function deleteDate(index){
-  var index = $(this).attr('id');
+function deleteDate(index,selected_dates ){
   selected_dates.splice(index,1);
-  displaySelectedDates(); 
+  displaySelectedDates(selected_dates); 
 };
 
 
@@ -86,7 +85,7 @@ function getHubAvailability(_hub_id){
                 res += "      <div class='one_half' >";
                 res += "        <label style='font-weight: bold; font-size: 12px;'>" + _date_from.getDate()+" "+ months[_date_from.getMonth()] + " "+ _date_from.getFullYear() + " to " +  _date_to.getDate()+" "+ months[_date_to.getMonth()] + " "+ _date_to.getFullYear() + "</label></div>";
                 res += "      <div class='one_quarter' >";
-                res += "       <i class='material-icons' onclick='deleteDate(" + i + ")' style='float: left; color: red'>clear</i></div>";
+                res += "       <i class='material-icons clear_image' id='"+i+"' style='float: left; color: red'>clear</i></div>";
                 res += "<div>";
             }
               $("#date_display").html(res);

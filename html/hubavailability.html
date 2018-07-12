@@ -126,7 +126,6 @@
           });
           
 
-          
           function addDate(){
           		
 
@@ -162,8 +161,8 @@
           {
             evt.stopImmediatePropagation();
             var index = $(this).attr('id');
-            selected_dates.splice(index,1);
-            displaySelectedDates(selected_dates); 
+
+            deleteDate(index,selected_dates );
           });
 
          
