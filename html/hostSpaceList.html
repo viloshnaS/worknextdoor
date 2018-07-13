@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
-
+ 
     <title>Work-next-door searching API</title>
-
+ 
     
       <!-- <link rel="stylesheet" href="css/index.css">  -->
-      <!-- <link rel="stylesheet" href="css/common.css">  -->
-    <link rel="stylesheet" href="css/manage_spaces.css">
+    <link rel="stylesheet" href="css/common.css"> 
+    <!-- <link rel="stylesheet" href="css/manage_spaces.css"> -->
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/framework.css">
+ 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-
+ 
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="js/index.js"></script>
@@ -22,30 +25,31 @@
         $(document).ready(function(){
       
       var user_id = localStorage.getItem("user_id");
-      dropdownlist();
-      getSpaceList(user_id);
+ 
+      // getSpaceList(user_id);
+      getSpaceList(1);
 
            $("#back").click(function(){
-
+ 
                 history.back();
-
+ 
             });
            $("#home").click(function(){
-
+ 
                 window.location="index.html";
-
+ 
             });
-
-            
-
-           
-
+ 
+ 
+ 
+ 
+ 
         });
     </script>
-
+ 
     
 </head>
-
+ 
 <body>
         <div id="div_location">
           <table>
@@ -56,14 +60,36 @@
           </table>
         </div>
     
-    <h3>My Spaces</h3>
+    <div class="wrapper row3">
+        <main class="hoc container clear"  style="margin: 20px;"> 
+            <div class="content">
+                <div id="comments">
+                    <h2 style="font-weight: bold;">My spaces</h2>
+ 
+                    <div id="host_spaces">
+                        
+ 
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
     
-    <div id="host_spaces">
-      
-      
-      </div><br/>   
-
+    <br/>   
+ 
+    <div data-role="footer" id="footer" data-position="fixed">
+                    <div>
+                    <table width='100%' id="nav-bar_table">
+                        <tr>
+                        <td align="center"><a href="#menu-toggle"  id="menu-toggle"><i class='material-icons footer_icon'>menu</i></a> </td>
+                        <td align="center"><a href="#" id="inbox"><i class='material-icons footer_icon'>message</i></a></a></td>
+                        <td align="center"><a href="#" id="profile"><i class='material-icons footer_icon'>                         person_outline</i></a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
         
+ 
           <script src="js/script.js"></script>
 </body>
 </html>
