@@ -26,7 +26,7 @@ function createSpace($hub_id,$space_type,$space_name,$number_of_guests,$number_o
 	global $connection;
 
 	$sql = "INSERT INTO spaces(hub_id, space_type,space_name,number_of_guests,number_of_spaces,size,whiteboard,screen,projector,thumbnail_picture)
-	VALUES($hub_id,$space_type,$space_name,$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,$thumbnail_picture)";
+	VALUES($hub_id,$space_type,'$space_name',$number_of_guests,$number_of_spaces,$size,$whiteboard,$screen,$projector,'$thumbnail_picture')";
 	
 	$result = $connection->query($sql);
 
