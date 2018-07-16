@@ -67,7 +67,7 @@ function submitNewHub(lat, lng){
 	}
 
 	var uploadData = {
-		user_id : 7,
+		user_id : localStorage.getItem("user_id"),
 		name : hubName,
 		address : hubAddress,
 		latitude : parseFloat(lat),
@@ -355,7 +355,6 @@ function submitNewSpace(){
         crossDomain: true,
         data: uploadData,
         success : function(responseData){ 
-          
           var html = "";
           if(responseData > 0){
             window.location.href = "createSpaceResult.html";

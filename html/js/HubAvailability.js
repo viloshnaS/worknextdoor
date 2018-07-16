@@ -10,7 +10,8 @@ function addHubAvailability(_hub_id,_selectedDates){
                           } ,
                    success : function(response){ // success est toujours en place, bien sûr !
                       if(response =="1"){
-                        alert("Dates successfully added");
+                        //alert("Dates successfully added");
+                        window.location="createSpaceResult.html";
                       }
                       else{
                         alert("Dates not added. Please try later");
