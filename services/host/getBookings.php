@@ -5,6 +5,7 @@ $connection = $conn;
 
 if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
+    $interval= $_GET['interval'];
     echo getBookings($user_id, $interval);
     
  }
