@@ -8,9 +8,9 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 
     <body>
@@ -23,16 +23,23 @@
         var hub_data = [];
         var drilldown_data = [];
         var hubObj;
+        var drilldownObj;
         var spaceObj;
+        var space_data = [];
 
         results_array.forEach(function(result){
-            hubObj = { "name": result.name , "y":Number(result.y), "drilldown":result.name};
-            hub_data.push(jsonObj);
-            spaceObj = { "name": result.name , "id":result.hub_id, "data":result.name};
+            hubObj = { "name": result.name , "y":Number(result.y), "drilldown":result.hub_id};
+            hub_data.push(hubObj);
+            drilldownObj = { "name": result.space_name , "id":result.hub_id};
+            space_data = [];
+            result.spaces.forEach(function(space){
+                spaceObj = [space.space_name , Number(space.num_bookings)];
+                space_data.push(spaceObj);
+            });
+            drilldownObj.data = space_data;
+            drilldown_data.push(drilldownObj);
 
         });
-
-
     
         
         Highcharts.chart('container', {
@@ -40,7 +47,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Number of Bookings per Hub'
+                text: 'Number of Bookings'
             },
             subtitle: {
                 text: 'Click the columns to view details'
@@ -68,24 +75,19 @@
             },
 
             tooltip: {
-                headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
+                headerFormat: '<span ">{point.name}</span>:{point.y:f}'
             },
 
         "series": [
         {
             "name": "Hubs",
                 "colorByPoint": true,
-                "data":series_data
+                "data":hub_data
         }
         ],
-        "drilldown": {
-            "series":[
-            {
-                "name": "Hubs",
-                "colorByPoint": true,
-                "data":series_data
-            }
-    ],
+    "drilldown": {
+        "series":drilldown_data
+    }
 
     });
 
