@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Work-next-door searching API</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/script.js"></script>
+</head>
+
+    <body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
+    $(document).ready(function() {
+
+        var results_array = JSON.parse(getBookingByHub(3));
+        var hub_data = [];
+        var drilldown_data = [];
+        var hubObj;
+        var spaceObj;
+
+        results_array.forEach(function(result){
+            hubObj = { "name": result.name , "y":Number(result.y), "drilldown":result.name};
+            hub_data.push(jsonObj);
+            spaceObj = { "name": result.name , "id":result.hub_id, "data":result.name};
+
+        });
+
+
+    
+        
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Number of Bookings per Hub'
+            },
+            subtitle: {
+                text: 'Click the columns to view details'
+            },
+            xAxis: {
+                type: 'Hubs'
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Bookings'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:f}'
+                    }
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
+            },
+
+        "series": [
+        {
+            "name": "Hubs",
+                "colorByPoint": true,
+                "data":series_data
+        }
+        ],
+        "drilldown": {
+            "series":[
+            {
+                "name": "Hubs",
+                "colorByPoint": true,
+                "data":series_data
+            }
+    ],
+
+    });
+
+});
+// Create the chart
+
+</script>
+</body>
+</html>
