@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Work-next-door searching API</title>  
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/fontawesome-4.6.3.min.css">
+    <link rel="stylesheet" href="css/custom.flexslider.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+  	<script src="js/suggestMeeting.js"></script>
+  	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  	<style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+</head>
+<body>
+    <div class="wrapper row3">
+        <main class="hoc container clear" style="margin: 20px;">
+            <div class="content clear">
+                <span id="back"><i class='material-icons' style="cursor: pointer;" onclick="returnHomepage()">arrow_back</i></span>
+            </div> 
+            <div class="content ">
+                <div id="comments">
+                    <h2 style="font-weight: bold;">MEETING SUGGESTION</h2>
+                    <!-- <form action="#" method="post"> -->
+                        <div class="block clear" id="listInputLocation">
+                        	<div id="numbOfBar" style="display: none">3</div>
+	                        <div class="block clear" id="">
+	                            <label for="comment" style="font-weight: bold;">Location 1</label>
+	                            <input type="text" class="controls inputBar" name="url" id="location-1" value="" size="22" required>
+	                            <div id="map-1" style="display: none"></div>
+	                            <div id="lat-1" style="display: none"></div>
+	                            <div id="lng-1" style="display: none"></div>
+	                        </div>
+
+	                        <div class="block clear">
+	                            <label for="comment" style="font-weight: bold;">Location 2</label>
+	                            <input type="text" class="controls inputBar" name="url" id="location-2" value="" size="22" required>
+	                            <div id="map-2" style="display: none"></div>
+	                            <div id="lat-2" style="display: none"></div>
+	                            <div id="lng-2" style="display: none"></div>
+	                        </div>
+	                        <div class="block clear 3">
+	                            <label for="comment" style="font-weight: bold;">Location 3</label>
+	                            <input type="text" class="controls inputBar" name="url" id="location-3" value="" size="22" required>
+	                            <div id="map-3" style="display: none"></div>
+	                            <div id="lat-3" style="display: none"></div>
+	                            <div id="lng-3" style="display: none"></div>
+	                        </div>
+                        </div>
+                        <div class="block clear center">
+                            <span><a href="javascript:;" class="material-icons" onclick="addInputLocation()">add</a><a> More location</a></span>
+                        </div>
+
+                        <div class="center block clear">
+                            <a id="btnSubmitLocation" class="btn inverse" href="javascript:;" onclick="submitLocation()">Submit</a>
+                        </div>
+
+                        <div class="center">
+                            <span id="txtErr" style="color: red"></span>
+                        </div>
+
+                        <div id="map" class="center block clear"></div>
+                    <!-- </form> -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    
+    
+    <script src="js/hostScript.js"></script>
+    <script>
+        
+        var listInputLocation = [];
+        var listSearchBox = [];
+        function initAutocomplete() {
+        	var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+            var map1 = new google.maps.Map(document.getElementById('map-1'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+            var map2 = new google.maps.Map(document.getElementById('map-2'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+			var map3 = new google.maps.Map(document.getElementById('map-3'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 13,
+              mapTypeId: 'roadmap'
+            });
+
+            
+            var input1 = document.getElementById('location-1');
+            var input2 = document.getElementById('location-2');
+            var input3 = document.getElementById('location-3');
+            var searchBox1 = new google.maps.places.SearchBox(input1);
+            var searchBox2 = new google.maps.places.SearchBox(input2);
+            var searchBox3 = new google.maps.places.SearchBox(input3);
+            map1.controls[google.maps.ControlPosition.TOP_LEFT].push(input1);
+            map2.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
+            map3.controls[google.maps.ControlPosition.TOP_LEFT].push(input3);
+
+            searchBox1.addListener('places_changed', function() {
+                var places = searchBox1.getPlaces();
+                if (places.length == 0) {
+                  return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        return;
+                    }
+                    else{
+                      	var latitude = place.geometry.location.lat();
+                      	var longitude = place.geometry.location.lng();
+                      	$("#lat-1").html(latitude);
+                        $("#lng-1").html(longitude);
+                  
+        			}
+            	});
+            });
+
+            searchBox2.addListener('places_changed', function() {
+                var places = searchBox2.getPlaces();
+                if (places.length == 0) {
+                  return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        return;
+                    }
+                    else{
+                      var latitude = place.geometry.location.lat();
+                      var longitude = place.geometry.location.lng();
+                      	$("#lat-2").html(latitude);
+                        $("#lng-2").html(longitude);
+                    }
+            	});
+            });
+
+            searchBox3.addListener('places_changed', function() {
+                var places = searchBox3.getPlaces();
+                if (places.length == 0) {
+                  return;
+                }
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        return;
+                    }
+                    else{
+                      var latitude = place.geometry.location.lat();
+                      var longitude = place.geometry.location.lng();
+                      	$("#lat-3").html(latitude);
+                        $("#lng-3").html(longitude);
+
+        			}
+            	});
+            });
+
+        }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&libraries=places&callback=initAutocomplete"
+         async defer></script>
+</body>
+
+
+$("#listInputLocation").children().last().attr('class')
