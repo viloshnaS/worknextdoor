@@ -4,11 +4,9 @@ require('../../connection.php');
 $connection = $conn;
 require('getSpaceBookings.php');
 
-if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-    echo getBookings($user_id,1);
-    
- }
+$user_id = $_GET['user_id'];
+$interval= $_GET['interval'];
+echo getBookings($user_id,$interval);
 
 function getBookings($id, $interval){
 	global $connection;
@@ -19,20 +17,20 @@ function getBookings($id, $interval){
 	AND s.space_id = b.space_id
 	AND h.user_id = $id";
 
-/*	if ($interval=='week') {  
-	$sql = $sql . "AND b.booking_date_start BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
+	if ($interval=='1') {  
+	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
 
 	}
 
 
-	if ($interval=='month') {  
-	$sql = $sql . "AND b.booking_date_start BETWEEN NOW() - INTERVAL 30 DAY AND NOW()";
+	if ($interval=='2') {  
+	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 30 DAY AND NOW()";
 	}
 
 
-	if ($interval=='year') {  
-	$sql = $sql . "AND b.booking_date_start BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
-	}*/
+	if ($interval=='3') {  
+	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
+	}
 
 	$sql = $sql . " GROUP BY h.name, h.hub_id";
 
