@@ -17,7 +17,7 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
 function getAverageRating($user_id, $interval){
 	global $connection;
 
-	$sql = "SELECT r.hub_id, count(*) AS reviews_count, avg(r.rating) AS average_rating 
+	$sql = "SELECT h.name as name, count(*) AS reviews_count, avg(r.rating) AS average_rating 
 	from hub_reviews r, hubs h
 	where r.hub_id = h.hub_id
 	and h.user_id = $user_id";
@@ -38,7 +38,7 @@ function getAverageRating($user_id, $interval){
 	$sql = $sql . " AND r.date_posted BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
 	}
 
-	$sql = $sql . " GROUP BY r.hub_id";
+	$sql = $sql . " GROUP BY  h.name,h.hub_id";
 	echo $sql;
 	 $rows=array();
 	$result = $connection->query($sql);
