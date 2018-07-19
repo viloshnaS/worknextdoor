@@ -11,11 +11,17 @@
     <script src="js/dashboard.js"></script>
     <script src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/common.css">
 </head>
 
 <body>
 
-<div>
+    <div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
+
+
+<div id="main_div">
          <select id="interval">
                     <option value="1">Last 7 days</option>
                     <option value="2">Last 30 days</option>
@@ -40,6 +46,18 @@
             displayBarChart(getBookingByHub(user_id,value));
     
         });
+
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
 
     });
 

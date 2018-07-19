@@ -270,8 +270,8 @@ function checkPrice(price){
 
 function submitNewSpace(){
 
-  //var hubId = $("#hubList option:selected").val();
-  var hubId = 1;
+  var hubId = $("#hubList option:selected").val();
+  //var hubId = 1;
   var spaceType = parseInt($("#spaceTypeList option:selected").val());
   var spaceName = $("#spaceName").val();
   

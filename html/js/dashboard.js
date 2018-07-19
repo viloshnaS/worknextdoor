@@ -22,8 +22,7 @@ function getBookingByHub(_id,_interval){
                    }
 
                 });
-
-   return result;
+    return result;
 
 };
 
@@ -55,7 +54,7 @@ function getSpaceBookingPercentage(_id,_interval){
 
 };
 
-function drilldown(hub_id,interval){
+function HubDrilldown(hub_id,interval){
     displayPieChart(getSpaceBookingPercentage(hub_id,interval));
 }
 
@@ -163,7 +162,7 @@ function displayPieChart(results){
                     },
                     events: {
                         click: function (event) {
-                            drilldown(event.point.drilldown,$( "#interval" ).val());
+                            HubDrilldown(event.point.drilldown,$( "#interval" ).val());
                         }
                     }
                 }
@@ -186,4 +185,105 @@ function displayPieChart(results){
     }
    
     });
+}
+
+function getEarningsByHub(_user_id,_year){
+
+  $.ajax({
+                   url : URL+'/dashboard/getHubEarnings.php', // URL of Web Service
+                   type : 'GET', //web Service method
+                   async: false,
+                   crossDomain: true, // to enable cross origin resource(CORS) sharing
+                   data: { user_id:_user_id,
+                           year:_year} , // the parameters
+                   success : function(response){ 
+                    // is request is a success, this block is executed
+                  
+                        displayEarningLineChart(response);
+                    }
+            ,
+
+                   error : function(resultat, statut, erreur){
+                    // in case of error log will be added
+
+                        console.log("Error encountered. Could not retrieve details");
+
+                   }
+
+                });
+
+};
+
+function displayEarningLineChart(results){
+
+     var results_array = JSON.parse(results);
+            var series_data = [];
+            var hub_data = [];
+            var earning_array = [0,0,0,0,0,0,0,0,0,0,0,0];
+            var hubObj;
+            var hub_id = 0;
+            var hub_name = "";
+            var len = results_array.length;
+            var count = 1;
+
+
+      results_array.forEach(function(result){
+
+            if(hub_id ==0){
+                hub_id = result.hub_id;
+                hub_name = result.name;
+                earning_array[result.month - 1] = Number(result.amount);
+            }
+            else if(result.hub_id !=hub_id){
+                 hubObj = { "name": hub_name ,"data":earning_array};
+                 series_data.push(hubObj);
+                // new hub. initialising new array
+                hub_id = result.hub_id;
+                hub_name = result.name;
+                earning_array = [0,0,0,0,0,0,0,0,0,0,0,0];
+                earning_array[result.month - 1] = Number(result.amount);
+            }
+            else{
+                earning_array[result.month - 1] = Number(result.amount);
+            }
+
+            if(len == count){
+                 hubObj = { "name": hub_name ,"data":earning_array};
+                 series_data.push(hubObj);
+            }
+
+            count ++;
+
+        });
+
+            
+    Highcharts.chart('line_container', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Monthly Average Temperature'
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: series_data
+    });
+
 }

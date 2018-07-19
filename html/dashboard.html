@@ -12,17 +12,41 @@
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
 </head>
 
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ <link rel="stylesheet" href="css/common.css">
+ <script>
+ 	$(document).ready(function() {
+        
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+    });
+ </script>
+
 <body>
-<div>
+
+	<div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
+
+<div id="main_div">
 	<h3>Host Dashboard</h3>
-</div>
+
 <nav id="colorNav">
 			<ul>
 				<li class="green">
-					<a href="bookingDashboard.html" class="icon-home">Bookings</a>
+					<a href="bookingDashboard.html" class="icon-home" data-ajax='false'>Bookings</a>
 				</li>
 				<li class="red">
-					<a href="earningDashboard.html" class="icon-cogs">Earnings</a>
+					<a href="earningsDashboard.html" class="icon-cogs" data-ajax='false'>Earnings</a>
 				</li>
 			</ul>
 			<ul>
@@ -34,5 +58,7 @@
 				</li>
 			</ul>
 </nav>
+
+</div>
 </body>
 </html>

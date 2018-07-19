@@ -11,7 +11,6 @@ if(isset($_GET['hub_id']) && !empty($_GET['hub_id'])) {
  }
 
 
- 
 function getSpaceBookingPercentage($id, $interval){
 	global $connection;
 
@@ -43,6 +42,7 @@ function getSpaceBookingPercentage($id, $interval){
 	$sql = $sql . " GROUP BY s.space_name,s.space_id
     ORDER BY percentage DESC";
 	
+
 	$result = $connection->query($sql);
 
 	if ($result->num_rows > 0) {
