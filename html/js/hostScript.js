@@ -38,7 +38,6 @@ $("#spacePicture").change(function(e) {
 });
 
 function submitNewHub(lat, lng){
-<<<<<<< HEAD
 	var hubName = $("#hubName").val();
 	var hubAddress = $("#hubAddress").val();
 	var hubDescription = $("#hubDescription").val();
@@ -68,7 +67,7 @@ function submitNewHub(lat, lng){
 	}
 
 	var uploadData = {
-		user_id : 7,
+		user_id : localStorage.getItem("user_id"),
 		name : hubName,
 		address : hubAddress,
 		latitude : parseFloat(lat),
@@ -84,66 +83,6 @@ function submitNewHub(lat, lng){
 		weekends : weekend,
 		picture : arrHubPicture.toString()
 	}
-
-	$.ajax({
-       	url : URL+'/host/createHub.php',
-       	type : 'POST',
-       	async: false,
-       	crossDomain: true,
-	   	// dataType: 'jsonp',
-       	data: uploadData,
-       	success : function(responseData){ 
-       		if(responseData > 0){
-       			window.location="hubavailability.html?hub_id="+responseData;
-       		} // Create successfully and return Hub ID
-       		else{
-       			console.log('Create hub failed');
-       		}
-  var hubName = $("#hubName").val();
-  var hubAddress = $("#hubAddress").val();
-  var hubDescription = $("#hubDescription").val();
-  var airCondition = $("#airCondition").is(':checked') ? 1:0;
-  var printer = $("#printer").is(':checked') ? 1:0;
-  var kitchen = $("#kitchen").is(':checked') ? 1:0;
-  var heater = $("#heater").is(':checked') ? 1:0;
-  var wifi = $("#wifi").is(':checked') ? 1:0;
-  var parking = $("#parking").is(':checked') ? 1:0;
-
-  var publicHoliday = $("#publicHoliday").is(':checked') ? 1:0;
-  var weekend = $("#weekend").is(':checked') ? 1:0;
-
-  if(hubName == "" || hubName == null){
-    $("#txtErr").html("Please enter hub name");
-    return;
-  }
-
-  if(hubAddress == "" || hubAddress == null){
-    $("#txtErr").html("Please enter hub address");
-    return;
-  }
-
-  if(hubDescription == "" || hubDescription == null){
-    $("#txtErr").html("Please enter hub description");
-    return;
-  }
-
-  var uploadData = {
-    user_id : 7,
-    name : hubName,
-    address : hubAddress,
-    latitude : parseFloat(lat),
-    longitude : parseFloat(lng),
-    description : hubDescription,
-    aircon : airCondition,
-    printer_scanner : printer,
-    kitchen : kitchen,
-    heater : heater,
-    wifi : wifi,
-    parking : parking,
-    public_holidays : publicHoliday,
-    weekends : weekend,
-    picture : arrHubPicture.toString()
-  }
 
   $.ajax({
         url : URL+'/host/createHub.php',
@@ -348,20 +287,20 @@ function submitNewSpace(){
     return;
   }
 
-  if(nbOfGuest <= 0 || nbOfGuest == null){
-    $("#txtErr").html("Please enter number of guest");
-    return;
-  }
-
-  if(nbOfSpace <= 0 || nbOfSpace == null){
-    $("#txtErr").html("Please enter number of workdesk/people");
-    return;
-  }
-
-  if(spaceSize <= 0 || spaceSize == null){
-    $("#txtErr").html("Please enter space size");
-    return;
-  }
+  if(nbOfGuest <= 0 || nbOfGuest == null || isNaN(nbOfGuest)){
+        $("#txtErr").html("Please enter number of guest");
+        return;
+    }
+ 
+    if(nbOfSpace <= 0 || nbOfSpace == null || isNaN(nbOfSpace)){
+        $("#txtErr").html("Please enter number of workdesk/people");
+        return;
+    }
+ 
+    if(spaceSize <= 0 || spaceSize == null || isNaN(spaceSize)){
+        $("#txtErr").html("Please enter space size");
+        return;
+    }
 
 	  var jsonObj;
 	  var price_list = [];
@@ -409,51 +348,6 @@ function submitNewSpace(){
     thumbnail_picture : arrSpacePicture.toString()
   }
 
-  if($("#hourly").is(':checked')){
-      var hourly = $("#hourly_price").val();
-      
-      if(checkPrice(hourly)){
-          jsonObj = { "rate": "1","price": hourly };
-          price_list.push(jsonObj);
-      }
-   }
-
-   if($("#daily").is(':checked')){
-      var daily = $("#daily_price").val();
-      if(checkPrice(daily)){
-          jsonObj = { "rate": "2","price": daily };
-          price_list.push(jsonObj);
-      }
-   }
-
-   if($("#monthly").is(':checked')){
-      var monthly = $("#monthly_price").val();
-      if(checkPrice(monthly)){
-          jsonObj = { "rate": "3","price": monthly };
-          price_list.push(jsonObj);
-      }
-   }
-               
-  var priceJsonStr = "";
-  priceJsonStr = JSON.stringify(price_list);
-              
-
-  var uploadData = {
-    hub_id : hubId,
-    space_type : spaceType,
-    space_name : spaceName,
-    number_of_guests : nbOfGuest,
-    number_of_spaces : nbOfSpace,
-    size : spaceSize,
-    whiteboard : whiteBoard,
-    screen : screen,
-    projector : projector,
-    price_list : priceJsonStr,
-    thumbnail_picture : arrSpacePicture.toString()
-  }
-
-
-
   $.ajax({
         url : URL+'/host/createSpace.php',
         type : 'POST',
@@ -461,7 +355,6 @@ function submitNewSpace(){
         crossDomain: true,
         data: uploadData,
         success : function(responseData){ 
-          
           var html = "";
           if(responseData > 0){
             window.location.href = "createSpaceResult.html";
@@ -605,86 +498,9 @@ function returnHomepage(){
   window.location.href = "index.html";
 }
 
-
-  
-<<<<<<< HEAD
-
-function dropdownlist() {
-  var Accordion = function(el, multiple) {
-    this.el = el || {};
-    // more then one submenu open?
-    this.multiple = multiple || false;
-    
-    var dropdownlink = this.el.find('.dropdownlink');
-    dropdownlink.on('click',
-                    { el: this.el, multiple: this.multiple },
-                    this.dropdown);
-  };
-  
-  Accordion.prototype.dropdown = function(e) {
-    var $el = e.data.el,
-        $this = $(this),
-        //this is the ul.submenuItems
-        $next = $this.next();
-    
-    $next.slideToggle();
-    $this.parent().toggleClass('open');
-    
-    if(!e.data.multiple) {
-      //show only one menu at the same time
-      $el.find('.submenuItems').not($next).slideUp().parent().removeClass('open');
-    }
-  }
-  
-  var accordion = new Accordion($('.accordion-menu'), false);
-}
-=======
 function modifyMore(){
   window.location.href = "hostSpaceList.html";
 }
-
-
-function getSpaceList(id){
-  $.ajax({
-                   url : URL+'/host/getHubList.php',
-                   type : 'GET',
-                   crossDomain: true,
-                   data: { user_id:id } ,
-                   success : function(response){ // success est toujours en place, bien sûr !
-              
-              
-                         displayhostHubList(response);
-                        }
-            ,
-
-                   error : function(resultat, statut, erreur){
-
-                   }
-
-                });
-
-};
-
-function displayhostHubList(results){
-
-      var result_arr = JSON.parse(results); // converting results to JSON object
-      display_string ="";
-      result_arr.forEach(function(hub) { 
-          display_string = display_string+"<ul><li>";
-          display_string = display_string+hub.name; 
-          hub.spaces.forEach(function(space) {
-            display_string = display_string+"<ul><li>";
-            display_string = display_string+"<a href='#'>";
-            display_string = display_string+space.space_type;
-            display_string = display_string+"</a>"; 
-            display_string = display_string+"</li></ul>";
-          });
-          display_string = display_string+"</li></ul>";
-
-       });
-
-       $("#host_spaces").html(display_string);
-	}
 
 function deleteDate(index){
 	var index = $(this).attr('id');
@@ -719,4 +535,3 @@ function displaySelectedDates(){
 
 
 };
->>>>>>> master
