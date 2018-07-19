@@ -110,15 +110,13 @@ function displayPieChart(results){
         var hub_data = [];
         var drilldown_data = [];
         var hubObj;
-        var cat = [];
         var drilldownObj;
         var spaceObj;
         var space_data = [];
 
         results_array.forEach(function(result){
-            hubObj = { "name":result.name , "y":Number(result.y), "drilldown":result.hub_id};
+            hubObj = { "name": result.name , "y":Number(result.y), "drilldown":result.hub_id};
             hub_data.push(hubObj);
-            cat.push(result.name);
             drilldownObj = { "name": result.space_name , "id":result.hub_id};
             space_data = [];
             result.spaces.forEach(function(space){
@@ -130,8 +128,7 @@ function displayPieChart(results){
 
         });
     
-       
-
+        
         Highcharts.chart('bar_container', {
             chart: {
               type: 'column',
@@ -142,14 +139,11 @@ function displayPieChart(results){
               }        
             },
 
-
             title: {
                 text: 'Number of Bookings'
             },
             xAxis: {
-                type: 'Hubs',
-                //categories: ['space1', 'space2', 'space3']
-                categories: cat
+                type: 'Hubs'
             },
             yAxis: {
                 title: {
@@ -176,8 +170,7 @@ function displayPieChart(results){
             },
 
             tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> Booking(s)<br/>'
+                headerFormat: '<span ">{point.name}</span>:{point.y:f}'
             },
 
         "series": [
