@@ -408,6 +408,55 @@ function displaySpaceInfo(result){
           
             $("#projector").prop('checked', true);
         }
+
+ }
+
+ function getSpacePricingInfo(id){
+  $.ajax({
+      url : URL+'/host/getSpacePricingById.php',
+      type : 'GET',
+ 
+      crossDomain: true,
+      data: { space_id:id } ,
+      success : function(response){ // success est toujours en place, bien sûr !
+          displaySpacePricingInfo(response);
+      },
+      error : function(resultat, statut, erreur){
+      }
+  });
+ 
+}
+
+function displaySpacePricingInfo(result){
+  var result_arr = JSON.parse(result); // converting results to JSON object
+
+  result_arr.forEach(function(space_pricing) {
+   
+        if(space_pricing.price_package_id == 1){
+          
+            $("#hourly").prop('checked', true);
+            $("#hourly_price").show();
+            $("#hourly_price").val(space_pricing.price);
+        }
+
+        if(space_pricing.price_package_id == 2){
+          
+            $("#daily").prop('checked', true);
+            $("#daily_price").show();
+            $("#daily_price").val(space_pricing.price);
+        }
+
+        if(space_pricing.price_package_id == 3){
+          
+            $("#monthly").prop('checked', true);
+            $("#monthly_price").show();
+            $("#monthly_price").val(space_pricing.price);
+        }
+  });
+
+
+
+
  }
 
 function updateSpace(){
@@ -445,6 +494,39 @@ function updateSpace(){
     return;
   }
 
+   var jsonObj;
+    var price_list = [];
+   
+    if($("#hourly").is(':checked')){
+      var hourly = $("#hourly_price").val();
+      
+      if(checkPrice(hourly)){
+          jsonObj = { "rate": "1","price": hourly };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#daily").is(':checked')){
+      var daily = $("#daily_price").val();
+      if(checkPrice(daily)){
+          jsonObj = { "rate": "2","price": daily };
+          price_list.push(jsonObj);
+      }
+   }
+ 
+   if($("#monthly").is(':checked')){
+      var monthly = $("#monthly_price").val();
+      if(checkPrice(monthly)){
+          jsonObj = { "rate": "3","price": monthly };
+          price_list.push(jsonObj);
+      }
+   }
+               
+  var priceJsonStr = "";
+  priceJsonStr = JSON.stringify(price_list);
+              
+ 
+
   var uploadData = {
     space_id : spaceId,
     space_type : spaceType,
@@ -456,7 +538,8 @@ function updateSpace(){
     screen : screen,
     projector : projector,
     thumbnail_picture : arrSpacePicture.toString(),
-    active : active
+    active : active,
+    pricing: priceJsonStr
   }
 
   $.ajax({
@@ -468,6 +551,7 @@ function updateSpace(){
         success : function(responseData){ 
           
           if(responseData > 0){
+
             //displaySpaceDetails(response);
             window.location.href = "modifyResult.html";
           } 
@@ -479,6 +563,8 @@ function updateSpace(){
         }
 
     });
+
+  
 }
 
 function changeTypeOfGuest(){
