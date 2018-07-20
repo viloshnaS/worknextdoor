@@ -6,7 +6,7 @@ $connection = $conn;
 if(isset($_GET['hub_id']) && !empty($_GET['hub_id'])) {
     $hub_id = $_GET['hub_id'];
     $interval= $_GET['interval'];
-    echo getSpaceBookingPercentage($hub_id, $interval)
+    echo getSpaceBookingPercentage($hub_id, $interval);
     
  }
 

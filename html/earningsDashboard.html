@@ -30,12 +30,25 @@
         </select>
 </div>
 <div id="line_container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
+<div id="pie_container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <script>
     $(document).ready(function() {
         var user_id = localStorage.getItem("user_id");
         getEarningsByHub(user_id,2018);
+        getPercentageEarningsByHub(user_id,2018);
+
+        
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
 })
 </script>
 </body>

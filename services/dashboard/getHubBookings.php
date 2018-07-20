@@ -44,7 +44,7 @@ function getBookings($id, $interval){
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
 
-	    	$space_list = getSpaceBookings($row['hub_id']);
+	    	$space_list = getSpaceBookings($row['hub_id'], $interval);
 	    	$json_string = json_encode($row);
 			$json_string = substr($json_string,0,strlen($json_string)-1);
 	 		$json_string= $json_string.",\"spaces\":".$space_list. "}";
