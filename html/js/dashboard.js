@@ -287,34 +287,36 @@ function displayEarningLineChart(results){
         });
 
             
-    Highcharts.chart('line_container', {
-        chart: {
-            type: 'line'
-        },
+Highcharts.chart('line_container', {
+    chart: {
+        type: 'line',
+        colors: ['#24CBE5', '#64E572', '#058DC7', '#50B432', '#ED561B', '#DDDF00', '#FF9655', '#FFF263', '#6AF9C4']
+
+    },
+    title: {
+        text: 'Monthly Earnings by Hub'
+    },
+    /**subtitle: {
+        text: 'Source: WorldClimate.com'
+    },**/
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
         title: {
-            text: 'Monthly Average Temperature'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            title: {
-                text: 'Temperature (°C)'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: series_data
-    });
+            text: 'Income (€)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: series_data
+});
 
 }
 
@@ -322,27 +324,27 @@ function displayEarningLineChart(results){
 function getPercentageEarningsByHub(_user_id,_year){
 
   $.ajax({
-                   url : URL+'/dashboard/getEarningPercentage.php', // URL of Web Service
-                   type : 'GET', //web Service method
-                   async: false,
-                   crossDomain: true, // to enable cross origin resource(CORS) sharing
-                   data: { user_id:_user_id,
-                           year:_year} , // the parameters
-                   success : function(response){ 
-                    // is request is a success, this block is executed
-                  
-                        displayEarningPieChart(response);
-                    }
-            ,
+       url : URL+'/dashboard/getEarningPercentage.php', // URL of Web Service
+       type : 'GET', //web Service method
+       async: false,
+       crossDomain: true, // to enable cross origin resource(CORS) sharing
+       data: { user_id:_user_id,
+               year:_year} , // the parameters
+       success : function(response){ 
+        // is request is a success, this block is executed
+      
+            displayEarningPieChart(response);
+        }
+,
 
-                   error : function(resultat, statut, erreur){
-                    // in case of error log will be added
+       error : function(resultat, statut, erreur){
+        // in case of error log will be added
 
-                        console.log("Error encountered. Could not retrieve details");
+            console.log("Error encountered. Could not retrieve details");
 
-                   }
+       }
 
-                });
+    });
 
 };
 
