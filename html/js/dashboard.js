@@ -1,62 +1,65 @@
-function getBookingByHub(_id,_interval){
+function getBookingByHub(_id, _interval) {
 
-  $.ajax({
-                   url : URL+'/dashboard/getHubBookings.php', // URL of Web Service
-                   type : 'GET', //web Service method
-                   async: false,
-                   crossDomain: true, // to enable cross origin resource(CORS) sharing
-                   data: { user_id:_id,
-                           interval:_interval} , // the parameters
-                   success : function(response){ 
-                    // is request is a success, this block is executed
-                  
-                        result = response;
-                    }
-            ,
+    $.ajax({
+        url: URL + '/dashboard/getHubBookings.php', // URL of Web Service
+        type: 'GET', //web Service method
+        async: false,
+        crossDomain: true, // to enable cross origin resource(CORS) sharing
+        data: {
+            user_id: _id,
+            interval: _interval
+        }, // the parameters
+        success: function(response) {
+            // is request is a success, this block is executed
 
-                   error : function(resultat, statut, erreur){
-                    // in case of error log will be added
+            result = response;
+        },
 
-                        console.log("Error encountered. Could not retrieve details");
+        error: function(resultat, statut, erreur) {
+            // in case of error log will be added
 
-                   }
+            console.log("Error encountered. Could not retrieve details");
 
-                });
+        }
+
+    });
     return result;
 
 };
 
-function getSpaceBookingPercentage(_id,_interval){
+function getSpaceBookingPercentage(_id, _interval) {
 
-  $.ajax({
-                   url : URL+'/dashboard/getTopSpaces.php', // URL of Web Service
-                   type : 'GET', //web Service method
-                   async: false,
-                   crossDomain: true, // to enable cross origin resource(CORS) sharing
-                   data: { hub_id:_id,
-                           interval:_interval} , // the parameters
-                   success : function(response){ 
-                    
-                        result = response;
-                    }
-            ,
+    $.ajax({
+        url: URL + '/dashboard/getTopSpaces.php', // URL of Web Service
+        type: 'GET', //web Service method
+        async: false,
+        crossDomain: true, // to enable cross origin resource(CORS) sharing
+        data: {
+            hub_id: _id,
+            interval: _interval
+        }, // the parameters
+        success: function(response) {
 
-                   error : function(resultat, statut, erreur){
-                    // in case of error log will be added
+            result = response;
+        },
 
-                        console.log("Error encountered. Could not retrieve details");
+        error: function(resultat, statut, erreur) {
+            // in case of error log will be added
 
-                   }
+            console.log("Error encountered. Could not retrieve details");
 
-                });
+        }
 
-   return result;
+    });
+
+    return result;
 
 };
 
-function HubDrilldown(hub_id,interval){
-    displayPieChart(getSpaceBookingPercentage(hub_id,interval));
+function HubDrilldown(hub_id, interval) {
+    displayPieChart(getSpaceBookingPercentage(hub_id, interval));
 }
+
 function displayPieChart(results) {
 
     var results_array = JSON.parse(results);
@@ -198,7 +201,7 @@ function displayBarChart(results) {
 
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b> Booking(s)<br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>:<b>{point.y:f}</b> Booking(s)<br/>'
         },
 
         "series": [{
@@ -207,190 +210,206 @@ function displayBarChart(results) {
             "data": hub_data
         }],
         "drilldown": {
-
-            "series": drilldown_data
+            "series": [{
+            "name": "Hubs",
+            "colorByPoint": true,
+            "data": drilldown_data}]
         }
 
     });
 
     Highcharts.setOptions({
-        colors: ['#ED561B', '#DDDF00', '#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        colors: ['#424B54', '#D5ACA9', '#212922', '#9AA899', '#5B8266', '#DDDF00', '#24CBE5']
     });
-  }
-function getEarningsByHub(_user_id,_year){
-
-  $.ajax({
-                   url : URL+'/dashboard/getHubEarnings.php', // URL of Web Service
-                   type : 'GET', //web Service method
-                   async: false,
-                   crossDomain: true, // to enable cross origin resource(CORS) sharing
-                   data: { user_id:_user_id,
-                           year:_year} , // the parameters
-                   success : function(response){ 
-                    // is request is a success, this block is executed
-                  
-                        displayEarningLineChart(response);
-                    }
-            ,
-
-                   error : function(resultat, statut, erreur){
-                    // in case of error log will be added
-
-                        console.log("Error encountered. Could not retrieve details");
-
-                   }
-
-                });
-
-};
-
-function displayEarningLineChart(results){
-
-     var results_array = JSON.parse(results);
-            var series_data = [];
-            var hub_data = [];
-            var earning_array = [0,0,0,0,0,0,0,0,0,0,0,0];
-            var hubObj;
-            var hub_id = 0;
-            var hub_name = "";
-            var len = results_array.length;
-            var count = 1;
-
-
-      results_array.forEach(function(result){
-
-            if(hub_id ==0){
-                hub_id = result.hub_id;
-                hub_name = result.name;
-                earning_array[result.month - 1] = Number(result.amount);
-            }
-            else if(result.hub_id !=hub_id){
-                 hubObj = { "name": hub_name ,"data":earning_array};
-                 series_data.push(hubObj);
-                // new hub. initialising new array
-                hub_id = result.hub_id;
-                hub_name = result.name;
-                earning_array = [0,0,0,0,0,0,0,0,0,0,0,0];
-                earning_array[result.month - 1] = Number(result.amount);
-            }
-            else{
-                earning_array[result.month - 1] = Number(result.amount);
-            }
-
-            if(len == count){
-                 hubObj = { "name": hub_name ,"data":earning_array};
-                 series_data.push(hubObj);
-            }
-
-            count ++;
-
-        });
-
-            
-Highcharts.chart('line_container', {
-    chart: {
-        type: 'line',
-        colors: ['#24CBE5', '#64E572', '#058DC7', '#50B432', '#ED561B', '#DDDF00', '#FF9655', '#FFF263', '#6AF9C4']
-
-    },
-    title: {
-        text: 'Monthly Earnings by Hub'
-    },
-    /**subtitle: {
-        text: 'Source: WorldClimate.com'
-    },**/
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-        title: {
-            text: 'Income (€)'
-        }
-    },
-    plotOptions: {
-        line: {
-            dataLabels: {
-                enabled: true
-            },
-            enableMouseTracking: false
-        }
-    },
-    series: series_data
-});
-
 }
 
+function getEarningsByHub(_user_id, _year) {
 
-function getPercentageEarningsByHub(_user_id,_year){
+    $.ajax({
+        url: URL + '/dashboard/getHubEarnings.php', // URL of Web Service
+        type: 'GET', //web Service method
+        async: false,
+        crossDomain: true, // to enable cross origin resource(CORS) sharing
+        data: {
+            user_id: _user_id,
+            year: _year
+        }, // the parameters
+        success: function(response) {
+            // is request is a success, this block is executed
 
-  $.ajax({
-       url : URL+'/dashboard/getEarningPercentage.php', // URL of Web Service
-       type : 'GET', //web Service method
-       async: false,
-       crossDomain: true, // to enable cross origin resource(CORS) sharing
-       data: { user_id:_user_id,
-               year:_year} , // the parameters
-       success : function(response){ 
-        // is request is a success, this block is executed
-      
-            displayEarningPieChart(response);
-        }
-,
+            displayEarningLineChart(response);
+        },
 
-       error : function(resultat, statut, erreur){
-        // in case of error log will be added
+        error: function(resultat, statut, erreur) {
+            // in case of error log will be added
 
             console.log("Error encountered. Could not retrieve details");
 
-       }
+        }
 
     });
 
 };
 
-function displayEarningPieChart(results){
+function displayEarningLineChart(results) {
 
-  var results_array = JSON.parse(results);
-        var hub_data = [];
-        var hubObj;
+    var results_array = JSON.parse(results);
+    var series_data = [];
+    var hub_data = [];
+    var earning_array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var hubObj;
+    var hub_id = 0;
+    var hub_name = "";
+    var len = results_array.length;
+    var count = 1;
 
-        results_array.forEach(function(hub){
-            hubObj = { "name": hub.name , "y":Number(hub.percentage)};
-            hub_data.push(hubObj);
-           
 
-        });
-    
+    results_array.forEach(function(result) {
 
-        // Build the chart
-        Highcharts.chart('pie_container', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
+        if (hub_id == 0) {
+            hub_id = result.hub_id;
+            hub_name = result.name;
+            earning_array[result.month - 1] = Number(result.amount);
+        } else if (result.hub_id != hub_id) {
+            hubObj = {
+                "name": hub_name,
+                "data": earning_array
+            };
+            series_data.push(hubObj);
+            // new hub. initialising new array
+            hub_id = result.hub_id;
+            hub_name = result.name;
+            earning_array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            earning_array[result.month - 1] = Number(result.amount);
+        } else {
+            earning_array[result.month - 1] = Number(result.amount);
+        }
+
+        if (len == count) {
+            hubObj = {
+                "name": hub_name,
+                "data": earning_array
+            };
+            series_data.push(hubObj);
+        }
+
+        count++;
+
+    });
+
+
+    Highcharts.chart('line_container', {
+        chart: {
+            type: 'line',
+        },
+        title: {
+            text: 'Monthly Earnings by Hub'
+        },
+        /**subtitle: {
+            text: 'Source: WorldClimate.com'
+        },**/
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
             title: {
-                text: 'Percentage booking for each space'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            "series": [{
-                name: 'Hub',
-                colorByPoint: true,
-                data: hub_data
-            }]
-        });
+                text: 'Income (€)'
+            }
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+    
+        series: series_data
+    });
 
+    Highcharts.setOptions({
+        colors: ['#212922', '#7C606B', '#9AA899', '#5B8266', '#DDDF00', '#24CBE5', '#424B54', '#D5ACA9']
+    });
+}
+ 
+
+function getPercentageEarningsByHub(_user_id, _year) {
+
+    $.ajax({
+        url: URL + '/dashboard/getEarningPercentage.php', // URL of Web Service
+        type: 'GET', //web Service method
+        async: false,
+        crossDomain: true, // to enable cross origin resource(CORS) sharing
+        data: {
+            user_id: _user_id,
+            year: _year
+        }, // the parameters
+        success: function(response) {
+            // is request is a success, this block is executed
+
+            displayEarningPieChart(response);
+        },
+
+        error: function(resultat, statut, erreur) {
+            // in case of error log will be added
+
+            console.log("Error encountered. Could not retrieve details");
+
+        }
+
+    });
+
+};
+
+function displayEarningPieChart(results) {
+
+    var results_array = JSON.parse(results);
+    var hub_data = [];
+    var hubObj;
+
+    results_array.forEach(function(hub) {
+        hubObj = {
+            "name": hub.name,
+            "y": Number(hub.percentage)
+        };
+        hub_data.push(hubObj);
+
+
+    });
+
+
+    // Build the chart
+    Highcharts.chart('pie_container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Percentage earnings for all hubs'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        "series": [{
+            name: 'Hub',
+            colorByPoint: true,
+            data: hub_data
+        }]
+    });
+    Highcharts.setOptions({
+        colors: ['#D4ACB2', '#2F2648', '#DDDF00', '#058DC7', '#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+    });
 }
