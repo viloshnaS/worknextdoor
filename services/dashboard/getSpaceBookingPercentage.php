@@ -3,24 +3,28 @@ header("Access-Control-Allow-Origin: *");
 require('../../connection.php');
 $connection = $conn;
 
-if(isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
+if(isset($_GET['hub_id']) && !empty($_GET['hub_id'])) {
+    $hub_id = $_GET['hub_id'];
     $interval= $_GET['interval'];
-    echo getSpaceBookings($user_id, $interval);
+    echo getSpaceBookingPercentage($hub_id, $interval);
     
  }
 
-function getSpaceBookings($id, $interval){
+
+function getSpaceBookingPercentage($id, $interval){
 	global $connection;
 
-	$sql= "SELECT s.space_name, s.space_id, COUNT(*) as num_bookings, h.hub_id
-	FROM booking b, hubs h, spaces s
-	WHERE h.hub_id = s.hub_id 
-	AND s.space_id = b.space_id
-	AND h.user_id = $id";
-	
+	$sql= "SELECT s.space_name, s.space_id, TRUNCATE((COUNT(*)/temp.total)*100, 2) AS percentage
+	FROM booking b, spaces s,
+    (select count(*) as total
+     from booking b1, spaces s1
+     WHERE b1.space_id = s1.space_id 
+	 AND s1.hub_id = $id
+     ) temp
+	WHERE b.space_id = s.space_id 
+	AND s.hub_id = $id";
 
-if ($interval=='1') {  
+	if ($interval=='1') {  
 	$sql = $sql . " AND b.booking_date BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
 
 	}
@@ -35,14 +39,11 @@ if ($interval=='1') {
 	$sql = $sql . " AND b.booking_date BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
 	}
 
-	$sql = $sql . " GROUP BY s.space_name,s.space_id, h.hub_id
-					ORDER BY s.space_id";
+	$sql = $sql . " GROUP BY s.space_name,s.space_id
+    ORDER BY percentage DESC";
 	
 
 	$result = $connection->query($sql);
-
-	$rows = array();
-
 
 	if ($result->num_rows > 0) {
 	    // output data of each row
@@ -55,6 +56,7 @@ if ($interval=='1') {
 	} else {
 	    echo "";
 	}
+
 	return json_encode($rows);
 }
 
