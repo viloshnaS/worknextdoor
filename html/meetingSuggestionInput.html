@@ -12,13 +12,15 @@
     <link rel="stylesheet" href="css/custom.flexslider.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="js/script.js"></script>
-    
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
+  	<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
   	<script src="js/suggestMeeting.js"></script>
-  	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  	<script src="js/hostScript.js"></script>
+  	<script src="js/script.js"></script>
+
   	<style>
        /* Set the size of the div element that contains the map */
       #map {
@@ -35,55 +37,72 @@
             </div> 
             <div class="content ">
                 <div id="comments">
+                	<!-- <div class="block clear one_third"></div> -->
+                	
                     <h2 style="font-weight: bold;">MEETING SUGGESTION</h2>
                     <!-- <form action="#" method="post"> -->
-                        <div class="block clear" id="listInputLocation">
-                        	<div id="numbOfBar" style="display: none">3</div>
-	                        <div class="block clear" id="">
-	                            <label for="comment" style="font-weight: bold;">Location 1</label>
-	                            <input type="text" class="controls inputBar" name="url" id="location-1" value="" size="22" required>
-	                            <div id="map-1" style="display: none"></div>
-	                            <div id="lat-1" style="display: none"></div>
-	                            <div id="lng-1" style="display: none"></div>
-	                        </div>
-
-	                        <div class="block clear">
-	                            <label for="comment" style="font-weight: bold;">Location 2</label>
-	                            <input type="text" class="controls inputBar" name="url" id="location-2" value="" size="22" required>
-	                            <div id="map-2" style="display: none"></div>
-	                            <div id="lat-2" style="display: none"></div>
-	                            <div id="lng-2" style="display: none"></div>
-	                        </div>
-	                        <div class="block clear 3">
-	                            <label for="comment" style="font-weight: bold;">Location 3</label>
-	                            <input type="text" class="controls inputBar" name="url" id="location-3" value="" size="22" required>
-	                            <div id="map-3" style="display: none"></div>
-	                            <div id="lat-3" style="display: none"></div>
-	                            <div id="lng-3" style="display: none"></div>
-	                        </div>
-                        </div>
-                        <div class="block clear center">
-                            <span><a href="javascript:;" class="material-icons" onclick="addInputLocation()">add</a><a> More location</a></span>
+                    <div class="block clear" id="listInputLocation">
+                    	<div id="numbOfBar" style="display: none">3</div>
+                        <div class="block clear" id="">
+                            <label for="comment" style="font-weight: bold;">Location 1</label>
+                            <input type="text" class="controls inputBar" name="url" id="location-1" value="" size="22" required>
+                            <div id="map-1" style="display: none"></div>
+                            <div id="lat-1" style="display: none"></div>
+                            <div id="lng-1" style="display: none"></div>
                         </div>
 
-                        <div class="center block clear">
-                            <a id="btnSubmitLocation" class="btn inverse" href="javascript:;" onclick="submitLocation()">Submit</a>
+                        <div class="block clear">
+                            <label for="comment" style="font-weight: bold;">Location 2</label>
+                            <input type="text" class="controls inputBar" name="url" id="location-2" value="" size="22" required>
+                            <div id="map-2" style="display: none"></div>
+                            <div id="lat-2" style="display: none"></div>
+                            <div id="lng-2" style="display: none"></div>
                         </div>
-
-                        <div class="center">
-                            <span id="txtErr" style="color: red"></span>
+                        <div class="block clear 3">
+                            <label for="comment" style="font-weight: bold;">Location 3</label>
+                            <input type="text" class="controls inputBar" name="url" id="location-3" value="" size="22" required>
+                            <div id="map-3" style="display: none"></div>
+                            <div id="lat-3" style="display: none"></div>
+                            <div id="lng-3" style="display: none"></div>
                         </div>
+                    </div>
+                    <div class="block clear center">
+                        <span onclick="addInputLocation()" style="cursor: pointer;"><a href="javascript:;" class="material-icons" onclick="addInputLocation()">add</a><a> More location</a></span>
+                    </div>
 
-                        <div id="map" class="center block clear"></div>
+                    <div class="center block clear">
+                        <a id="btnSubmitLocation" class="btn inverse" href="javascript:;" onclick="submitLocation()">Submit</a>
+                    </div>
+
+                    <div class="center">
+                        <span id="txtErr" style="color: red"></span>
+                    </div>
+
+                    <!-- <div id="map" class="center block clear"></div> -->
                     <!-- </form> -->
                 </div>
+
+                <div class="content" id="resultSuggestion" style="display: none;">
+                	<div class="center">
+                            <a id="back_input" class="btn inverse" href="javascript:;" onclick="backToInputLocation()">Other locations</a>
+                    </div>
+	                <div>
+	                    <h2 style="font-weight: bold;">MEETING SUGGESTION RESULT</h2>
+
+	                    <div id="map" class="center block clear" style="margin-bottom: 50px;height: 300px"></div>
+	                    
+	                    <div class="block clear" id="listResultSpaceSuggestion">
+	                        
+	                    </div>
+	                </div>
+	            </div>
             </div>
         </main>
     </div>
     
     
     
-    <script src="js/hostScript.js"></script>
+    
     <script>
         
         var listInputLocation = [];
@@ -91,25 +110,25 @@
         function initAutocomplete() {
         	var map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: -33.8688, lng: 151.2195},
-              zoom: 13,
+              zoom: 12,
               mapTypeId: 'roadmap'
             });
 
             var map1 = new google.maps.Map(document.getElementById('map-1'), {
               center: {lat: -33.8688, lng: 151.2195},
-              zoom: 13,
+              zoom: 12,
               mapTypeId: 'roadmap'
             });
 
             var map2 = new google.maps.Map(document.getElementById('map-2'), {
               center: {lat: -33.8688, lng: 151.2195},
-              zoom: 13,
+              zoom: 12,
               mapTypeId: 'roadmap'
             });
 
 			var map3 = new google.maps.Map(document.getElementById('map-3'), {
               center: {lat: -33.8688, lng: 151.2195},
-              zoom: 13,
+              zoom: 12,
               mapTypeId: 'roadmap'
             });
 
@@ -125,6 +144,7 @@
             map3.controls[google.maps.ControlPosition.TOP_LEFT].push(input3);
 
             searchBox1.addListener('places_changed', function() {
+                $("#txtErr").html("");
                 var places = searchBox1.getPlaces();
                 if (places.length == 0) {
                   return;
@@ -145,6 +165,7 @@
             });
 
             searchBox2.addListener('places_changed', function() {
+                $("#txtErr").html("");
                 var places = searchBox2.getPlaces();
                 if (places.length == 0) {
                   return;
@@ -164,6 +185,7 @@
             });
 
             searchBox3.addListener('places_changed', function() {
+                $("#txtErr").html("");
                 var places = searchBox3.getPlaces();
                 if (places.length == 0) {
                   return;
@@ -187,9 +209,9 @@
 
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&libraries=places&callback=initAutocomplete"
-         async defer></script>
+    
 </body>
 
-
-$("#listInputLocation").children().last().attr('class')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&libraries=geometry,places&callback=initAutocomplete"></script>
+         
+<!-- $("#listInputLocation").children().last().attr('class') -->
