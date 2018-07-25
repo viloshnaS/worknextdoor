@@ -27,7 +27,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    font-family: veranda;
+    font-family: 'Open Sans', sans-serif;
     font-size:200%;
     height:100%;
     margin:0px;
@@ -117,7 +117,7 @@ h1 {
 .list_thumb{
   padding:20px;
   font-size:25px;
-  font-family:veranda;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .title{
@@ -127,8 +127,8 @@ h1 {
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(black,.15);
   font-family: 'Megrim', cursive;
-  font-size: 200%;
-  color: #631762;
+  font-size: 2.5em;
+  color: #721D68;
   font-weight:bold;
 }
 
@@ -138,13 +138,13 @@ h1 {
 td.thumb{
   padding-right:0px;
   padding-bottom:20px;
-  font-family: Veranda;
+  font-family: 'Open Sans', sans-serif;
   font-size:15px;
   width:50%;
 }
 
 th{
-  font-family: Veranda;
+  font-family: 'Open Sans', sans-serif;
   font-size:15px;
   text-transform: capitalize;
   padding-left:0px;
@@ -154,19 +154,20 @@ th{
 }
 
 td{
-  font-family: Veranda;
+  font-family: 'Open Sans', sans-serif;
   font-size:15px;
 }
 
-h2{
-  font-family: Veranda;
-  font-size:25px;
-  text-transform: capitalize;
+.heading{
+  font-family: 'Open Sans', sans-serif;
+  font-size:30px;
+  text-transform: uppercase;
   padding-right:10px;
+  color: #505050;
 }
 
 h1{
-  font-family: Veranda;
+  font-family: 'Open Sans', sans-serif;
   font-size:30px;
   text-transform: capitalize;
   padding-right:10px;
@@ -181,9 +182,9 @@ h1{
 }
 
 #footer{
-  padding:0px;
+  padding: 5px 0px 0px 0px;
   background-color:#fff ;
-  height:10%;
+  height:8%;
   margin-bottom: 0px;
   margin-top: 0px;
 }
@@ -252,7 +253,7 @@ outline:0;
   display:inline-block;
   cursor:pointer;
   color:#000000;
-  font-family:Verdana;
+  font-family: 'Open Sans', sans-serif;
   font-size:15px;
   padding:10px 14px;
   text-decoration:none;
@@ -299,18 +300,15 @@ input{
 }
 
 #more_btn {
-  -moz-box-shadow: 0px 10px 14px -7px #aa8cc5;
-  -webkit-box-shadow: 0px 10px 14px -7px #aa8cc5;
-  box-shadow: 0px 10px 14px -7px #aa8cc5;
   background-color:#ffffff;
-  -moz-border-radius:8px;
-  -webkit-border-radius:8px;
-  border-radius:8px;
-  border:1px solid #aa8cc5;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border-radius:4px;
+  border:1px solid #B0B0B0;
   display:inline-block;
   cursor:pointer;
   color:#000000;
-  font-family:Verdana;
+  font-family: 'Open Sans', sans-serif;
   font-size:15px;
   text-decoration:none;
 }

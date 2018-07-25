@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Work-next-door searching API</title>
     <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
     <script src="js/index.js"></script>
     <script src="js/map.js"></script>
     <script src="js/script.js"></script>
@@ -64,13 +65,13 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper" class='menu'>
-                <h3>Menu</h3>
+                <h3>MENU</h3>
                 <a href="#"><i class='material-icons'>search</i> Search Spaces</a>
                 <a href="hostHub.html" data-ajax='false'><i class='material-icons'>meeting_room</i>Offer Spaces</a>
      
 				<a href="hostSpaceList.html" data-ajax='false'><i class='material-icons'>build</i>Manage Spaces</a>
                 <a href="#"><i class='material-icons'>people</i>Organise Meetings</a>
-                <a href="#"><i class='material-icons'>stars</i>Rate Us</a>
+                <a href="dashboard.html" data-ajax='false'><i class='material-icons'>bar_chart</i>Dashboard</a>
                 <a href="#"><i class='material-icons'>settings</i>Settings</a>
                 <a href="#"><i class='material-icons'>contact_support</i>FAQ</a>
         </div>
@@ -80,7 +81,7 @@
             <div class="title" align="center" >Work Next Door</div>            
             <div><input id="pac-input" class="controls" type="Search" placeholder="Location"></div>
             <div id="map"  style="display: none;"></div> <br>
-            <h2>Spaces Near You</h2>
+            <h2 class = "heading">Spaces Near You</h2>
             <div id ="div_results_thumbnail"></div>
             <div><button id="more_btn">See More</button></div>
             <br/>
@@ -106,4 +107,3 @@
       
 </body>
 
-</html>

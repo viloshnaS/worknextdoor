@@ -2,25 +2,27 @@
 
 .menu h3 {
 	color: white;
-	font-size: 1.9em;
-	padding: 20px;
+	font-size: 2em;
+	padding: 22px 0px 22px 0px;
 	margin: 0;
-	font-weight: 300;
-	background: #631762;
+	font-family: 'Lato', sans-serif;
+	background: #42113C;
+	text-align: center;
 }
 
 .menu a {
 	display: block;
-	color: #000;
+	color: #333;
 	font-size: 1.1em;
 	font-weight: 300;
 	background: #fff;
-	font-family:veranda;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .menu a:hover {
-	background: #885ead;
-	color: #fff;
+	background: #CBC0AD;
+	color: #666;
+	text-decoration: none;
 }
 
 .menu a:active {
@@ -28,6 +30,10 @@
 	color: #000;
 }
 
+.menu a:visited {
+	color: #333;
+	text-decoration: none;
+}
 /* Orientation-dependent styles for the content of the menu */
 
 .menu {
@@ -38,7 +44,7 @@
 }
 
 .menu a {
-	border-bottom: 1px solid #7647a2;
+	border-bottom: 1px solid #C8C8C8;
 	padding: 1em;
 }
 
