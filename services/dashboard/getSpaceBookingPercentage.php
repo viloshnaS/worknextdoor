@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-require('../../connection.php');
+require('../connection.php');
 $connection = $conn;
 
 if(isset($_GET['hub_id']) && !empty($_GET['hub_id'])) {

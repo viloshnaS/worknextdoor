@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-require('../../connection.php');
-require('../test.php');
+require('../connection.php');
+require('../distance.php');
 $connection = $conn;
 
 

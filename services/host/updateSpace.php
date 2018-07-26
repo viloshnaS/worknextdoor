@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-require('../../connection.php');
+require('../connection.php');
 $connection = $conn;
 
 $space_id=$_POST['space_id'];
