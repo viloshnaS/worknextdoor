@@ -766,7 +766,6 @@ function displayhostHubList(results){
          display_string += " </div>";
 
          hub.spaces.forEach(function(space) {
-            display_string += " <div class=' block one_quarter clear' style='opacity: 0; display: block;'>padding space</div>";
             display_string += " <div class=' block one_half'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
             
           });
