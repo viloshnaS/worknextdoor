@@ -6,7 +6,7 @@ $connection = $conn;
 if(isset($_GET['hub_id']) && !empty($_GET['hub_id'])) {
     $hub_id = $_GET['hub_id'];
     $interval= $_GET['interval'];
-    echo getSpaceBookingPercentage($hub_id, $interval)
+    echo getSpaceBookingPercentage($hub_id, $interval);
     
  }
 
@@ -25,18 +25,18 @@ function getSpaceBookingPercentage($id, $interval){
 	AND s.hub_id = $id";
 
 	if ($interval=='1') {  
-	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
+	$sql = $sql . " AND b.booking_date BETWEEN NOW() - INTERVAL 7 DAY AND NOW()";
 
 	}
 
 
 	if ($interval=='2') {  
-	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 30 DAY AND NOW()";
+	$sql = $sql . " AND b.booking_date BETWEEN NOW() - INTERVAL 30 DAY AND NOW()";
 	}
 
 
 	if ($interval=='3') {  
-	$sql = $sql . " AND b.booking_date_start BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
+	$sql = $sql . " AND b.booking_date BETWEEN NOW() - INTERVAL 365 DAY AND NOW()";
 	}
 
 	$sql = $sql . " GROUP BY s.space_name,s.space_id

@@ -29,21 +29,28 @@
                   
         </select>
 </div>
-<div id="bar_container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-<div id="pie_container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+<div id="stack_container" style="min-width: 250px; height: 250px; margin: 0 auto"></div>
+<div id="column_container" style="min-width: 250px; height: 250px; margin: 0 auto"></div>
+<div id="pie_container" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
+
 
 <script>
     $(document).ready(function() {
         var user_id = localStorage.getItem("user_id");
-
-        displayBarChart(getBookingByHub(user_id,1));
+           $("#column_container").hide();
+            $("#pie_container").hide();
+        displayBookingStackChart(getBookingByHubFlag(user_id,1));
+        getBookingBySpace(user_id,1);
       
 
 
         $("#interval").change(function() {
       
             var value=  $( "#interval" ).val();
-            displayBarChart(getBookingByHub(user_id,value));
+            displayBookingStackChart(getBookingByHubFlag(user_id,value));
+            $("#column_container").hide();
+            $("#pie_container").hide();
+            getBookingBySpace(user_id,value);
     
         });
 
