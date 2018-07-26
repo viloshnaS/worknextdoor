@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Work-next-door searching API</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+
+    <div id="back"><i class='material-icons'>arrow_back</i></div>
+    <div id="home"><i class='material-icons'>home</i></div>
+
+
+<div id="main_div">
+         <select id="interval">
+                    <option value="1">Last 7 days</option>
+                    <option value="2">Last 30 days</option>
+                    <option value="3">Last Year</option>
+                  
+        </select>
+</div>
+<div id="bar_container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+<div id="pie_container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+
+<script>
+    $(document).ready(function() {
+        var user_id = localStorage.getItem("user_id");
+
+        displayBarChart(getBookingByHub(user_id,1));
+      
+
+
+        $("#interval").change(function() {
+      
+            var value=  $( "#interval" ).val();
+            displayBarChart(getBookingByHub(user_id,value));
+    
+        });
+
+
+           $("#back").click(function(){
+
+                history.back();
+
+            });
+           $("#home").click(function(){
+
+                window.location="index.html";
+
+            });
+
+    });
+
+
+</script>
+</body>
+</html>

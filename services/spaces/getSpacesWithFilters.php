@@ -18,9 +18,10 @@ $parking=$_GET['parking']; //'1' or false
 $printer=$_GET['printer_scanner']; //'1' or false
 $heater=$_GET['heater']; //'1'/false
 $air_con=$_GET['air_con']; //'1' or false
-$wifi='0'; //'1'/false
+$wifi=$_GET['wifi'];
 $date_from=$_GET['date_from']; //'1' or false
 $date_to=$_GET['date_to']; //'1'/false
+
 
 
 echo getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whiteboard,$screen,$projector,$kitchen,$parking,$printer,$heater,$air_con,$wifi, $date_from, $date_to);
@@ -37,7 +38,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	INNER JOIN 
 	(space_pricing sp INNER JOIN pricing_package pp ON sp.price_package_id = pp.package_id)
 	ON s.space_id =sp.space_id
-	where s.number_of_guests >=$guests 
+	where s.number_of_guests >=$guests
 	AND $latitude BETWEEN s.latitude-0.2 AND s.latitude+0.2
 	AND $longitude BETWEEN s.longitude-0.2 AND s.longitude+0.2
 	"; 
@@ -76,6 +77,12 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 
 		$sql = $sql . " AND s.space_type_id = $space_type";
 	}
+
+	/*if($guests != ""){ 
+
+		$sql = $sql . " AND s.number_of_guests >=$guests";
+	}*/
+
 
 	if($whiteboard === '1'){ //add a condition when feature == '1'
 
@@ -123,6 +130,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 		$sql = $sql . " AND s.wifi =1";
 	}
 
+	///echo $sql;
 	$result = $connection->query($sql);
 
 	$spaces_list=array();
@@ -138,10 +146,10 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	   
 	    	$coordinates_array[]=[$row['space_id'],$row['latitude'],$row['longitude']];
 	    	$spaces_list[$row["space_id"]] = $row;
-
+	    	$sorted_array[]= $row; 
 	    		
 	    }
-
+/*
 	   	$distance_array = getDistance($latitude,$longitude,$coordinates_array);
 	   	
 	   	$count =0;
@@ -156,6 +164,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	 		
 	 		
 	    }
+	    */
 	} 
 
 	return json_encode($sorted_array);
