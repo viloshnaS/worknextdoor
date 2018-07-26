@@ -1,7 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 require('../connection.php');
-require('getSpaceList.php');
 $connection = $conn;
 
 echo getListHub();
@@ -9,10 +8,10 @@ echo getListHub();
 
  
  
-function getHub(){
+function getListHub(){
 	global $connection;
 
-	$sql = "SELECT * FROM hubs WHERE";
+	$sql = "SELECT * FROM hubs";
 	
 	$rows= array();
 	$result = $connection->query($sql);
