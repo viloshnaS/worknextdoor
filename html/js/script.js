@@ -766,7 +766,7 @@ function displayhostHubList(results){
          display_string += " </div>";
 
          hub.spaces.forEach(function(space) {
-            display_string += " <div class=' block'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
+            display_string += " <div class=' block'  style='margin-left: 20px'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
             
           });
           display_string += " <div class=' block'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
