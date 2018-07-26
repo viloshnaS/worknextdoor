@@ -760,28 +760,6 @@ function getSpaceList(id){
 
 };
 
-// function displayhostHubList(results){
-
-//       var result_arr = JSON.parse(results); // converting results to JSON object
-//       display_string ="";
-//       result_arr.forEach(function(hub) { 
-//           display_string = display_string+"<ul class='accordion-menu' onclick='toggleHubList(this)'>"+hub.name +"<i class='fa fa-chevron-down' ></i><li>";
-//           display_string = display_string+"<a href='modifyHub.html?hub_id="+hub.hub_id+"'></a>";
-//           hub.spaces.forEach(function(space) {
-//             display_string = display_string+"<ul class='submenuItems' style='display:none'><li>";
-//             display_string = display_string+"<a href='modifySpace.html?space_id="+space.space_id+"'><span>";
-//             display_string = display_string+space.space_name+ "</span>";
-//             display_string = display_string+"</a>"; 
-//             display_string = display_string+"</li></ul>";
-//           });
-//           display_string = display_string+"</li></ul>";
-
-//        });
-
-//        // $("#host_spaces").html(display_string);
-
-// };
-
 function displayhostHubList(results){
   var result_arr = JSON.parse(results); // converting results to JSON object
       display_string ="";
@@ -794,15 +772,11 @@ function displayhostHubList(results){
 
          hub.spaces.forEach(function(space) {
             display_string += " <div class=' block one_quarter clear' style='opacity: 0; display: block;'>padding space</div>";
-            display_string += " <div class=' block one_half'>" + space.space_name + "</div>";
-            display_string += " <div class=' block one_quarter'><span><a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons'>edit</a></span></div>";
+            display_string += " <div class=' block one_half'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
             
           });
-          display_string += " <div class='center block one_half'>Add more spaces</div>";
-          display_string += " <div class=' block one_quarter'><span><a href='hostSpace.html' class='material-icons'>plus</a></span></div>";
-          display_string += " <div class=' block one_quarter'><span><a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons'>add</a></span></div>";
+          display_string += " <div class='center block one_half'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
             
-
          display_string += " </div>";
 
          $("#host_spaces").html(display_string);
