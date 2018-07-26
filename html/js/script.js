@@ -760,16 +760,16 @@ function displayhostHubList(results){
       display_string ="";
       result_arr.forEach(function(hub) {
         display_string += "<div class='block clear'>";
-       display_string += "<div class='center one_half block clear' style='width: max-content;'>";
+       display_string += "<div class='center block clear' style='width: max-content;'>";
          display_string += " <a id='' style='font-size: 15px; font-weight: bold;' class='btn inverse' href='javascript:;' onclick='toggleHubList(this)'>" + hub.name + "</a>";
          display_string += " <span><a class='material-icons' style='color: orange;' href='modifyHub.html?hub_id=" + hub.hub_id + "'>edit</a></span>";
          display_string += " </div>";
 
          hub.spaces.forEach(function(space) {
-            display_string += " <div class=' block one_half'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
+            display_string += " <div class=' block'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
             
           });
-          display_string += " <div class='center block one_half'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
+          display_string += " <div class=' block'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
             
          display_string += " </div>";
 
