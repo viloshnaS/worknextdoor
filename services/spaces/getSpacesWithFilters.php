@@ -21,6 +21,8 @@ $air_con=$_GET['air_con']; //'1' or false
 $wifi=$_GET['wifi'];
 $date_from=$_GET['date_from']; //'1' or false
 $date_to=$_GET['date_to']; //'1'/false
+$price_min=$_GET['price_min'];
+$price_max=$_GET['price_max'];
 
 
 
@@ -78,12 +80,6 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 		$sql = $sql . " AND s.space_type_id = $space_type";
 	}
 
-	/*if($guests != ""){ 
-
-		$sql = $sql . " AND s.number_of_guests >=$guests";
-	}*/
-
-
 	if($whiteboard === '1'){ //add a condition when feature == '1'
 
 		$sql = $sql . " AND s.whiteboard =1";
@@ -92,7 +88,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 
 	if($screen === '1'){ //add a condition when feature == '1'
 
-			$sql = $sql . "AND s.screen =1";
+			$sql = $sql . " AND s.screen =1";
 		}
 
 	if($projector === '1'){ //add a condition when feature == '1'
@@ -130,7 +126,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 		$sql = $sql . " AND s.wifi =1";
 	}
 
-	///echo $sql;
+	//echo $sql;
 	$result = $connection->query($sql);
 
 	$spaces_list=array();
