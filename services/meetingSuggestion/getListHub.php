@@ -11,7 +11,7 @@ echo getListHub();
 function getListHub(){
 	global $connection;
 
-	$sql = "SELECT * FROM hubs WHERE";
+	$sql = "SELECT * FROM hubs";
 	
 	$rows= array();
 	$result = $connection->query($sql);
