@@ -1,6 +1,3 @@
-
-var URL ="http://localhost:80/services";
-
 function rad2degr(rad) { return rad * 180 / Math.PI; }
 function degr2rad(degr) { return degr * Math.PI / 180; }
 

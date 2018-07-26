@@ -1,9 +1,3 @@
-
-
-
-var URL ="http://localhost:80/services";
-
-
 var arrHubPicture = [];
 var arrSpacePicture = [];
 
