@@ -16,7 +16,8 @@ function initHomePage() {
 };
 
 function displayResultList( results){
-         
+    
+    if(results !=""){     
           $('#div_results').html(results);
           var result_arr = JSON.parse(results);
 
@@ -72,7 +73,10 @@ function displayResultList( results){
   
 
          $('#div_results').html(display_string);
-
+    }
+    else{
+          $('#div_results').html("No results found. Please modify your filters");
+    }
 };
 
 
@@ -118,6 +122,8 @@ function getDisplayStringThumbnail(space){
 
 
 function displayResultsThumbnail(response){
+
+    if(response != ""){
           
           var spaces = JSON.parse(response);
 
@@ -136,8 +142,13 @@ function displayResultsThumbnail(response){
           }
           display_string =display_string +"<tr><td><a href='viewResults.html> View More </a></td></tr>";
           display_string =display_string +"</table>";
+          display_string =display_string + "<div><button id='more_btn'>See More</button></div>";
 
            $('#div_results_thumbnail').html(display_string);
+    }
+    else{
+          $('#div_results_thumbnail').html("Geolocation not working");
+    }
 
 
 };
@@ -258,197 +269,201 @@ function getSpaceDestails(id){
 function displaySpaceDetails(results){
 
 
+    if(results!=""){
+          var space = JSON.parse(results);
+          var displayString ="";
 
-    var space = JSON.parse(results);
-    var displayString ="";
+          localStorage.setItem("SpaceDetails",results);
 
-    localStorage.setItem("SpaceDetails",results);
+          var pictures = JSON.parse(space.pictures);
 
-    var pictures = JSON.parse(space.pictures);
+          var height = Number($(window).height())*40/100;
 
-    var height = Number($(window).height())*40/100;
-
-  
-   displayString = displayString +"<iframe class='picture_frame' src='slideshow.html' scrolling='no' height='"+height+"px' seamless=''></iframe>";
-
-
-    displayString = displayString + "<div class='relative'>";
-    if(space.space_type_id=='1'){
-      displayString = displayString + "<p><h3>"+space.space_type_description+"</h3></p>";
-    }
-    else{
-      displayString = displayString + "<p><h3>"+space.space_type_description+" : " 
-      + space.number_of_guests+" guests</h3></p>";
-    }
-    
-    displayString = displayString + "<p><h2>"+space.name+"</h2></p>";
-
-    if(!!space.reviews_count){
-      displayString = displayString + "<p> <span class='stars-container stars-"+space.rating+"'>★★★★★</span>("+space.reviews_count+")</p>";
-    }
-    else{
-      displayString = displayString + "<p>No rating</p>"
-
-    }
-
-    displayString = displayString + "<hr>";
-
-    displayString = displayString + "<p>"+space.address+"</p>";
-    
-
-    lat1=localStorage.getItem("latitude");
-    long1=localStorage.getItem("longitude");
-    lat2=space.latitude;
-    long2=space.longitude;
-
-    displayString = displayString + "<table>";
-
-    displayString = displayString + "<tr>";
-
-    displayString = displayString + "<td><div id='walk'></div></td>";    
-    displayString = displayString + "<td><div id='bicycle'></div></td>";
-     displayString = displayString + "</tr>";
-    
-     displayString = displayString + "<tr>";
-     displayString = displayString + "<td><div id='drive'></div></td>";
-    displayString = displayString + "<td><div id='transit'></div></td>";
-    
-     displayString = displayString + "</tr>";
-
-    displayString = displayString + "</table>";
-
-     displayString = displayString + "<hr>";
+        
+         displayString = displayString +"<iframe class='picture_frame' src='slideshow.html' scrolling='no' height='"+height+"px' seamless=''></iframe>";
 
 
-    displayString = displayString + "<p><h3>Price Rate : </h3></p>";
+          displayString = displayString + "<div class='relative'>";
+          if(space.space_type_id=='1'){
+            displayString = displayString + "<p><h3>"+space.space_type_description+"</h3></p>";
+          }
+          else{
+            displayString = displayString + "<p><h3>"+space.space_type_description+" : " 
+            + space.number_of_guests+" guests</h3></p>";
+          }
+          
+          displayString = displayString + "<p><h2>"+space.name+"</h2></p>";
 
-   
-   
+          if(!!space.reviews_count){
+            displayString = displayString + "<p> <span class='stars-container stars-"+space.rating+"'>★★★★★</span>("+space.reviews_count+")</p>";
+          }
+          else{
+            displayString = displayString + "<p>No rating</p>"
 
-    space.pricing.forEach(function(price){
+          }
 
-      displayString = displayString + "<p>"+price.description+": "+price.price+"<i class='material-icons euro_icon'>euro_symbol</i></p>";
-      
-    });
+          displayString = displayString + "<hr>";
 
-     displayString = displayString + "<hr>";
-   
+          displayString = displayString + "<p>"+space.address+"</p>";
+          
 
-    displayString = displayString + "<p><h3>The venue : </h3></p>";
-    displayString = displayString + "<p>"+space.hub_description+"</p>";
-    displayString = displayString + "<table>";
-    displayString = displayString + "<tr>";
+          lat1=localStorage.getItem("latitude");
+          long1=localStorage.getItem("longitude");
+          lat2=space.latitude;
+          long2=space.longitude;
 
+          displayString = displayString + "<table>";
 
-    displayString = displayString + "<td>Hosted by: "+space.firstname+"</td>";
-    if(space.user_picture!=''){
-              displayString = displayString+"<td><img class='user_image' src='img/user/"+space.user_picture+"'/></td>";
-            }
-            else{
-              displayString = displayString+"<td><img class='user_image'src='img/generic.jpg'/></td>";
-            }
-    displayString = displayString + "</tr>";
-    displayString = displayString + "</table>";
+          displayString = displayString + "<tr>";
 
-    displayString = displayString + "<hr>";
+          displayString = displayString + "<td><div id='walk'></div></td>";    
+          displayString = displayString + "<td><div id='bicycle'></div></td>";
+           displayString = displayString + "</tr>";
+          
+           displayString = displayString + "<tr>";
+           displayString = displayString + "<td><div id='drive'></div></td>";
+          displayString = displayString + "<td><div id='transit'></div></td>";
+          
+           displayString = displayString + "</tr>";
 
-    displayString = displayString + "<h3>Amenities : </h3>";
+          displayString = displayString + "</table>";
 
-    displayString = displayString + "<table>";
-    displayString = displayString + "<tr>";
-    
-    if(space.wifi=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>WIFI </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i> WIFI </td>";
-    }
-
-    if(space.printer_scanner=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Printer/Scanner </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Printer/Scanner </td>";
-    }
-    displayString = displayString + "</tr>";
-    displayString = displayString + "<tr>";
-
-    if(space.projector=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Projector </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Projector </td>";
-    }
-
-    if(space.screen=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Screen </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Screen </td>";
-    }
-
-     displayString = displayString + "</tr>";
-
-     displayString = displayString + "<tr>";
-
-    if(space.air_con=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Air Conditioner </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Air Conditioner </td>";
-    }
-
-    if(space.heater=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Heater </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Heater </td>";
-    }
-
-     displayString = displayString + "</tr>";
+           displayString = displayString + "<hr>";
 
 
-     displayString = displayString + "<tr>";
+          displayString = displayString + "<p><h3>Price Rate : </h3></p>";
 
-    if(space.kitchen=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Kitchen </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Kitchen </td>";
-    }
+         
+         
 
-    if(space.parking=='1'){
-      displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Parking </td>";
-    }
-    else{
-      displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Parking </td>";
-    }
+          space.pricing.forEach(function(price){
 
-     displayString = displayString + "</tr>";
+            displayString = displayString + "<p>"+price.description+": "+price.price+"<i class='material-icons euro_icon'>euro_symbol</i></p>";
+            
+          });
 
-    displayString = displayString + "</table>";
+           displayString = displayString + "<hr>";
+         
 
-    var height = Number($(window).height())*60/100;
+          displayString = displayString + "<p><h3>The venue : </h3></p>";
+          displayString = displayString + "<p>"+space.hub_description+"</p>";
+          displayString = displayString + "<table>";
+          displayString = displayString + "<tr>";
 
-   displayString = displayString +"<iframe height='"+height+"px' class='map_frame' src='maps.html'></iframe>";
 
-    if(!!space.reviews_count){
-      displayString = displayString + "<a href='#popupReview' id='link_review' data-transition='slideup' class='ui-corner-all ui-shadow' data-rel='popup'>View Reviews("+space.reviews_count+")</a>";
-    }
-    else{
-      displayString = displayString +"<p> No Reviews</p>";
-    }
+          displayString = displayString + "<td>Hosted by: "+space.firstname+"</td>";
+          if(space.user_picture!=''){
+                    displayString = displayString+"<td><img class='user_image' src='img/user/"+space.user_picture+"'/></td>";
+                  }
+                  else{
+                    displayString = displayString+"<td><img class='user_image'src='img/generic.jpg'/></td>";
+                  }
+          displayString = displayString + "</tr>";
+          displayString = displayString + "</table>";
 
-    displayString = displayString +"<input id='hub_lat' type='hidden' value='"+space.latitude+"'>";
-    displayString = displayString +"<input id='hub_lng' type='hidden' value='"+space.longitude+"'>";
-    displayString = displayString + "</div>";
-    displayString = displayString + "<br/><br/><br/><br/><br/>";
-    $('#space_details').html(displayString);
-    calculateTime(lat1,long1,lat2,long2,'WALKING');
-    calculateTime(lat1,long1,lat2,long2,'BICYCLING');
-    calculateTime(lat1,long1,lat2,long2,'TRANSIT');
-    calculateTime(lat1,long1,lat2,long2,'DRIVING');
+          displayString = displayString + "<hr>";
 
+          displayString = displayString + "<h3>Amenities : </h3>";
+
+          displayString = displayString + "<table>";
+          displayString = displayString + "<tr>";
+          
+          if(space.wifi=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>WIFI </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i> WIFI </td>";
+          }
+
+          if(space.printer_scanner=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Printer/Scanner </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Printer/Scanner </td>";
+          }
+          displayString = displayString + "</tr>";
+          displayString = displayString + "<tr>";
+
+          if(space.projector=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Projector </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Projector </td>";
+          }
+
+          if(space.screen=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Screen </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Screen </td>";
+          }
+
+           displayString = displayString + "</tr>";
+
+           displayString = displayString + "<tr>";
+
+          if(space.air_con=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Air Conditioner </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Air Conditioner </td>";
+          }
+
+          if(space.heater=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Heater </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Heater </td>";
+          }
+
+           displayString = displayString + "</tr>";
+
+
+           displayString = displayString + "<tr>";
+
+          if(space.kitchen=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Kitchen </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Kitchen </td>";
+          }
+
+          if(space.parking=='1'){
+            displayString = displayString + "<td> <i class='material-icons check_icon'>done</i>Parking </td>";
+          }
+          else{
+            displayString = displayString + "<td><i class='material-icons close_icon'>close</i>Parking </td>";
+          }
+
+           displayString = displayString + "</tr>";
+
+          displayString = displayString + "</table>";
+
+          var height = Number($(window).height())*60/100;
+
+         displayString = displayString +"<iframe height='"+height+"px' class='map_frame' src='maps.html'></iframe>";
+
+          if(!!space.reviews_count){
+            displayString = displayString + "<a href='#popupReview' id='link_review' data-transition='slideup' class='ui-corner-all ui-shadow' data-rel='popup'>View Reviews("+space.reviews_count+")</a>";
+          }
+          else{
+            displayString = displayString +"<p> No Reviews</p>";
+          }
+
+          displayString = displayString +"<input id='hub_lat' type='hidden' value='"+space.latitude+"'>";
+          displayString = displayString +"<input id='hub_lng' type='hidden' value='"+space.longitude+"'>";
+          displayString = displayString + "</div>";
+          displayString = displayString + "<br/><br/><br/><br/><br/>";
+          $('#space_details').html(displayString);
+          calculateTime(lat1,long1,lat2,long2,'WALKING');
+          calculateTime(lat1,long1,lat2,long2,'BICYCLING');
+          calculateTime(lat1,long1,lat2,long2,'TRANSIT');
+          calculateTime(lat1,long1,lat2,long2,'DRIVING');
+      }
+      else{
+            $('#space_details').html("Service unavailable. Please try later");
+           
+      }
 
 
 };
@@ -572,6 +587,8 @@ function getSpaceReviews(id){
 
 
 function displaySpaceReviews(results){
+
+      if(results != ""){
           var result_arr = JSON.parse(results); // converting results to JSON object
           display_string ="";
           result_arr.forEach(function(review) { //looping through JSON array
@@ -597,6 +614,10 @@ function displaySpaceReviews(results){
             display_string = display_string+"<hr>";
           });
           $("#div_reviews").html(display_string); // displaying the HTML string in a div
+      }
+      else{
+          $("#div_reviews").html("No reviews yet"); // displaying the HTML string in a div
+        }
 };
 
 
@@ -760,16 +781,17 @@ function displayhostHubList(results){
       display_string ="";
       result_arr.forEach(function(hub) {
         display_string += "<div class='block clear'>";
-       display_string += "<div class='center block clear' style='width: max-content;'>";
+       display_string += "<div class='center one_half block clear' style='width: max-content;'>";
          display_string += " <a id='' style='font-size: 15px; font-weight: bold;' class='btn inverse' href='javascript:;' onclick='toggleHubList(this)'>" + hub.name + "</a>";
          display_string += " <span><a class='material-icons' style='color: orange;' href='modifyHub.html?hub_id=" + hub.hub_id + "'>edit</a></span>";
          display_string += " </div>";
 
          hub.spaces.forEach(function(space) {
-            display_string += " <div class=' block'  style='margin-left: 20px'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
+            display_string += " <div class=' block one_quarter clear' style='opacity: 0; display: block;'>padding space</div>";
+            display_string += " <div class=' block one_half'>" + space.space_name + "<a href='modifySpace.html?space_id=" + space.space_id + "' class='material-icons' style='margin-left: 10px'>edit</a></div>";
             
           });
-          display_string += " <div class=' block'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
+          display_string += " <div class='center block one_half'>Add more spaces<a href='hostSpace.html?hub_id=" + hub.hub_id + "' class='material-icons' style='margin-left: 10px'>add</a></div>";
             
          display_string += " </div>";
 
