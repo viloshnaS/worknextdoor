@@ -575,7 +575,7 @@ function createMoreSpace(){
 }
 
 function returnHomepage(){
-  window.location.href = "index.html";
+  window.location.href = "hostSpaceList.html";
 }
 
 function modifyMore(){
