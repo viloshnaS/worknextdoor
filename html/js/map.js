@@ -17,6 +17,9 @@ function initMap() {
             localStorage.setItem("myLatitude",pos.lat);
             localStorage.setItem("myLongitude",pos.lng);
 
+            alert(pos.lat);
+            alert(pos.lng);
+
 
             
           
