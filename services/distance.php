@@ -2,7 +2,7 @@
 
 function getDistance($lat1,$lng1,$destinations)
 {
-		$URL = 'http://maps.googleapis.com/maps/api/distancematrix/json';
+		$URL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
 		$query_string='origins='.$lat1.','.$lng1.'&destinations=';		
 
 		foreach($destinations as $dest){ //specifying the destinations which are location of spaces
@@ -11,8 +11,6 @@ function getDistance($lat1,$lng1,$destinations)
 
 		$query_string = substr($query_string,0,-1);
 		$query_string = $query_string.'&mode=driving&units=metric&sensor=false&key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk';
-		
-		echo $query_string;
 
         $cURL=curl_init();
         curl_setopt($cURL,CURLOPT_URL,$URL.'?'.$query_string);

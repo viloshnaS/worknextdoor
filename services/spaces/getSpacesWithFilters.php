@@ -139,15 +139,15 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	    // output data of each 
 	
 	    while($row = $result->fetch_assoc()) {
-	   
+	   		
 	    	$coordinates_array[]=[$row['space_id'],$row['latitude'],$row['longitude']];
 	    	$spaces_list[$row["space_id"]] = $row;
-	    	$sorted_array[]= $row; 
+			
 	    		
 	    }
-/*
+
 	   	$distance_array = getDistance($latitude,$longitude,$coordinates_array);
-	   	
+
 	   	$count =0;
 	   	asort($distance_array);
 	    
@@ -160,7 +160,7 @@ function getSpaces($latitude,$longitude,$space_rate,$space_type,$guests,$whitebo
 	 		
 	 		
 	    }
-	    */
+	    
 	} 
 
 	return json_encode($sorted_array);
