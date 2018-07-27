@@ -68,10 +68,15 @@ hr {
 .stars-5:after { width: 100%; }
 
 .user_image{
-	border-radius: 50%;
-	height: 40px;
+  border-radius: 50%;
+  height: 40px;
     width: 40px;
     border:1px solid black;
+}
+
+#div_location{
+   margin-top:1em;
+  
 }
 
 /*
