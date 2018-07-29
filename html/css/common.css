@@ -10,14 +10,14 @@ hr {
 } 
 
 .euro_icon{
-    padding: 0px;
-    font-size:15px
+
+    font-size:1em
 }
 
 .footer_icon{
 
-    font-size:35px;
-    color:#721D68;
+    font-size:3em;
+    color:#631762;
 }
 
 .check_icon{
@@ -68,18 +68,13 @@ hr {
 .stars-5:after { width: 100%; }
 
 .user_image{
-  border-radius: 50%;
-  height: 40px;
+	border-radius: 50%;
+	height: 40px;
     width: 40px;
     border:1px solid black;
 }
 
-#div_location{
-   margin-top:1em;
-  
-}
 
-/*
 #home{
 
   position: absolute;
@@ -95,4 +90,3 @@ hr {
   left: 20px;
   color: #631762;
 }
-*/
