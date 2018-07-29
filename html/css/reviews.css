@@ -7,8 +7,8 @@ td{
 	padding-right: 10px;
 	padding-bottom: 10px;
 	
-	font-family: Veranda;
-	font-size:15px;
+	font-family:'Open Sans', sans-serif;
+   font-size: 1em;
 }
 
 #div_reviews{
@@ -16,8 +16,8 @@ td{
 }
 
 h2{
-  font-family: Veranda;
-  font-size:25px;
+  font-family:'Open Sans', sans-serif;
+  font-size: 1.5em;
   text-transform: capitalize;
   padding-left:20px;
   padding-right:10px;
@@ -26,7 +26,7 @@ h2{
 
 p{
 
-	font-family: Veranda;
-	font-size:15px;
+  font-family:'Open Sans', sans-serif;
+  font-size: 1em;
 
 }

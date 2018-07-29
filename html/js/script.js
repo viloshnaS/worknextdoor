@@ -155,11 +155,12 @@ function displayResultsThumbnail(response){
             
             display_string =display_string +"</div>";
           }
-          display_string =display_string +"<tr><td><a href='viewResults.html> View More </a></td></tr>";
+          
           
           
           display_string =display_string +"</div>";
           display_string =display_string +"</div>";
+          display_string =display_string +"<div><button id='more_btn'>See More</button></div>";
 
            $('#div_results_thumbnail').html(display_string);
     }

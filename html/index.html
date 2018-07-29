@@ -3,25 +3,25 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Work Next Door</title>
+    <title>Work-next-door</title>
     <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
     <script src="js/index.js"></script>
     <script src="js/map.js"></script>
     <script src="js/script.js"></script>
-	<script src="js/config.js"></script>
+    <script src="js/config.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+     <link rel="stylesheet" href="css/menu.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
     <link href="css/menu.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
@@ -82,7 +82,7 @@
             <div class="title" align="center" >Work Next Door</div>            
             <div><input id="pac-input" class="controls" type="Search" placeholder="Location"></div>
             <div id="map"  style="display: none;"></div> <br>
-            <h2 class = "heading">Spaces Near You</h2>
+            <h2 class ="heading">Spaces Near You</h2>
             <div id ="div_results_thumbnail"></div>
             
             <br/>
@@ -93,7 +93,7 @@
                     <table width='100%' id="nav-bar_table">
                         <tr>
                         <td align="center"><a href="#menu-toggle"  id="menu-toggle"><i class='material-icons footer_icon'>menu</i></a> </td>
-                        <td align="center"><a href="#" id="inbox"><i class='material-icons footer_icon'>message</i></a></a></td>
+                        <td align="center"><a href="#" id="inbox"><i class='material-icons footer_icon'>message</i></a></td>
                         <td align="center"><a href="#" id="profile"><i class='material-icons footer_icon'>                         person_outline</i></a></td>
                         </tr>
                     </table>
