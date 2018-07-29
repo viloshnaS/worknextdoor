@@ -23,54 +23,65 @@ function displayResultList( results){
 
           display_string ="";
 
-          display_string = display_string+"<table>";
+           display_string = display_string+"<div class='container'>";
 
+          var len = result_arr.length;
 
-          result_arr.forEach(function(hub) {
-            display_string = display_string+"<tr >";
-            display_string = display_string+"<td class='list_thumb'>";
-            display_string = display_string+"<table>";
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+
-            "<a href='viewSpace.html?space_id="+hub.space_id+"' data-transition='slide' data-ajax='false'>"+
-            "<img class='thumbnail' src='img/"+hub.thumbnail+"'>"+
-            "</a>"+
-            "</td>";
-            display_string = display_string+"</tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td><b>"+hub.space_type_description+"</b></td>";
-            display_string = display_string+"</tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>"+hub.name+"</td>";
-            display_string = display_string+"</tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+hub.price+" per "+hub.price_rate+"</td>";
-            display_string = display_string+"</tr>";
-
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td>Distance : "+hub.distance+" Km</td>";
-            display_string = display_string+"</tr>";
-            
-            display_string = display_string+"<tr>";
-
-            if(!!hub.reviews_count){
+          for (i = 0; i <= len; i+=4){
+            display_string = display_string+"<div class='row'>";
+            for (j = 0; j < 3; j++){
+              if(i+j == len){
+                break;
+              }
               
-              display_string = display_string+"<td><span class='stars-container stars-"+hub.rating+"''>★★★★★</span>("+hub.reviews_count+")</td>";
-            }
-            else{
-              display_string = display_string+"<td>No user review</td>";
-            }
-            display_string = display_string+"</tr>";
+              hub = result_arr[i+j];
+              
+              display_string = display_string+"<div class='col-sm'>";
+              display_string = display_string+"<table>";
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td>"+
+              "<a href='viewSpace.html?space_id="+hub.space_id+"' data-transition='slide' data-ajax='false'>"+
+              "<img class='thumbnail' src='img/"+hub.thumbnail+"'>"+
+              "</a>"+
+              "</td>";
+              display_string = display_string+"</tr>";
 
-            display_string = display_string+"</table>";
-            display_string = display_string+"</td>";
-            display_string = display_string+"</tr>";
-          });
-          display_string =display_string +"</table>";
-  
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td><b>"+hub.space_type_description+"</b></td>";
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td>"+hub.name+"</td>";
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td> <i class='material-icons euro_icon'>euro_symbol</i>"+hub.price+" per "+hub.price_rate+"</td>";
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"<tr>";
+              display_string = display_string+"<td>Distance : "+hub.distance+" Km</td>";
+              display_string = display_string+"</tr>";
+              
+              display_string = display_string+"<tr>";
+
+              if(!!hub.reviews_count){
+                
+                display_string = display_string+"<td><span class='stars-container stars-"+hub.rating+"''>★★★★★</span>("+hub.reviews_count+")</td>";
+              }
+              else{
+                display_string = display_string+"<td>No user review</td>";
+              }
+              display_string = display_string+"</tr>";
+
+              display_string = display_string+"</table>";
+              display_string = display_string+"</div>";
+          }
+          display_string = display_string+"</div>";
+        }
+            
+          display_string =display_string +"</div>";
+	
+
 
          $('#div_results').html(display_string);
     }
@@ -89,7 +100,7 @@ function getDisplayStringThumbnail(space){
   var width = Number($(window).width())*35/100;
   display_string = display_string+"<tr><td>" +
   "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
-  "<img class='small_thumbnail' src='img/"+space.thumbnail+"' width='"+width+"' height='"+height+"'>"+
+  "<img class='small_thumbnail' src='img/"+space.thumbnail+"' style='max-width:10em;max-height:10em;'>"+
   "</a>"+
   "</td>";
 
@@ -131,18 +142,24 @@ function displayResultsThumbnail(response){
           display_string ="";
 
           
-
-          display_string = display_string+"<table width='100%'>";
-          for (i = 0; i <= 2; i+=2) { 
-    
-            display_string = display_string+"<tr>";
-            display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i])+"</td>";
-            display_string = display_string+"<td class='thumb'>" +getDisplayStringThumbnail(spaces[i+1])+"</td>";
-            display_string = display_string+"</tr>";
+		  display_string = display_string+"<div class='container'>";
+          display_string = display_string+"<div class='row'>";
+          
+          
+          for (i = 0; i <4; i+=2) { 
+            display_string = display_string+"<div class='col-sm'>";
+            display_string = display_string+"<table><tr>";
+            display_string = display_string+"<td class='thumb-left'>" +getDisplayStringThumbnail(spaces[i])+"</td>";
+            display_string = display_string+"<td class='thumb-right'>" +getDisplayStringThumbnail(spaces[i+1])+"</td>";
+            display_string =display_string +"</tr></table>";
+            
+            display_string =display_string +"</div>";
           }
           display_string =display_string +"<tr><td><a href='viewResults.html> View More </a></td></tr>";
-          display_string =display_string +"</table>";
-          display_string =display_string + "<div><button id='more_btn'>See More</button></div>";
+          
+          
+          display_string =display_string +"</div>";
+          display_string =display_string +"</div>";
 
            $('#div_results_thumbnail').html(display_string);
     }
