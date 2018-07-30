@@ -21,7 +21,7 @@
 .space_image{
   top:0px;
   width: 100%; 
-  height: 40%; 
+  height: 100%; 
 }
 
 .picture_div{
@@ -35,6 +35,12 @@
 .notavailable{
     color: gray;
 }
+
+.slide-body{
+
+
+}
+
 
 .map_frame{
   width:100%;

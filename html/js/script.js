@@ -100,7 +100,7 @@ function getDisplayStringThumbnail(space){
   var width = Number($(window).width())*35/100;
   display_string = display_string+"<tr><td>" +
   "<a href='viewSpace.html?space_id="+space.space_id+"' data-transition='slide' data-ajax='false'>"+
-  "<img class='small_thumbnail' src='img/"+space.thumbnail+"' style='max-width:10em;max-height:10em;'>"+
+  "<img class='thumbnail' src='img/"+space.thumbnail+"'>"+
   "</a>"+
   "</td>";
 
@@ -146,13 +146,9 @@ function displayResultsThumbnail(response){
           display_string = display_string+"<div class='row'>";
           
           
-          for (i = 0; i <4; i+=2) { 
+          for (i = 0; i <4; i++) { 
             display_string = display_string+"<div class='col-sm'>";
-            display_string = display_string+"<table><tr>";
-            display_string = display_string+"<td class='thumb-left'>" +getDisplayStringThumbnail(spaces[i])+"</td>";
-            display_string = display_string+"<td class='thumb-right'>" +getDisplayStringThumbnail(spaces[i+1])+"</td>";
-            display_string =display_string +"</tr></table>";
-            
+            display_string = display_string+"<div class='list_thumb'>" +getDisplayStringThumbnail(spaces[i])+"</div>";          
             display_string =display_string +"</div>";
           }
           

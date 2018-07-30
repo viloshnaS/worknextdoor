@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/common.css">
      <link rel="stylesheet" href="css/menu.css">
+     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile.structure-1.5.0-alpha.1.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script async defer 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCA3Gr_boIdwzOkw_uogkOby6-IwXApBpk&callback=initMap&libraries=places"></script>
@@ -39,6 +40,8 @@
             clearfilters();
                           
 
+              localStorage.setItem("myLatitude",43.61991599);
+              localStorage.setItem("myLongitude",1.35386589);
             getNearbySpaces(localStorage.getItem("myLatitude"),localStorage.getItem("myLongitude"));
 
            
@@ -86,6 +89,22 @@
             <div id ="div_results_thumbnail"></div>
             
             <br/>
+
+            <h2 class ="heading">Discover Spaces...</h2>
+            <div class='container'>
+                <div class='row'>
+                  
+                    <div class='col-sm'>
+                        <img class='discover-thumbnail' src='img/places/paris.jpg'/>
+                    </div>
+                    <div class='col-sm'>
+                        <img class='discover-thumbnail' src='img/places/lyon.jpg'/>
+                    </div>
+                    <div class='col-sm'>
+                        <img class='discover-thumbnail' src='img/places/bordeaux.jpg'/>
+                    </div>
+                </div>
+            </div>
             
 
                 <div data-role="footer" id="footer" data-position="fixed">

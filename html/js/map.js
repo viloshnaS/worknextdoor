@@ -13,10 +13,15 @@ function initMap() {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+              localStorage.setItem("myLatitude",pos.lat);
+              localStorage.setItem("myLongitude",pos.lng);
             
-            localStorage.setItem("myLatitude",pos.lat);
-            localStorage.setItem("myLongitude",pos.lng);
-             
+         
+
+                  
+          
+
+           
         });
 
         var input = document.getElementById('pac-input');
@@ -39,6 +44,7 @@ function initMap() {
                 alert("no");
                 return;
             }
+
             else{
               localStorage.setItem("latitude",place.geometry.location.lat());
               localStorage.setItem("longitude",place.geometry.location.lng());

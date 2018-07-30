@@ -120,6 +120,14 @@ h1 {
     width: 90%;
 }
 
+.discover-thumbnail{
+    text-align:center;
+    height: 20em;
+    width: 35em;
+    padding: 2em;
+}
+
+
 .list_thumb{
   padding:20px;
   font-size:1.5em;
@@ -142,7 +150,6 @@ h1 {
 
 
 td.thumb-right{
-  padding-left:10px;
   padding-bottom:20px;
   font-family: 'Open Sans', sans-serif;;
   font-size:1.5em;
@@ -150,7 +157,6 @@ td.thumb-right{
 }
 
 td.thumb-left{
-  padding-right:10px;
   padding-bottom:20px;
   font-family: 'Open Sans', sans-serif;;
   font-size:1.5em;
@@ -160,7 +166,7 @@ td.thumb-left{
 
 th{
   font-family: 'Open Sans', sans-serif;;
-  font-size:1.5em;
+  font-size:1em;
   text-transform: capitalize;
   padding-left:0px;
   padding-right:0px;
@@ -204,9 +210,12 @@ h1{
 }
 
 #footer{
-  padding:0px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px; 
+  width:100%;
+  padding-right:30px;
   background-color:#fff ;
-  height:10%;
   margin-bottom: 0px;
   margin-top: 0px;
 }
