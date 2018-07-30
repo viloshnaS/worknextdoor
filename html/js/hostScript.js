@@ -578,6 +578,10 @@ function returnHomepage(){
   window.location.href = "hostSpaceList.html";
 }
 
+function returnIndex(){
+  window.location.href = "index.html";
+}
+
 function modifyMore(){
   window.location.href = "hostSpaceList.html";
 }
