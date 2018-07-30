@@ -124,7 +124,7 @@ h1 {
     text-align:center;
     height: 20em;
     width: 35em;
-    padding: 2em;
+    padding: 2.5em;
 }
 
 
@@ -300,6 +300,11 @@ outline:0;
   top:1px;
 }
 
+.places {
+  padding-bottom: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
 
 
 iframe{
