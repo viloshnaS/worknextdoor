@@ -117,19 +117,21 @@ h1 {
 .thumbnail{
     text-align:center;
     height: 20%;
-    width: 90%;
+    width: 80%;
+    margin-left: 10%;
 }
 
 .discover-thumbnail{
     text-align:center;
     height: 20em;
     width: 35em;
-    padding: 2em;
+    padding: 2.5em;
 }
 
 
 .list_thumb{
-  padding:10px;
+  width: 80%;
+  margin-left: 10%;
   font-size:1.5em;
   font-family:'Open Sans', sans-serif;
 }
@@ -147,21 +149,6 @@ h1 {
 }
 
 
-
-
-td.thumb-right{
-  padding-bottom:20px;
-  font-family: 'Open Sans', sans-serif;
-  font-size:1.5em;
-  width:50%;
-}
-
-td.thumb-left{
-  padding-bottom:20px;
-  font-family: 'Open Sans', sans-serif;;
-  font-size:1.5em;
-  width:50%;
-}
 
 
 th{
@@ -349,6 +336,7 @@ input{
   text-decoration:none;
   width: 20%;
   margin-left: 40%;
+  margin-top: 2%;
   -webkit-box-shadow:
 0 -2px 2px 0 rgba(199, 199, 199, 0.55),
 0 1px 1px 0 #fff,
@@ -378,3 +366,8 @@ box-shadow:
   top:1px;
 }
 
+.places {
+  padding-bottom: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
